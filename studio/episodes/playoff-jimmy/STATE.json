@@ -282,6 +282,11 @@
       "by": "user",
       "date": "2026-09-29",
       "decision": "Companion page: the easiest route. Built as one self-contained HTML file (companion/index.html) and published as a private claude.ai page for review; the same file can move to any static host later."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Companion page first draft approved ('the webpage looks good')."
     }
   ],
   "episode_id": "playoff-jimmy",
