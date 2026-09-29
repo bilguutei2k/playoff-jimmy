@@ -80,6 +80,15 @@
       "name": "benchmark_independent_spot_check",
       "scope": "Separately written parse re-derived peer count, median and percentile for Butler 2018-19, 2021-22, 2022-23 and Murray 2019-20.",
       "status": "passed"
+    },
+    {
+      "command": "python3 analysis/verify_claims.py",
+      "evidence": [
+        "analysis/claims_check.json"
+      ],
+      "name": "claims_verification",
+      "scope": "11 proposed claims: results hash and revision, input hashes, stated precision, independent recomputation. Same author as the analysis.",
+      "status": "passed"
     }
   ],
   "decisions": [
@@ -133,6 +142,7 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
+    "Approve the 11 proposed claims (or edit their wording) and choose the storyline (PJ-04).",
     "Design system: set up separately, possibly in Claude Design, before the PJ-05 stills. The sample reel's source can be retrieved from its Claude chat if a render path is needed.",
     "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
     "Approval to install ffmpeg (needed for PJ-07).",
@@ -179,7 +189,8 @@
         "PJ-03"
       ],
       "id": "PJ-04",
-      "status": "pending",
+      "progress": "Review 2 written; exploratory checks added and labeled; 11 claims proposed and passing verify_claims.py (independent recomputation of all 71 values). Waiting for the user to approve the claims and choose the storyline; then mark verified and tag research-lock-v1.",
+      "status": "active",
       "title": "Methods gate and research lock"
     },
     {

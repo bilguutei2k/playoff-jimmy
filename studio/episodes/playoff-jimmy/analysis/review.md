@@ -63,6 +63,27 @@ Not the PJ-04 review, which still needs to happen with the user.
 - Post-result clarifications and their effect are listed in `METHOD.md`
   under Amendments; none changes a rule outcome.
 
-## Review 2 — pending
+## Review 2 — 2026-09-28, Claude (Opus 5.5): methods gate on analysis v2 (PJ-04)
 
-Methods gate on analysis v2 and the results packet (PJ-04).
+Limitation of this review: Claude built analysis v2, so this is an adversarial
+self-review, not an independent one. Mitigation: every claim value is
+recomputed from the raw pages by separately written code
+(`verify_claims.py`, which imports neither `bbref.py` nor `analyze.py`), and
+the verifier was mutation-tested (a misstated value, a corrupted result and a
+wrong wording are each caught). Optional before publication: have Codex
+re-derive the claim values from the snapshot with its own code.
+
+| # | Objection | Resolution |
+|---|---|---|
+| 1 | The pre-registered rule is met for Butler, but it gates wording; it does not test strength. 8 of 11 runs above the peer median would happen by chance 11% of the time; his mean percentile is 56. | Kept as a limitation on PJ-C005. Exploratory check added and labeled (METHOD.md amendment 4). Wording: "holds his scoring rate better than most", never "scores more in the playoffs" or "clutch". |
+| 2 | "Better than typical" needs a population: how unusual is his career? | Exploratory career edge: 7th of 29 players with 8+ eligible runs; 12th of 64 with 6+ (Murray 8th). PJ-C006, labeled exploratory, with the cutoff sensitivity stated. |
+| 3 | The per-game "Playoff Jimmy" jump and the per-minute result are different claims. | Kept separate: PJ-C002/C003 (per game, mostly minutes) and PJ-C004/C005 (per minute, against peers). |
+| 4 | Murray has the higher pooled change in every season set but fails the majority condition. Which "rises more"? | Both stated with scope (PJ-C010, PJ-C011): higher on average is not more consistent. No blanket "who rises more" line. |
+| 5 | Butler's two worst runs are 4 and 5 games. | Stated in PJ-C008. At the 200-minute threshold both drop out and the rule is still met. |
+| 6 | 2022–23 regular-season efficiency was his best, so the playoff comparison starts high. | Limitation on PJ-C004. |
+| 7 | Opponents, pace, fatigue and role are not controlled. | The peer benchmark compares like with like on average (same seasons, same phase); stated as a general limit. No causal wording. |
+| 8 | Could the rounded-PPG reading or band edges change results? | Measured in METHOD.md amendments 2–3: no rule outcome changes. |
+
+Outcome: 11 claims proposed in `CLAIMS.json`; all pass `verify_claims.py`
+(`analysis/claims_check.json`). They stay `proposed` until the user approves
+them, per the autonomy boundary in `docs/decisions.md`.

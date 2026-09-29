@@ -5,18 +5,16 @@ decisions and failed attempts are in `STATE.json`; rules are in `METHOD.md`.
 
 ## Where we are
 
-Stage: analyze. PJ-02 and PJ-03 are done (2026-09-28): sources reconcile, and
-analysis v2 ran exactly as pre-registered. Open `analysis/packet/index.html`
-for the charts, or read `analysis/FINDINGS.md`. The results are **unreviewed**:
-no claim is verified and the storyline is not chosen.
+Stage: analyze, at the PJ-04 gate. The methods review is written
+(`analysis/review.md`, Review 2) and 11 claims are proposed in `CLAIMS.json`.
+Every claim value is recomputed independently by `analysis/verify_claims.py`
+and passes. Charts: `analysis/packet/index.html`.
 
 ## Next actions
 
-1. PJ-04 (daytime, with Claude): review the packet against `METHOD.md`,
-   resolve objections, write 5–10 claims in `CLAIMS.json`, choose the
-   storyline, tag the research lock.
-2. PJ-05 once the design system exists: two or three stills of real scenes.
-3. PJ-06 after the lock: scenes, script draft and short-form outlines.
+1. User: approve the claims (or edit wording) and choose the storyline.
+2. Then: mark the claims verified, commit, tag `research-lock-v1`.
+3. PJ-06: scenes, script draft and short-form outlines from the verified claims.
 
 ## Waiting on the user
 

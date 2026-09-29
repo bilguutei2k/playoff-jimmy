@@ -3,6 +3,7 @@ pre-registered rules, not a preferred verdict."""
 
 import hashlib
 import importlib.util
+import json
 import tempfile
 import unittest
 from pathlib import Path
@@ -96,6 +97,28 @@ class SnapshotTests(unittest.TestCase):
             digest = hashlib.sha256(Path(out, "results.json").read_bytes()).hexdigest()
             self.assertIn(digest, page)
             self.assertIn("Unreviewed", page)
+
+
+class ClaimTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        spec_v = importlib.util.spec_from_file_location("playoff_verify_claims", path.with_name("verify_claims.py"))
+        cls.verify = importlib.util.module_from_spec(spec_v)
+        spec_v.loader.exec_module(cls.verify)
+
+    def test_every_claim_passes_every_check(self):
+        report = self.verify.check()
+        self.assertTrue(report["all_passed"], [c for c in report["claims"] if not c["passed"]])
+
+    def test_every_claim_value_is_independently_recomputed(self):
+        claims = json.loads(path.parent.parent.joinpath("CLAIMS.json").read_text())["claims"]
+        recomputed = self.verify.independent()
+        self.assertEqual([v["key"] for c in claims for v in c["values"] if v["key"] not in recomputed], [])
+
+    def test_precision_check_rejects_a_misstated_value(self):
+        self.assertTrue(self.verify.agrees(-0.25, -0.2502, 2))
+        self.assertFalse(self.verify.agrees(-0.26, -0.2502, 2))
+        self.assertFalse(self.verify.agrees("typical", "above typical", None))
 
 
 class RuleTests(unittest.TestCase):

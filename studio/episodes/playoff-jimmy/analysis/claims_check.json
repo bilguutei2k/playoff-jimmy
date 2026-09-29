@@ -1,0 +1,837 @@
+{
+  "all_passed": true,
+  "claims": [
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C001",
+      "passed": true,
+      "values": [
+        {
+          "digits": 1,
+          "independent": -1.535606060606062,
+          "independent_matches_results": true,
+          "key": "benchmark_context.100.median_delta_per_36",
+          "ok": true,
+          "resolved": -1.535606060606062,
+          "stated": -1.5,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": 0.730566037735849,
+          "independent_matches_results": true,
+          "key": "benchmark_context.100.share_below_zero",
+          "ok": true,
+          "resolved": 0.730566037735849,
+          "stated": 0.73,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 1325,
+          "independent_matches_results": true,
+          "key": "benchmark_context.100.n_player_seasons",
+          "ok": true,
+          "resolved": 1325,
+          "stated": 1325,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C002",
+      "passed": true,
+      "values": [
+        {
+          "digits": 1,
+          "independent": 22.90625,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.regular.ppg",
+          "ok": true,
+          "resolved": 22.90625,
+          "stated": 22.9,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 26.90909090909091,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.playoffs.ppg",
+          "ok": true,
+          "resolved": 26.90909090909091,
+          "stated": 26.9,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 33.40625,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.regular.mpg",
+          "ok": true,
+          "resolved": 33.40625,
+          "stated": 33.4,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 39.72727272727273,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.playoffs.mpg",
+          "ok": true,
+          "resolved": 39.72727272727273,
+          "stated": 39.7,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C003",
+      "passed": true,
+      "values": [
+        {
+          "digits": 1,
+          "independent": 4.00284090909091,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.delta_ppg",
+          "ok": true,
+          "resolved": 4.00284090909091,
+          "stated": 4.0,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 4.307881589626175,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.ppg_decomposition.minutes_component",
+          "ok": true,
+          "resolved": 4.307881589626175,
+          "stated": 4.3,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": -0.30504068053526406,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.ppg_decomposition.rate_component",
+          "ok": true,
+          "resolved": -0.30504068053526406,
+          "stated": -0.3,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C004",
+      "passed": true,
+      "values": [
+        {
+          "digits": 1,
+          "independent": 24.684752104770816,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.regular.points_per_36",
+          "ok": true,
+          "resolved": 24.684752104770816,
+          "stated": 24.7,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 24.384439359267738,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2022-23].measures.playoffs.points_per_36",
+          "ok": true,
+          "resolved": 24.384439359267734,
+          "stated": 24.4,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 70.52631578947368,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2022-23].percentile",
+          "ok": true,
+          "resolved": 70.52631578947368,
+          "stated": 71,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 95,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2022-23].peer_n",
+          "ok": true,
+          "resolved": 95,
+          "stated": 95,
+          "stated_matches_results": true
+        },
+        {
+          "independent": "typical",
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2022-23].wording",
+          "ok": true,
+          "resolved": "typical",
+          "stated": "typical",
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C005",
+      "passed": true,
+      "values": [
+        {
+          "digits": 0,
+          "independent": 11,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.career.A_100.n_eligible_seasons",
+          "ok": true,
+          "resolved": 11,
+          "stated": 11,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 4904,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.career.A_100.playoff_minutes",
+          "ok": true,
+          "resolved": 4904,
+          "stated": 4904,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -0.2501665490902226,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.career.A_100.pooled_excess_per_36",
+          "ok": true,
+          "resolved": -0.2501665490902232,
+          "stated": -0.25,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -1.704022456064956,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.career.A_100.minute_weighted_peer_median",
+          "ok": true,
+          "resolved": -1.704022456064956,
+          "stated": -1.7,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 8,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.career.A_100.seasons_above_peer_median",
+          "ok": true,
+          "resolved": 8,
+          "stated": 8,
+          "stated_matches_results": true
+        },
+        {
+          "independent": true,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.real_per_minute_rule_met",
+          "ok": true,
+          "resolved": true,
+          "stated": true,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": 0.11328125,
+          "independent_matches_results": true,
+          "key": "exploratory.season_count_check.butler.one_sided_p",
+          "ok": true,
+          "resolved": 0.11328125,
+          "stated": 0.11,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 56.29606952613826,
+          "independent_matches_results": true,
+          "key": "exploratory.season_count_check.butler.mean_percentile",
+          "ok": true,
+          "resolved": 56.29606952613826,
+          "stated": 56,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C006",
+      "passed": true,
+      "values": [
+        {
+          "digits": 0,
+          "independent": 29,
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].n_players",
+          "ok": true,
+          "resolved": 29,
+          "stated": 29,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 7,
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].subjects.butler.rank",
+          "ok": true,
+          "resolved": 7,
+          "stated": 7,
+          "stated_matches_results": true
+        },
+        {
+          "independent": "Andre Iguodala",
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].top_10[0].name",
+          "ok": true,
+          "resolved": "Andre Iguodala",
+          "stated": "Andre Iguodala",
+          "stated_matches_results": true
+        },
+        {
+          "independent": "Marcus Smart",
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].top_10[1].name",
+          "ok": true,
+          "resolved": "Marcus Smart",
+          "stated": "Marcus Smart",
+          "stated_matches_results": true
+        },
+        {
+          "independent": "Donovan Mitchell",
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].top_10[2].name",
+          "ok": true,
+          "resolved": "Donovan Mitchell",
+          "stated": "Donovan Mitchell",
+          "stated_matches_results": true
+        },
+        {
+          "independent": "Chris Paul",
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].top_10[3].name",
+          "ok": true,
+          "resolved": "Chris Paul",
+          "stated": "Chris Paul",
+          "stated_matches_results": true
+        },
+        {
+          "independent": "Draymond Green",
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].top_10[4].name",
+          "ok": true,
+          "resolved": "Draymond Green",
+          "stated": "Draymond Green",
+          "stated_matches_results": true
+        },
+        {
+          "independent": "Nikola Jokić",
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=8].top_10[5].name",
+          "ok": true,
+          "resolved": "Nikola Jokić",
+          "stated": "Nikola Jokić",
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 64,
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=6].n_players",
+          "ok": true,
+          "resolved": 64,
+          "stated": 64,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 12,
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=6].subjects.butler.rank",
+          "ok": true,
+          "resolved": 12,
+          "stated": 12,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 8,
+          "independent_matches_results": true,
+          "key": "exploratory.career_edge[min_eligible_runs=6].subjects.murray.rank",
+          "ok": true,
+          "resolved": 8,
+          "stated": 8,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C007",
+      "passed": true,
+      "values": [
+        {
+          "digits": 1,
+          "independent": 22.726048679440705,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2021-22].measures.regular.points_per_36",
+          "ok": true,
+          "resolved": 22.726048679440705,
+          "stated": 22.7,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 26.670906200317965,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2021-22].measures.playoffs.points_per_36",
+          "ok": true,
+          "resolved": 26.670906200317965,
+          "stated": 26.7,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 98.85057471264368,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2021-22].percentile",
+          "ok": true,
+          "resolved": 98.85057471264368,
+          "stated": 99,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 17,
+          "independent_matches_results": true,
+          "key": "variability[player=butler,season=2021-22].playoff_games",
+          "ok": true,
+          "resolved": 17,
+          "stated": 17,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 100.0,
+          "independent_matches_results": true,
+          "key": "variability[player=butler,season=2021-22].window_percentile_of_playoff_run",
+          "ok": true,
+          "resolved": 100.0,
+          "stated": 100,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C008",
+      "passed": true,
+      "values": [
+        {
+          "digits": 0,
+          "independent": 5,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2017-18].measures.playoff_games",
+          "ok": true,
+          "resolved": 5,
+          "stated": 5,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": -5.01365662716103,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2017-18].delta_points_per_36",
+          "ok": true,
+          "resolved": -5.01365662716103,
+          "stated": -5.0,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 8.791208791208792,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2017-18].percentile",
+          "ok": true,
+          "resolved": 8.791208791208792,
+          "stated": 9,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 4,
+          "independent_matches_results": true,
+          "key": "subjects.butler[season=2020-21].measures.playoff_games",
+          "ok": true,
+          "resolved": 4,
+          "stated": 4,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": -9.465054143564174,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2020-21].delta_points_per_36",
+          "ok": true,
+          "resolved": -9.465054143564174,
+          "stated": -9.5,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 0.0,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2020-21].percentile",
+          "ok": true,
+          "resolved": 0.0,
+          "stated": 0,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 65,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.per_season.A_100[season=2020-21].peer_n",
+          "ok": true,
+          "resolved": 65,
+          "stated": 65,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C009",
+      "passed": true,
+      "values": [
+        {
+          "independent": "MIL",
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.series[round=1].opponent",
+          "ok": true,
+          "resolved": "MIL",
+          "stated": "MIL",
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 37.6,
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.series[round=1].ppg",
+          "ok": true,
+          "resolved": 37.6,
+          "stated": 37.6,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 24.6,
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.series[round=2].ppg",
+          "ok": true,
+          "resolved": 24.6,
+          "stated": 24.6,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 24.714285714285715,
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.series[round=3].ppg",
+          "ok": true,
+          "resolved": 24.714285714285715,
+          "stated": 24.7,
+          "stated_matches_results": true
+        },
+        {
+          "independent": "DEN",
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.series[round=4].opponent",
+          "ok": true,
+          "resolved": "DEN",
+          "stated": "DEN",
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 21.6,
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.series[round=4].ppg",
+          "ok": true,
+          "resolved": 21.6,
+          "stated": 21.6,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 18.924312484789485,
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.series[round=4].points_per_36",
+          "ok": true,
+          "resolved": 18.924312484789485,
+          "stated": 18.9,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 1,
+          "independent": 24.683212771264653,
+          "independent_matches_results": true,
+          "key": "series_2022_23.butler.regular_points_per_36",
+          "ok": true,
+          "resolved": 24.683212771264653,
+          "stated": 24.7,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C010",
+      "passed": true,
+      "values": [
+        {
+          "digits": 0,
+          "independent": 86.02150537634408,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.per_season.A_100[season=2018-19].percentile",
+          "ok": true,
+          "resolved": 86.02150537634408,
+          "stated": 86,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 97.36842105263158,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.per_season.A_100[season=2019-20].percentile",
+          "ok": true,
+          "resolved": 97.36842105263158,
+          "stated": 97,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 91.57894736842105,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.per_season.A_100[season=2022-23].percentile",
+          "ok": true,
+          "resolved": 91.57894736842105,
+          "stated": 92,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 14.893617021276595,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.per_season.A_100[season=2023-24].percentile",
+          "ok": true,
+          "resolved": 14.893617021276595,
+          "stated": 15,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 45.45454545454545,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.per_season.A_100[season=2024-25].percentile",
+          "ok": true,
+          "resolved": 45.45454545454545,
+          "stated": 45,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 33.72093023255814,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.per_season.A_100[season=2025-26].percentile",
+          "ok": true,
+          "resolved": 33.72093023255814,
+          "stated": 34,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -0.08650822147901432,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.career.A_100.pooled_excess_per_36",
+          "ok": true,
+          "resolved": -0.08650822147901371,
+          "stated": -0.09,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -2.1745371826548787,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.career.A_100.minute_weighted_peer_median",
+          "ok": true,
+          "resolved": -2.1745371826548787,
+          "stated": -2.17,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 3,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.career.A_100.seasons_above_peer_median",
+          "ok": true,
+          "resolved": 3,
+          "stated": 3,
+          "stated_matches_results": true
+        },
+        {
+          "independent": false,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.real_per_minute_rule_met",
+          "ok": true,
+          "resolved": false,
+          "stated": false,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C011",
+      "passed": true,
+      "values": [
+        {
+          "digits": 2,
+          "independent": -0.08650822147901432,
+          "independent_matches_results": true,
+          "key": "season_sets.all_paired.murray.excess_per_36",
+          "ok": true,
+          "resolved": -0.08650822147901494,
+          "stated": -0.09,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -0.2588708649564829,
+          "independent_matches_results": true,
+          "key": "season_sets.all_paired.butler.excess_per_36",
+          "ok": true,
+          "resolved": -0.2588708649564858,
+          "stated": -0.26,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": 1.1498347839340632,
+          "independent_matches_results": true,
+          "key": "season_sets.shared.murray.excess_per_36",
+          "ok": true,
+          "resolved": 1.1498347839340632,
+          "stated": 1.15,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -0.36914847127813366,
+          "independent_matches_results": true,
+          "key": "season_sets.shared.butler.excess_per_36",
+          "ok": true,
+          "resolved": -0.3691484712781345,
+          "stated": -0.37,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -0.08650822147901432,
+          "independent_matches_results": true,
+          "key": "season_sets.min_100_playoff_minutes.murray.excess_per_36",
+          "ok": true,
+          "resolved": -0.08650822147901494,
+          "stated": -0.09,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -0.2501665490902226,
+          "independent_matches_results": true,
+          "key": "season_sets.min_100_playoff_minutes.butler.excess_per_36",
+          "ok": true,
+          "resolved": -0.25016654909022407,
+          "stated": -0.25,
+          "stated_matches_results": true
+        },
+        {
+          "independent": "murray",
+          "independent_matches_results": true,
+          "key": "comparison.leader_in_every_set",
+          "ok": true,
+          "resolved": "murray",
+          "stated": "murray",
+          "stated_matches_results": true
+        }
+      ]
+    }
+  ],
+  "note": "Independent code path by the same author as the analysis; not an independent reviewer.",
+  "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6"
+}
