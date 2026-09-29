@@ -3,7 +3,7 @@
   "claims": [
     {
       "id": "PJ-C001",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "From 2011–12 to 2025–26, the typical high-minute player scored 1.5 fewer points per 36 minutes in the playoffs than in the same season's regular season, and 73% of them declined.",
       "scope": "1,325 eligible player-seasons, 2011–12 to 2025–26. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
@@ -37,11 +37,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C002",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "In the 2022–23 playoffs Butler averaged 26.9 points per game, up from 22.9 in the regular season, while his minutes rose from 33.4 to 39.7 a game.",
       "scope": "Butler, 2022–23 regular season and playoffs; play-in games excluded.",
@@ -79,11 +84,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C003",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "Of that 4.0-point rise, 4.3 points go with the extra minutes and −0.3 with his scoring rate.",
       "scope": "Butler, 2022–23. Exact split of the per-game change into a minutes part and a rate part (symmetric average form).",
@@ -116,11 +126,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C004",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "Per 36 minutes, his 2022–23 scoring barely moved, from 24.7 to 24.4, which put him at the 71st percentile of 95 eligible players that season: typical.",
       "scope": "Butler, 2022–23, against every other eligible player that season (peer set A). Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
@@ -162,11 +177,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C005",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "Across his 11 eligible playoff runs from 2012–13 to 2024–25 (4,904 playoff minutes), Butler's scoring rate fell by 0.25 points per 36, against a typical fall of 1.70 for other eligible players in the same seasons. He beat that season's peer median in 8 of the 11 runs.",
       "scope": "Butler's eligible runs (peer set A, at least 100 playoff minutes), weighted by playoff minutes. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
@@ -224,11 +244,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C006",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": true,
       "text": "Among the 29 players with at least eight eligible playoff runs since 2011–12, Butler ranks 7th at holding his scoring rate relative to his peers, behind Andre Iguodala, Marcus Smart, Donovan Mitchell, Chris Paul, Draymond Green and Nikola Jokić.",
       "scope": "Career edge = pooled per-36 change minus the minute-weighted peer median over each player's eligible runs, 2011–12 to 2025–26. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
@@ -296,11 +321,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C007",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "Butler's strongest per-minute run was 2021–22: 22.7 to 26.7 points per 36, the 99th percentile that season, and higher than every 17-game stretch of his regular season.",
       "scope": "Butler, 2021–22; stretches are every run of 17 consecutive regular-season games he played, from game logs.",
@@ -343,11 +373,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C008",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "His two weakest runs were short: in 2017–18 (5 games) his rate fell 5.0 points per 36, at the 9th percentile; in 2020–21 (4 games) it fell 9.5, below all 65 other eligible players that season.",
       "scope": "Butler, 2017–18 and 2020–21, peer set A. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
@@ -400,11 +435,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C009",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "In 2022–23 Butler scored 37.6 points per game against Milwaukee, then 24.6, 24.7 and 21.6 in the next three series. Per 36 minutes, his Finals rate against Denver was 18.9, below his regular-season 24.7.",
       "scope": "Butler, 2022–23 playoffs by series, from game logs (minutes to the second).",
@@ -460,11 +500,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C010",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "Murray's playoff scoring rate beat his peers' in 2018–19, 2019–20 and 2022–23 (86th, 97th and 92nd percentiles) and fell behind them in 2023–24, 2024–25 and 2025–26 (15th, 45th and 34th). Across his six runs it fell 0.09 points per 36 against a typical 2.17, but only 3 of 6 runs beat the peer median, so the pre-registered rule is not met.",
       "scope": "Murray's eligible runs, peer set A. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
@@ -531,11 +576,16 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     },
     {
       "id": "PJ-C011",
-      "status": "proposed",
+      "status": "verified",
       "exploratory": false,
       "text": "Murray's pooled per-minute change is higher than Butler's in all three pre-registered season sets: all runs (−0.09 vs −0.26 per 36), shared seasons (+1.15 vs −0.37) and runs of at least 100 playoff minutes (−0.09 vs −0.25).",
       "scope": "Pooled over each set, weighted by playoff minutes. Shared seasons: 2018–19, 2019–20, 2022–23, 2024–25.",
@@ -588,7 +638,12 @@
       "verification_evidence": [
         "analysis/claims_check.json",
         "analysis/review.md"
-      ]
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "PJ-04"
+      }
     }
   ]
 }

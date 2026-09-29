@@ -5,20 +5,21 @@ decisions and failed attempts are in `STATE.json`; rules are in `METHOD.md`.
 
 ## Where we are
 
-Stage: analyze, at the PJ-04 gate. The methods review is written
-(`analysis/review.md`, Review 2) and 11 claims are proposed in `CLAIMS.json`.
-Every claim value is recomputed independently by `analysis/verify_claims.py`
-and passes. Charts: `analysis/packet/index.html`.
+Stage: tell. Research is locked at tag `research-lock-v1`: 11 verified claims
+in `CLAIMS.json` (checked by `analysis/verify_claims.py`), methods review in
+`analysis/review.md`. Storyline chosen: "Real, but not how you think"
+(`STORY.md`). Any change to data or method now needs a recorded amendment,
+a rerun, re-verification and a new lock tag.
 
 ## Next actions
 
-1. User: approve the claims (or edit wording) and choose the storyline.
-2. Then: mark the claims verified, commit, tag `research-lock-v1`.
-3. PJ-06: scenes, script draft and short-form outlines from the verified claims.
+1. PJ-06: scene table, script draft (read-aloud timing) and 2–4 short-form
+   outlines, every factual line citing a claim ID.
+2. PJ-05: design system (separately, possibly Claude Design), then stills.
+3. PJ-07: silent proof render of one scene once PJ-05 and PJ-06 exist.
 
 ## Waiting on the user
 
-- PJ-04 review session (about an hour).
 - Design system, set up separately (possibly in Claude Design) before the
   PJ-05 stills. The Raphinha reel was a sample only.
 - Narrator voice (own voice or a free local AI voice) before PJ-08; approval
