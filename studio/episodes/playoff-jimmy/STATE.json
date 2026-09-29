@@ -192,6 +192,16 @@
       "by": "user",
       "date": "2026-09-28",
       "decision": "Stills approved ('the stills look good'); rectangle component H package delivered from Claude Design."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "S03 proof clips approved ('the clips otherwise look good') after the dashed-line fix."
+    },
+    {
+      "by": "claude (default; user said proceed)",
+      "date": "2026-09-28",
+      "decision": "S08 verdict uses career numbers only (bars: -2.1, -1.7, -0.25), not the design's single-season rectangle."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -213,8 +223,7 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
-    "Review the S03 proof clips (renders/motion/s03-rectangle*.mp4).",
-    "S08 verdict frame: career numbers without the 2022-23 rectangle geometry (recommended), or 2022-23 figures with a new claim. See DIRECTION.md.",
+    "Review the full set of scene stills (renders/stills/final-*.png).",
     "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
     "Audience and final narration language (does not block research)."
   ],
@@ -291,8 +300,8 @@
         "PJ-06"
       ],
       "id": "PJ-07",
-      "progress": "S03 proof rendered 2026-09-28: landscape 13.0 s (S02 hand-off, build, close-up) and vertical Short A frame 9.0 s, 30 fps; geometry from the data; frames inspected at each transition. Waiting for the user's review.",
-      "status": "pending",
+      "progress": "Done 2026-09-28: S03 proof in both formats approved by the user; dashed lines made continuous and whole-pixel.",
+      "status": "done",
       "title": "Silent proof render of one 30-45 second scene"
     },
     {
@@ -302,7 +311,8 @@
         "PJ-07"
       ],
       "id": "PJ-08",
-      "status": "pending",
+      "progress": "Scenes built 2026-09-28 from locked data: S01 cold open, title, S02, S03 (build + close-up), S04, S04b (pre-registration card from git), S05, S06, S07, S08; shorts B, D and the Short A rectangle frame. Durations are provisional until narration is recorded. Missing: Short A's opening (S02 vertical).",
+      "status": "active",
       "title": "Narration and full production plan"
     },
     {

@@ -1,0 +1,35 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S01 cold open</title></head><body><script>
+// S01 cold open (Night), before the title card. Numbers: PJ-C002 (22.9 -> 26.9), PJ-C009 (37.6 against Milwaukee).
+const B = 'subjects.butler[season=2022-23].measures.';
+const before = FT.value(B + 'regular.ppg'), after = FT.value(B + 'playoffs.ppg');
+const mil = FT.value('series_2022_23.butler.series[round=1].ppg'), opp = FT.value('series_2022_23.butler.series[round=1].opponent');
+if (opp !== 'MIL') throw new Error('Round 1 opponent is not Milwaukee');
+const STAR = '<svg viewBox="0 0 100 100" style="width:100%;height:100%"><path d="M50 0 L55 42 L85 15 L58 45 L100 50 L58 55 L85 85 L55 58 L50 100 L45 58 L15 85 L42 55 L0 50 L42 45 L15 15 L45 42 Z" fill="currentColor"/></svg>';
+FT.scene({ duration: 9, background: 'night', formats: { landscape: (f) => {
+  const kicker = FT.kicker(f, '2022–23 · Jimmy Butler', { x: 96, y: 190, size: 30, color: 'var(--accent)' });
+  const lab1 = FT.el(f, 'label', { left: '96px', top: '300px', fontSize: '30px', color: 'var(--field)' }, 'Regular season');
+  const n1 = FT.el(f, 'number', { left: '84px', top: '350px', fontSize: '320px', color: 'var(--field)' }, FT.fmt(before, 1));
+  const arrow = FT.el(f, 'claim', { left: '840px', top: '440px', fontSize: '180px', lineHeight: '1', color: 'var(--paper)' }, '→');
+  const lab2 = FT.el(f, 'label', { left: '1060px', top: '300px', fontSize: '30px', color: 'var(--player-a)' }, 'Playoffs');
+  const n2 = FT.el(f, 'number', { left: '1048px', top: '350px', fontSize: '320px', color: 'var(--player-a)' });
+  const unit = FT.el(f, 'label', { left: '96px', top: '700px', fontSize: '30px', color: 'var(--paper)' }, 'Points per game');
+  const star = FT.el(f, '', { left: '1060px', top: '724px', width: '64px', height: '64px', color: 'var(--paper)' }, STAR);
+  const milLabel = FT.el(f, 'label', { left: '1150px', top: '716px', fontSize: '28px', color: 'var(--paper)' }, 'First round vs Milwaukee');
+  const milNum = FT.el(f, 'number', { left: '1144px', top: '756px', fontSize: '120px', color: 'var(--paper)' }, FT.fmt(mil, 1));
+  const milUnit = FT.el(f, 'label', { left: '1450px', top: '820px', fontSize: '28px', color: 'var(--field)' }, 'a game');
+  FT.source(f, [['SOURCE', 'Basketball-Reference · 2022–23 · per game; the Milwaukee series from game logs']], { x: 96, y: 936, width: 1728, size: 24 });
+  return (t) => {
+    FT.rise(kicker, t, 0);
+    FT.rise(lab1, t, 0.4); FT.rise(n1, t, 0.4, 24); FT.rise(unit, t, 0.4);
+    const pa = FT.p(t, 1.8, 0.4); arrow.style.opacity = pa; arrow.style.transform = 'translateX(' + (pa - 1) * 60 + 'px)';
+    FT.rise(lab2, t, 2.0);
+    const pc = FT.p(t, 2.1, 0.7);
+    n2.style.opacity = t >= 2.1 ? 1 : 0; n2.textContent = FT.fmt(FT.lerp(before, after, pc), 1);
+    const ps = FT.p(t, 4.4, 0.4); star.style.opacity = ps; star.style.transform = 'scale(' + ps + ') rotate(' + (1 - ps) * 45 + 'deg)';
+    FT.rise(milLabel, t, 4.5); FT.rise(milNum, t, 4.6, 16); FT.rise(milUnit, t, 4.6);
+  };
+} } });
+</script></body></html>

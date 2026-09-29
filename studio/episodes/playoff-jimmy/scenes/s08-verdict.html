@@ -1,0 +1,41 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S08 verdict</title></head><body><script>
+// S08 (Night): the verdict, career numbers only (no single-season rectangle; see DIRECTION.md).
+// Numbers: PJ-C005 (typical -1.7 in his seasons, Butler -0.25, 11 runs), PJ-C012 (similar scorers -2.1), PJ-C013 (coin flip, no digits).
+const K = 'benchmark.butler.career.A_100.';
+const rows = [['Players who score like him', FT.value('exploratory.matched_peers.butler.rate_within_3.career.minute_weighted_peer_median'), 'var(--field)', 1],
+              ['Typical player, same seasons', FT.value(K + 'minute_weighted_peer_median'), 'var(--field)', 1],
+              ['Jimmy Butler', FT.value(K + 'pooled_excess_per_36'), 'var(--player-a)', 2]].sort((a, b) => a[1] - b[1]);
+const runs = FT.value(K + 'n_eligible_seasons');
+FT.scene({ duration: 10, background: 'night', formats: { landscape: (f) => {
+  const kicker = FT.kicker(f, 'The verdict', { x: 96, y: 96, size: 30, color: 'var(--accent)' });
+  const claim = FT.claim(f, ['Most shrink.', '<span style="color:var(--accent)">He mostly holds.</span>'], { x: 96, y: 150, size: 112, color: 'var(--paper)' });
+  const axisTitle = FT.el(f, 'label', { left: '96px', top: '420px', fontSize: '26px', color: 'var(--field)' },
+    'Points per 36 lost in the playoffs · pooled over his ' + runs + ' runs');
+  const SCALE = 520, X0 = 480;                   // px per point per 36, bars start at X0
+  const bars = rows.map(([label, v, color, digits], i) => {
+    const y = 480 + i * 110;
+    return [FT.el(f, 'label', { left: '96px', top: (y + 22) + 'px', width: '360px', fontSize: '28px', fontWeight: '600',
+              color: color === 'var(--player-a)' ? 'var(--player-a)' : 'var(--paper)' }, label),
+            FT.el(f, '', { left: X0 + 'px', top: y + 'px', width: Math.round(Math.abs(v) * SCALE) + 'px', height: '76px', background: color, transformOrigin: 'left' }),
+            FT.el(f, 'number', { left: (X0 + Math.round(Math.abs(v) * SCALE) + 20) + 'px', top: (y + 16) + 'px', fontSize: '40px', color: 'var(--paper)', letterSpacing: '0' }, FT.fmt(v, digits))];
+  });
+  const caption = FT.el(f, 'caption', { left: '96px', top: '820px', width: '1400px', fontSize: '44px', fontStyle: 'italic', color: 'var(--paper)' },
+    'Not every year: season by season, it\'s close to a coin flip.');
+  FT.source(f, [['SOURCE', 'Basketball-Reference · 2011–12 to 2025–26 · the data, code and every check are linked in the description']],
+            { x: 96, y: 936, width: 1728, size: 24 });
+  return (t) => {
+    FT.rise(kicker, t, 0); claim.at(t, 0.2);
+    FT.rise(axisTitle, t, 1.2, 6);
+    bars.forEach(([label, bar, value], i) => {
+      const start = 1.6 + i * 0.6;
+      FT.rise(label, t, start, 6);
+      bar.style.transform = 'scaleX(' + FT.p(t, start, 0.5) + ')';
+      FT.rise(value, t, start + 0.4, 6);
+    });
+    FT.cut(caption, t, 5.2);
+  };
+} } });
+</script></body></html>

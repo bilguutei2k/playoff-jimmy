@@ -12,7 +12,9 @@ ROOT = Path(__file__).resolve().parents[1]
 SCENES = ROOT / "studio/episodes/playoff-jimmy/scenes"
 FORMATS = {"title.html": "landscape", "s02-before-after.html": "landscape", "s03-rectangle.html": "landscape",
            "s04-league-strip.html": "landscape", "short-b.html": "vertical",
-           "s05-fairer-test.html": "landscape", "s06-not-every-year.html": "landscape"}
+           "s05-fairer-test.html": "landscape", "s06-not-every-year.html": "landscape",
+           "s01-cold-open.html": "landscape", "s04b-test-card.html": "landscape", "s07-twist.html": "landscape",
+           "s08-verdict.html": "landscape", "short-d.html": "vertical"}
 
 
 def chromium_available():

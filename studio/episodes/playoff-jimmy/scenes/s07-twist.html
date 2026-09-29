@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S07 the twist</title></head><body><script>
+// S07 (Paper): the legend season was typical per minute; the real jump came the year before.
+// Numbers: PJ-C004 (2022-23: 24.7 -> 24.4, 71st percentile), PJ-C007 (2021-22: 22.7 -> 26.7, 99th, above every 17-game stretch).
+const S = 'subjects.butler[season=', P = 'benchmark.butler.per_season.A_100[season=';
+const y23 = { a: FT.value(S + '2022-23].measures.regular.points_per_36'), b: FT.value(S + '2022-23].measures.playoffs.points_per_36'), pct: FT.value(P + '2022-23].percentile'), word: FT.value(P + '2022-23].wording') };
+const y22 = { a: FT.value(S + '2021-22].measures.regular.points_per_36'), b: FT.value(S + '2021-22].measures.playoffs.points_per_36'), pct: FT.value(P + '2021-22].percentile') };
+const k = FT.value('variability[player=butler,season=2021-22].playoff_games');
+const band = FT.series('variability_butler_2021_22');
+const ord = (p) => { const n = Math.round(p); return n + (n % 100 >= 11 && n % 100 <= 13 ? 'th' : ({ 1: 'st', 2: 'nd', 3: 'rd' }[n % 10] || 'th')); };
+FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
+  const kicker = FT.kicker(f, 'The twist · per 36 minutes', { x: 96, y: 96, size: 30 });
+  const claim = FT.claim(f, ['The real jump came a year early'], { x: 96, y: 150, size: 112 });
+  const card = (x, season, title, d, color, word) => [
+    FT.el(f, 'label', { left: x + 'px', top: '330px', fontSize: '30px', color: color === 'var(--player-a)' ? 'var(--player-a-text)' : 'var(--field-text)' }, season + ' · ' + title),
+    FT.el(f, 'number', { left: (x - 8) + 'px', top: '380px', fontSize: '200px', color, letterSpacing: '-0.04em' }, ord(d.pct)),
+    FT.el(f, 'label', { left: x + 'px', top: '590px', fontSize: '30px', color: 'var(--ink)' }, 'Percentile' + (word ? ' · ' + word : '')),
+    FT.el(f, 'tick', { left: x + 'px', top: '636px', fontSize: '26px' }, FT.fmt(d.a, 1) + ' → ' + FT.fmt(d.b, 1) + ' PTS / 36')];
+  const left = card(96, '2022–23', 'The legend run', y23, 'var(--ink)', y23.word);          // Butler's own season: ink, not the field grey
+  const right = card(1000, '2021–22', 'The year before', y22, 'var(--player-a)', null);
+  const divider = FT.el(f, '', { left: '940px', top: '330px', width: '3px', height: '350px', background: 'var(--ink)' });
+  // Variability band for 2021-22: every k-game stretch of the regular season.
+  const LO = 16, HI = 30, X0 = 1000, X1 = 1824, Y = 780;
+  const x = (v) => Math.round(X0 + (v - LO) / (HI - LO) * (X1 - X0));
+  const q = band.quantiles;
+  const outer = FT.el(f, '', { left: x(q.p05) + 'px', top: (Y - 10) + 'px', width: (x(q.p95) - x(q.p05)) + 'px', height: '20px', background: 'var(--paper-2)' });
+  const inner = FT.el(f, '', { left: x(q.p25) + 'px', top: (Y - 10) + 'px', width: (x(q.p75) - x(q.p25)) + 'px', height: '20px', background: 'var(--field)' });
+  const med = FT.el(f, '', { left: (x(q.p50) - 2) + 'px', top: (Y - 18) + 'px', width: '4px', height: '36px', background: 'var(--ink)' });
+  const dot = FT.el(f, 'dot', { left: (x(band.playoff) - 16) + 'px', top: (Y - 16) + 'px', width: '32px', height: '32px', background: 'var(--player-a)',
+    boxShadow: '0 0 0 4px var(--paper), 0 0 0 7px var(--ink)' });
+  const bandLabel = FT.el(f, 'tick', { left: X0 + 'px', top: (Y - 100) + 'px', fontSize: '24px' }, 'EVERY ' + k + '-GAME STRETCH OF HIS 2021–22 REGULAR SEASON');
+  const baseline = FT.el(f, '', { left: X0 + 'px', top: (Y + 18) + 'px', width: (X1 - X0) + 'px', height: '2px', background: 'var(--ink)' });
+  const dotLabel = FT.el(f, 'label', { left: (x(band.playoff) - 200) + 'px', width: '400px', textAlign: 'center', whiteSpace: 'nowrap', top: (Y - 58) + 'px', fontSize: '24px',
+    fontWeight: '600', color: 'var(--player-a-text)' }, 'Playoffs: above all');
+  const ticks = [18, 22, 26].map((v) => FT.el(f, 'tick', { left: (x(v) - 40) + 'px', top: (Y + 30) + 'px', width: '80px', textAlign: 'center', fontSize: '24px' }, String(v)));
+  FT.source(f, [['SOURCE', 'Basketball-Reference · percentiles among eligible players that season · stretches from game logs']],
+            { x: 96, y: 936, width: 1728, size: 24 });
+  return (t) => {
+    FT.rise(kicker, t, 0); claim.at(t, 0.2);
+    left.forEach((e) => FT.rise(e, t, 1.0));
+    divider.style.transform = 'scaleY(' + FT.p(t, 2.6, 0.5) + ')'; divider.style.transformOrigin = 'top';
+    right.forEach((e) => FT.rise(e, t, 3.0));
+    [outer, inner, med, bandLabel, baseline].concat(ticks).forEach((e) => FT.rise(e, t, 5.0, 6));
+    const pd = FT.p(t, 6.2, 0.4); dot.style.opacity = pd; dot.style.transform = 'scale(' + FT.lerp(0.4, 1, pd) + ')';
+    FT.rise(dotLabel, t, 6.5, 6);
+  };
+} } });
+</script></body></html>

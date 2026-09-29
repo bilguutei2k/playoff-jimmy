@@ -22,14 +22,14 @@ FT.scene({ duration: 11, background: 'paper', formats: { landscape: (f) => {
     const items = flags[who].similar;
     const head = FT.el(f, 'label', { left: '96px', top: y + 'px', fontSize: '30px', color: who === 'butler' ? 'var(--player-a-text)' : 'var(--player-b)' }, label);
     const marks = items.map((r, i) => {
-      const cx = 96 + i * 84;
+      const cx = 110 + i * 76;
       const m = FT.el(f, 'dot', { left: cx + 'px', top: (y + 54) + 'px', width: '48px', height: '48px', boxSizing: 'border-box',
         background: r.above ? color : 'var(--paper)', border: '4px solid ' + color });
-      const s = FT.el(f, 'tick', { left: (cx - 18) + 'px', top: (y + 112) + 'px', width: '84px', textAlign: 'center', fontSize: '24px' },
+      const s = FT.el(f, 'tick', { left: (cx - 14) + 'px', top: (y + 112) + 'px', width: '76px', textAlign: 'center', fontSize: '24px', letterSpacing: '-0.02em' },
         r.season.slice(2, 4) + '–' + r.season.slice(5));
       return [m, s, r];
     });
-    const count = FT.el(f, 'number', { left: (96 + items.length * 84 + 30) + 'px', top: (y + 50) + 'px', fontSize: '72px', color: 'var(--ink)', letterSpacing: '0' },
+    const count = FT.el(f, 'number', { left: (110 + items.length * 76 + 16) + 'px', top: (y + 52) + 'px', fontSize: '60px', color: 'var(--ink)', letterSpacing: '0' },
       counts[who].similar[0] + ' of ' + counts[who].similar[1]);
     return { head, marks, count };
   };
@@ -37,20 +37,20 @@ FT.scene({ duration: 11, background: 'paper', formats: { landscape: (f) => {
   const mRow = markerRow('murray', 560, 'var(--player-b)', 'Murray vs similar scorers');
   const legend = FT.el(f, 'tick', { left: '96px', top: '292px', fontSize: '24px' }, 'FILLED = ABOVE THE TYPICAL SIMILAR SCORER THAT SEASON');
   const tags = bRow.marks.filter(([, , r]) => shortRuns[r.season]).map(([m, , r]) =>
-    FT.el(f, 'label', { left: (parseInt(m.style.left) - 18) + 'px', top: '474px', width: '84px', textAlign: 'center', fontSize: '24px', color: 'var(--ink)', fontWeight: '600' },
+    FT.el(f, 'label', { left: (parseInt(m.style.left) - 14) + 'px', top: '474px', width: '76px', textAlign: 'center', fontSize: '24px', color: 'var(--ink)', fontWeight: '600' },
       shortRuns[r.season] + ' G'));
   // The flip: a small table.
-  const table = FT.el(f, '', { left: '1180px', top: '330px', width: '644px' },
-    '<div style="display:grid;grid-template-columns:1fr 200px 200px;align-items:end;font-family:var(--mono)">' +
+  const table = FT.el(f, '', { left: '1250px', top: '330px', width: '574px' },
+    '<div style="display:grid;grid-template-columns:1fr 170px 170px;align-items:end;font-family:var(--mono)">' +
     '<div></div><div style="font-size:24px;color:var(--field-text);text-align:right">VS SIMILAR<br>SCORERS</div><div style="font-size:24px;color:var(--field-text);text-align:right">VS<br>EVERYONE</div></div>' +
     '<div style="height:3px;background:var(--ink);margin:12px 0 0"></div>' +
-    ['butler', 'murray'].map((who) => '<div style="display:grid;grid-template-columns:1fr 200px 200px;align-items:center;padding:26px 0;border-bottom:2px solid var(--paper-2)">' +
+    ['butler', 'murray'].map((who) => '<div style="display:grid;grid-template-columns:1fr 170px 170px;align-items:center;padding:26px 0;border-bottom:2px solid var(--paper-2)">' +
       '<div style="font-family:var(--mono);font-weight:600;font-size:40px;display:flex;align-items:center;gap:14px"><span class="dot" style="display:inline-block;width:22px;height:22px;background:' +
       (who === 'butler' ? 'var(--player-a)' : 'var(--player-b)') + '"></span>' + (who === 'butler' ? 'Butler' : 'Murray') + '</div>' +
       ['similar', 'all'].map((g) => '<div style="font-family:var(--mono);font-weight:600;font-size:56px;text-align:right;letter-spacing:-0.02em">' +
         counts[who][g][0] + '/' + counts[who][g][1] + '</div>').join('') + '</div>').join(''));
-  const tableHead = FT.el(f, 'label', { left: '1180px', top: '292px', fontSize: '24px', color: 'var(--field-text)' }, 'Runs above the typical player');
-  const caption = FT.el(f, 'caption', { left: '1180px', top: '700px', width: '644px', fontSize: '44px' },
+  const tableHead = FT.el(f, 'label', { left: '1250px', top: '292px', fontSize: '24px', color: 'var(--field-text)' }, 'Runs above the typical player');
+  const caption = FT.el(f, 'caption', { left: '1250px', top: '700px', width: '574px', fontSize: '44px' },
     'Who looks steadier depends on <em>who you compare them with</em>.');
   FT.source(f, [['SOURCE', 'Basketball-Reference · similar scorers: eligible peers within 3 regular-season points per 36 of him'],
                 ['NOTE', 'exploratory comparison, added after an outside review · G = playoff games']], { x: 96, y: 903, width: 1728, size: 24 });

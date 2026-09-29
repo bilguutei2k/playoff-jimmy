@@ -1,0 +1,42 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>Short D the series that built a legend</title></head><body><script>
+// Short D (vertical, Paper): the 2022-23 run series by series, per game throughout.
+// Numbers: PJ-C009 (37.6, 24.6, 24.7, 21.6; MIL, DEN), PJ-C002 (regular season 22.9), PJ-C004 (per minute unchanged, no digits).
+const R = 'series_2022_23.butler.series[round=';
+const series = [1, 2, 3, 4].map((n) => ({ ppg: FT.value(R + n + '].ppg'), opp: n === 1 || n === 4 ? FT.value(R + n + '].opponent') : null }));
+const regular = FT.value('subjects.butler[season=2022-23].measures.regular.ppg');
+const NAMES = { MIL: 'Milwaukee', DEN: 'Denver (Finals)' };
+FT.scene({ duration: 10, background: 'paper', formats: { vertical: (f) => {
+  const kicker = FT.kicker(f, 'Playoff Jimmy · 3 / 3', { x: 72, y: 220, size: 38 });
+  const claim = FT.claim(f, ['One legendary', 'series.'], { x: 66, y: 286, size: 116 });
+  const X0 = 72, W = 16;                         // bars grow from x = 72; 16 px per point
+  const labels = ['Round 1 · ' + NAMES[series[0].opp], 'Round 2', 'Round 3', 'Round 4 · ' + NAMES[series[3].opp]];
+  const refX = X0 + Math.round(regular * W);
+  const bars = series.map((s, i) => FT.el(f, '', { left: X0 + 'px', top: (646 + i * 170) + 'px', width: Math.round(s.ppg * W) + 'px', height: '76px',
+    background: 'var(--player-a)', transformOrigin: 'left' }));          // every bar is Butler: one colour for one player
+  // The regular-season line sits over the bars and behind the labels.
+  const ref = FT.el(f, '', { left: (refX - 2) + 'px', top: '580px', width: '0', height: '690px', borderLeft: '4px dashed var(--field-text)' });
+  const rows = series.map((s, i) => {
+    const y = 600 + i * 170;
+    return [FT.el(f, 'label', { left: X0 + 'px', top: y + 'px', fontSize: '32px', background: 'var(--paper)', paddingRight: '10px',
+              color: i === 0 ? 'var(--player-a-text)' : 'var(--ink)', fontWeight: i === 0 ? '600' : '500' }, labels[i]),
+            bars[i],
+            FT.el(f, 'number', { left: (Math.max(X0 + Math.round(s.ppg * W), refX) + 16) + 'px', top: (y + 58) + 'px', fontSize: '52px', color: 'var(--ink)', letterSpacing: '0' }, FT.fmt(s.ppg, 1))];
+  });
+  const refLabel = FT.el(f, 'label', { left: (refX + 12) + 'px', top: '556px', fontSize: '28px', color: 'var(--field-text)' }, 'Regular season ' + FT.fmt(regular, 1));
+  const caption = FT.el(f, 'caption', { left: '72px', top: '1300px', width: '848px', fontSize: '52px' }, 'Per minute, the whole run <em>matched his regular season</em>.');
+  FT.source(f, [['PTS/GAME', '2022–23 playoffs by series'], ['SCOPE', 'game logs, play-in excluded'], ['SOURCE', 'Basketball-Reference']],
+            { x: 72, y: 1500, width: 848, size: 32 });
+  return (t) => {
+    FT.rise(kicker, t, 0); claim.at(t, 0.3);
+    rows.forEach(([label, bar, value], i) => {
+      const start = i ? 3.2 + (i - 1) * 0.5 : 1.4;
+      FT.rise(label, t, start, 6); bar.style.transform = 'scaleX(' + FT.p(t, start, 0.5) + ')'; FT.rise(value, t, start + 0.35, 6);
+    });
+    FT.rise(refLabel, t, 5.0, 6); ref.style.opacity = FT.p(t, 5.0, 0.3);
+    FT.cut(caption, t, 6.6);
+  };
+} } });
+</script></body></html>

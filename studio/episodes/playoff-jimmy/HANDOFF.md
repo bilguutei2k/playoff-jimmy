@@ -12,13 +12,13 @@ to this episode. ffmpeg is installed.
 
 ## Next actions
 
-1. User: watch the S03 proof clips (`renders/motion/s03-rectangle.mp4` and
-   `s03-rectangle-vertical.mp4`; regenerate with `studio/render/render.mjs`).
+1. User: look over every scene (`renders/stills/final-*.png`; regenerate with
+   `studio/render/render.mjs`).
 2. Tonight after 10:37 PM, plugged in: launch the blind Codex re-check
    (`recheck/PLAN.md`).
-3. Remaining scenes (S05–S08, shorts A/B/D verticals); S08 needs the
-   decision in `studio/DIRECTION.md` first.
-4. Narration recording, then timing, assembly and QA.
+3. Narration: choose the voice and record the locked script scene by scene.
+4. Then: fit scene timings to the audio, build Short A's opening (S02
+   vertical), assemble, captions, loudness, final QA.
 
 ## Waiting on the user
 
