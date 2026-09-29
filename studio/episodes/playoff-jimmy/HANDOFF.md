@@ -32,12 +32,23 @@ Draft videos exist, narrated by a local AI voice (Kokoro-82M, voice
 ## Waiting on the user
 
 - The draft review (PJ-10).
-- Where the data, code and checks will be linked from (the film's last line
-  promises them in the description).
 - Optional tidy-up: the re-check's worktree can be removed (`git worktree
   remove ../operator-night/20260928-225624-287`); keep the branch
   `night/20260928-225624-287` as the record. Do not merge it into `main`: it
   grows from `recheck-blind`, not `main`.
+
+## Public
+
+- Repository: https://github.com/bilguutei2k/playoff-jimmy (history filtered by
+  `studio/tools/public_repo.sh`; hashes differ from this repository's).
+- Companion site: https://bilguutei2k.github.io/playoff-jimmy/ (branch `gh-pages`).
+- To update both after new commits here:
+
+  ```sh
+  studio/tools/public_repo.sh /tmp/pj-public
+  git -C /tmp/pj-public push https://github.com/bilguutei2k/playoff-jimmy.git main --tags
+  # site: copy companion/index.html into a checkout of gh-pages, commit, push
+  ```
 
 ## Commands
 

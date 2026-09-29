@@ -287,6 +287,21 @@
       "by": "user",
       "date": "2026-09-29",
       "decision": "Companion page first draft approved ('the webpage looks good')."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Public repository approved: github.com/bilguutei2k/playoff-jimmy (episode only). Its history is filtered from the working repository: third-party files (saved Basketball-Reference pages, team media guides and their extracts, probes) and the download scripts removed from every commit, GitHub no-reply address on every commit. Pre-registration commit in public history: 1ea694c."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Sports Reference terms: publish derived numbers (facts) with citation only; no page copies, no download script; no permission request sent."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Companion site hosted on GitHub Pages (the easiest option, from the public repository's gh-pages branch): https://bilguutei2k.github.io/playoff-jimmy/. Vercel's free plan forbids commercial use; a custom domain is still open."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -311,7 +326,7 @@
     "Review the draft film and shorts (renders/draft/).",
     "Voice: keep Kokoro af_heart, pick another from the auditions, or record your own voice later (the edit re-times itself).",
     "Audience and final narration language.",
-    "Where the data and code will be public (the film's last line and the companion page promise a link), and whether the companion page stays on claude.ai or moves to a public host."
+    "Custom domain for the companion site (thefairertest.com and fairertest.com were unregistered on 2026-09-29), or keep the free github.io address."
   ],
   "schema_version": 1,
   "stage": "produce",
@@ -429,7 +444,7 @@
         "PJ-04"
       ],
       "id": "PJ-11",
-      "progress": "First draft 2026-09-29, published privately at https://claude.ai/artifact/BB687E4Z5fPCJwXqadMdZ3: comparison explorer (all players, 20-point scorers, similar scorers; 100 or 200 playoff minutes), raw change by season set, every claim with scope and limits, how it was checked, limits, sources. Built by companion/build.py from results.json, CLAIMS.json and recheck_report.json. Missing: the public data-and-code link and the video link.",
+      "progress": "Live 2026-09-29 at https://bilguutei2k.github.io/playoff-jimmy/ (gh-pages branch of the public repository) and privately on claude.ai. Links the repository and the public pre-registration commit. Missing: the video link once it is uploaded.",
       "status": "active",
       "title": "Interactive companion page"
     },
