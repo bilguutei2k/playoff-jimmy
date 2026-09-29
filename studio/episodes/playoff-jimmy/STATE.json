@@ -89,6 +89,15 @@
       "name": "claims_verification",
       "scope": "11 proposed claims: results hash and revision, input hashes, stated precision, independent recomputation. Same author as the analysis.",
       "status": "passed"
+    },
+    {
+      "command": "python3 studio/tools/story_check.py studio/episodes/playoff-jimmy --say",
+      "evidence": [
+        "STORY.md"
+      ],
+      "name": "story_claims_lint",
+      "scope": "Every numbered narration line cites a verified claim and every spoken number appears in it; timing measured.",
+      "status": "passed"
     }
   ],
   "decisions": [
@@ -152,6 +161,7 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
+    "Review script draft v1 in STORY.md (tone, length, beats); approve or mark changes (PJ-06).",
     "Design system: set up separately, possibly in Claude Design, before the PJ-05 stills. The sample reel's source can be retrieved from its Claude chat if a render path is needed.",
     "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
     "Approval to install ffmpeg (needed for PJ-07).",
@@ -217,7 +227,8 @@
         "PJ-04"
       ],
       "id": "PJ-06",
-      "status": "pending",
+      "progress": "Draft v1 done 2026-09-28: 8-scene table, 813-word script (5:13 machine read), 4 shorts with scope captions, interactive control; passes studio/tools/story_check.py. Waiting for the user's review.",
+      "status": "active",
       "title": "Story: scenes, script draft and short-form outlines"
     },
     {

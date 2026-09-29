@@ -13,10 +13,13 @@ a rerun, re-verification and a new lock tag.
 
 ## Next actions
 
-1. PJ-06: scene table, script draft (read-aloud timing) and 2–4 short-form
-   outlines, every factual line citing a claim ID.
-2. PJ-05: design system (separately, possibly Claude Design), then stills.
-3. PJ-07: silent proof render of one scene once PJ-05 and PJ-06 exist.
+1. User: review script draft v1 in `STORY.md` (8 scenes, about 5 minutes of
+   narration, 4 shorts). Changes go back through
+   `python3 studio/tools/story_check.py studio/episodes/playoff-jimmy`.
+2. PJ-05: design system in Claude Design using `studio/design-prompt.md`,
+   then two or three stills of real scenes.
+3. PJ-07: silent proof render of one scene (S03, the rectangle) once PJ-05
+   exists.
 
 ## Waiting on the user
 
