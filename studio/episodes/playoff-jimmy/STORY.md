@@ -1,8 +1,9 @@
 # Is Playoff Jimmy real? — story and scenes
 
-Status: script draft v2 (PJ-06), 2026-09-28, on verified claims (tag
-research-lock-v2). Revised after an external review (`analysis/review.md`,
-Review 3). Not recorded; timing below is a scratch machine read.
+Status: script v2 approved by the user 2026-09-28 (tag script-lock-v1), on
+verified claims (tag research-lock-v2). Revised after an external review
+(`analysis/review.md`, Review 3). Not recorded; timing below is a scratch
+machine read. Changes after the lock: edit, rerun the check, record why.
 Check with `python3 studio/tools/story_check.py studio/episodes/playoff-jimmy --say`.
 
 ## Argument: "Real, but not how you think"

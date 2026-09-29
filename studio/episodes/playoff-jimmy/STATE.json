@@ -150,6 +150,21 @@
       "by": "claude (default; user did not choose)",
       "date": "2026-09-28",
       "decision": "Murray stays in the long film as one beat with real numbers (S06), framed as 'who looks steadier depends on the comparison'."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Script draft v2 approved; locked at tag script-lock-v1."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Design system v1 'The Fairer Test' (Claude Design) adopted; stored in studio/design-system/."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Approved installing ffmpeg (Homebrew); installed, version 9.0.2."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -171,14 +186,12 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
-    "Review script draft v2 in STORY.md (tone, length, the Murray beat); approve or mark changes (PJ-06).",
-    "Design system: set up separately, possibly in Claude Design, before the PJ-05 stills. The sample reel's source can be retrieved from its Claude chat if a render path is needed.",
+    "Rectangle scene (S03, S08): add a rectangle chart built from the design system's tokens (recommended), or use the system's two-part split and rewrite those lines.",
     "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
-    "Approval to install ffmpeg (needed for PJ-07).",
     "Audience and final narration language (does not block research)."
   ],
   "schema_version": 1,
-  "stage": "tell",
+  "stage": "look",
   "status": "in_progress",
   "tasks": [
     {
@@ -227,7 +240,8 @@
       "artifact": "../../DIRECTION.md; renders/reference/",
       "depends_on": [],
       "id": "PJ-05",
-      "status": "blocked",
+      "progress": "Design system v1 adopted 2026-09-28 (studio/design-system/). Next: two or three stills of real scenes with verified numbers, rendered by the new frame pipeline.",
+      "status": "active",
       "title": "Set up the design system and establish visual direction"
     },
     {
@@ -237,8 +251,8 @@
         "PJ-04"
       ],
       "id": "PJ-06",
-      "progress": "Draft v2 done 2026-09-28 after an external review: 8 scenes, 781 words (4:40 machine read), shorts A, B and D (C held), first-person voice; passes story_check.py on research-lock-v2. Waiting for the user's review.",
-      "status": "active",
+      "progress": "Done 2026-09-28: script v2 approved by the user; tag script-lock-v1.",
+      "status": "done",
       "title": "Story: scenes, script draft and short-form outlines"
     },
     {

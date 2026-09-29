@@ -5,28 +5,25 @@ decisions and failed attempts are in `STATE.json`; rules are in `METHOD.md`.
 
 ## Where we are
 
-Stage: tell. Research is locked at tag `research-lock-v2`: 13 verified claims
-in `CLAIMS.json` (checked by `analysis/verify_claims.py`), methods review in
-`analysis/review.md`. Storyline chosen: "Real, but not how you think"
-(`STORY.md`). Any change to data or method now needs a recorded amendment,
-a rerun, re-verification and a new lock tag.
+Stage: look. Research is locked at tag `research-lock-v2` (13 verified claims)
+and the script at `script-lock-v1` (`STORY.md`). The design system "The Fairer
+Test" is in `studio/design-system/`; `studio/DIRECTION.md` says how it applies
+to this episode. ffmpeg is installed.
 
 ## Next actions
 
-1. User: review script draft v2 in `STORY.md` (8 scenes, about 5 minutes of
-   narration, shorts A, B and D; C held). Changes go back through
-   `python3 studio/tools/story_check.py studio/episodes/playoff-jimmy`.
-2. PJ-05: design system in Claude Design using `studio/design-prompt.md`,
-   then two or three stills of real scenes.
-3. PJ-07: silent proof render of one scene (S03, the rectangle) once PJ-05
-   exists.
+1. Frame pipeline: HTML/SVG scene pages on an explicit frame clock, captured
+   with headless Chromium, encoded with ffmpeg; fonts stored in the repo.
+2. PJ-05: two or three stills of real scenes (title, before → after, the
+   dot strip) with verified numbers.
+3. PJ-07: silent proof of S03 at 1920×1080 and 1080×1920, then inspect it.
 
 ## Waiting on the user
 
-- Design system, set up separately (possibly in Claude Design) before the
-  PJ-05 stills. The Raphinha reel was a sample only.
-- Narrator voice (own voice or a free local AI voice) before PJ-08; approval
-  to install ffmpeg before PJ-07.
+- Rectangle scene: build a rectangle chart in the design system's style
+  (recommended), or switch S03/S08 to the system's two-part split.
+- Narrator voice before PJ-08 (own voice, or a free local AI voice).
+- Optional: a Codex re-derivation of the 13 claims before publication.
 
 ## Commands
 
