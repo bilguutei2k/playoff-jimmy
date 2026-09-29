@@ -20,10 +20,12 @@ to this episode. ffmpeg is installed.
 
 ## Waiting on the user
 
-- Rectangle scene: build a rectangle chart in the design system's style
-  (recommended), or switch S03/S08 to the system's two-part split.
+- Rectangle chart: paste `studio/design-prompt-rectangle.md` into Claude
+  Design and bring the package back.
+- Tonight, after 10:37 PM (Codex allowance reset), plugged in: launch the
+  blind re-check, `python3 -m nightshift.runner
+  studio/episodes/playoff-jimmy/recheck/PLAN.md` (details in that file).
 - Narrator voice before PJ-08 (own voice, or a free local AI voice).
-- Optional: a Codex re-derivation of the 13 claims before publication.
 
 ## Commands
 

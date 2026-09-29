@@ -98,6 +98,14 @@
       "name": "story_claims_lint",
       "scope": "Every numbered narration line cites a verified claim and every spoken number appears in it; timing measured.",
       "status": "passed"
+    },
+    {
+      "evidence": [
+        "nightshift/runner.py"
+      ],
+      "name": "runner_codex_smoke",
+      "scope": "2026-09-28: the runner launched Codex correctly; Codex refused with a usage limit until 10:37 PM. The runner now stops a run on usage limits and reports the reset time (tested).",
+      "status": "passed_with_finding"
     }
   ],
   "decisions": [
@@ -165,6 +173,11 @@
       "by": "user",
       "date": "2026-09-28",
       "decision": "Approved installing ffmpeg (Homebrew); installed, version 9.0.2."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Run a blind Codex re-derivation of the claim values as the first overnight job (recheck/PLAN.md)."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -186,7 +199,7 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
-    "Rectangle scene (S03, S08): add a rectangle chart built from the design system's tokens (recommended), or use the system's two-part split and rewrite those lines.",
+    "Rectangle chart: generate it in Claude Design with studio/design-prompt-rectangle.md and bring back the package.",
     "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
     "Audience and final narration language (does not block research)."
   ],
@@ -275,6 +288,16 @@
       "id": "PJ-08",
       "status": "pending",
       "title": "Narration and full production plan"
+    },
+    {
+      "acceptance": "All 82 claim values present; compare_recheck.py reports no disagreements, or each disagreement is resolved and recorded; the agent log shows no reads outside its checkout.",
+      "artifact": "recheck/PLAN.md; branch recheck-blind; analysis/recheck_report.json",
+      "depends_on": [
+        "PJ-04"
+      ],
+      "id": "PJ-09",
+      "status": "pending",
+      "title": "Blind independent re-derivation of the claim values (Codex, overnight)"
     }
   ]
 }
