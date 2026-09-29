@@ -1,0 +1,320 @@
+<title>Playoff Jimmy Script Desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: a storyboard sheet. Each line of narration sits on a row beside the two frames on screen
+   while it is spoken; the text column is the editor. Tokens from the channel's design system. */
+:root {
+  --bg: #F3EBDD; --bg-2: #E9DFCC; --field-bg: #FBF7EF; --fg: #1C1916; --muted: #675F53; --rule: #C9BCA4;
+  --a: #E4471F; --a-text: #B8360E; --mint: #5BE0A0; --on-mint: #1C1916; --warn: #9A5B00; --warn-bg: #F6DDB0;
+  --display: 'Big Shoulders Display', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1916; --bg-2: #262220; --field-bg: #231F1C; --fg: #F3EBDD; --muted: #A79D8C; --rule: #3A342E;
+    --a: #E4471F; --a-text: #F2825F; --mint: #5BE0A0; --on-mint: #1C1916; --warn: #F2B35C; --warn-bg: #3A2A12;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1C1916; --bg-2: #262220; --field-bg: #231F1C; --fg: #F3EBDD; --muted: #A79D8C; --rule: #3A342E;
+  --a: #E4471F; --a-text: #F2825F; --mint: #5BE0A0; --on-mint: #1C1916; --warn: #F2B35C; --warn-bg: #3A2A12;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--serif); font-size: 1rem; line-height: 1.5; margin: 0;
+       padding-inline: max(16px, 3vw); padding-block: 0; }
+.wrap { max-width: 72rem; margin: 0 auto; padding-block: 2rem 5rem; display: grid; gap: 2.5rem; }
+.kicker, .label { font-family: var(--mono); font-weight: 500; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.kicker { color: var(--a-text); margin: 0 0 0.5rem; }
+h1, h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; line-height: 0.92; margin: 0; text-wrap: balance; }
+h1 { font-size: clamp(2.8rem, 8vw, 5rem); }
+h2 { font-size: clamp(2rem, 5vw, 3rem); }
+h3 { font-family: var(--mono); font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; margin: 0; }
+p { margin: 0; }
+.intro { display: grid; gap: 0.9rem; max-width: 44rem; }
+.marks { font-family: var(--mono); font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.4rem; }
+.marks code { font-weight: 600; background: var(--bg-2); padding: 0.05rem 0.35rem; }
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); border-bottom: 2px solid var(--fg);
+       padding-block: 0.6rem; display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; align-items: center; font-family: var(--mono); font-size: 0.8rem; }
+.bar nav { display: flex; flex-wrap: wrap; gap: 0.3rem 0.9rem; margin-right: auto; }
+.bar a { color: var(--fg); font-weight: 600; text-decoration: none; border-bottom: 2px solid transparent; }
+.bar a:hover { border-bottom-color: var(--a); }
+.pill { padding: 0.15rem 0.5rem; border: 1px solid var(--rule); white-space: nowrap; }
+.pill.ok { background: var(--mint); color: var(--on-mint); border-color: var(--mint); }
+.pill.warn { background: var(--warn-bg); color: var(--warn); border-color: var(--warn); }
+textarea { width: 100%; font: inherit; color: var(--fg); background: var(--field-bg); border: 1px solid var(--rule); padding: 0.55rem 0.7rem;
+           resize: vertical; line-height: 1.5; border-radius: 0; }
+textarea:focus-visible, button:focus-visible, a:focus-visible { outline: 3px solid var(--mint); outline-offset: 2px; }
+.notes { display: grid; gap: 0.4rem; }
+.notes label { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); }
+.notes textarea { font-size: 0.95rem; min-height: 3.2rem; }
+section.deliv { display: grid; gap: 2rem; }
+section.deliv > header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 1rem; border-top: 3px solid var(--fg); padding-top: 1rem; }
+.scene { display: grid; gap: 1rem; }
+.scene-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.3rem 1rem; }
+.scene-head .meta { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+.line { display: grid; grid-template-columns: 15.5rem minmax(0, 1fr); gap: 1rem 1.25rem; padding-block: 1rem; border-top: 1px solid var(--rule); }
+.line.vertical { grid-template-columns: 13rem minmax(0, 1fr); }
+.frames { display: grid; gap: 0.4rem; align-content: start; }
+.line.vertical .frames { grid-template-columns: 1fr 1fr; }
+.frames figure { margin: 0; display: grid; gap: 0.2rem; }
+.frames img { display: block; width: 100%; height: auto; border: 1px solid var(--rule); background: var(--bg-2); }
+.line:not(.vertical) .frames img { aspect-ratio: 16 / 9; }
+.line.vertical .frames img { aspect-ratio: 9 / 16; }
+.frames figcaption { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); }
+.edit { display: grid; gap: 0.5rem; align-content: start; min-width: 0; }
+.edit textarea { font-size: 1.08rem; min-height: 4.2rem; }
+.meta-row { display: flex; flex-wrap: wrap; gap: 0.4rem 0.8rem; align-items: center; font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+button { font: inherit; font-family: var(--mono); font-size: 0.78rem; font-weight: 600; color: var(--fg); background: var(--bg);
+         border: 2px solid var(--fg); padding: 0.2rem 0.6rem; cursor: pointer; }
+button:hover { background: var(--bg-2); }
+button.link { border: 0; padding: 0; background: none; text-decoration: underline; text-underline-offset: 0.18em; color: var(--muted); font-weight: 500; }
+.claim-chip { border: 1px solid var(--rule); padding: 0 0.35rem; }
+.issues { display: grid; gap: 0.25rem; }
+.issue { font-family: var(--mono); font-size: 0.78rem; color: var(--warn); background: var(--warn-bg); padding: 0.25rem 0.5rem; }
+.was { font-size: 0.9rem; color: var(--muted); border-left: 3px solid var(--rule); padding-left: 0.6rem; }
+.was b { font-family: var(--mono); font-size: 0.72rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-right: 0.4rem; }
+.empty-note { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); }
+@media (max-width: 40rem) {
+  .line, .line.vertical { grid-template-columns: 1fr; }
+  .line:not(.vertical) .frames { grid-template-columns: 1fr 1fr; }
+  .line.vertical .frames { grid-template-columns: 1fr 1fr; max-width: 14rem; }
+}
+</style>
+
+<main class="wrap">
+  <header class="intro">
+    <p class="kicker">Playoff Jimmy · script v3 · the storyboard</p>
+    <h1>Script desk</h1>
+    <p>Every line of narration, beside what is on screen as it starts and as it ends in the current draft. Rewrite any line; your changes save as you type, and Claude reads them from here. The play button reads the line in the current AI voice.</p>
+    <div class="marks"><span><code>/</code> short pause</span><span><code>//</code> long pause</span><span><code>*word*</code> stress this word</span></div>
+    <p class="muted" style="font-size:0.95rem;color:var(--muted)">Numbers are checked as you type against the claim each line cites. A flagged line isn't wrong for sure; it means the number isn't in that claim yet, and Claude will check it or find it a claim.</p>
+  </header>
+
+  <div class="bar" id="bar">
+    <nav id="nav"></nav>
+    <span class="pill" id="save-state">Connecting…</span>
+    <span class="pill" id="edited-count"></span>
+    <span class="pill" id="issue-count"></span>
+    <span class="pill" id="length"></span>
+  </div>
+
+  <div class="notes">
+    <label for="n-general">General notes for Claude (tone, pacing, anything that isn't one line)</label>
+    <textarea id="n-general" rows="3" placeholder="For example: more conversational overall; S04 drags; open with a question."></textarea>
+  </div>
+
+  <div id="board"></div>
+</main>
+<audio id="player" preload="none"></audio>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function () {
+  'use strict';
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  var clock = function (s) { s = Math.max(0, Math.round(s)); return Math.floor(s / 60) + ':' + ('0' + s % 60).slice(-2); };
+  var LINES = {}, SCENES = {};
+  D.scenes.forEach(function (g) { SCENES[g.id] = g; g.lines.forEach(function (l) { l.scene = g.id; LINES[l.id] = l; }); });
+
+  // ---- The number check: the same rule as studio/tools/story_check.py ----
+  var NUMBER = /\d+(?:,\d{3})*(?:\.\d+)?/g;
+  var norm = function (t) { return t.replace(/−/g, '-').replace(/–/g, '-'); };
+  var clean = function (t) { return t.replace(/\*([^*]+)\*/g, '$1').replace(/\s*\/\/?\s*/g, ' ').replace(/\s+/g, ' ').trim(); };
+  var decimals = function (n) { return n.indexOf('.') >= 0 ? n.split('.')[1].length : 0; };
+  function supported(num, evidence) {
+    var re = new RegExp('(?<![\\d.])' + num.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '(?!\\d|\\.\\d)');
+    if (re.test(evidence)) return true;
+    var p = decimals(num);
+    if (!p) return false;
+    var spoken = parseFloat(num.replace(/,/g, ''));
+    return (evidence.match(NUMBER) || []).some(function (c) {
+      return decimals(c) > p && Math.abs(Number(parseFloat(c.replace(/,/g, '')).toFixed(p)) - spoken) < 1e-9;
+    });
+  }
+  var WORDING = [[/\bclutch\b/i, 'The channel avoids "clutch": the data can\'t show a clutch trait.'],
+                 [/\bscor(e|es|ed|ing) more in the playoffs\b/i, 'Per minute he doesn\'t score more; say "more per game" or "shrinks less".']];
+  function check(line, text) {
+    var issues = [], spoken = norm(clean(text)), nums = spoken.match(NUMBER) || [];
+    var evidence = norm(line.claims.map(function (id) { var c = D.claims[id]; return c ? [c.text, c.scope].concat(c.limitations).join(' ') : ''; }).join(' '));
+    if (nums.length && !line.claims.length) issues.push('This line now has a number (' + nums.join(', ') + ') but cites no claim.');
+    else nums.forEach(function (n) { if (!supported(n, evidence)) issues.push(n + ' isn\'t in ' + line.claims.join(', ') + '.'); });
+    WORDING.forEach(function (w) { if (w[0].test(text) && !w[0].test(line.text)) issues.push(w[1]); });
+    return issues;
+  }
+
+  // ---- Render ----
+  var state = { lines: {}, notes: {} };          // saved text by id, from the store
+  function words(t) { return clean(t).split(' ').filter(Boolean).length; }
+  function current(id) { var t = $('t-' + id); return t ? t.value : LINES[id].text; }
+  function estimate(l) { return l.seconds * Math.max(1, words(current(l.id))) / Math.max(1, l.words); }
+
+  function build() {
+    var html = '', nav = [], order = Object.keys(D.deliverables);
+    order.forEach(function (del) {
+      var groups = D.scenes.filter(function (g) { return g.deliverable === del; });
+      if (!groups.length) return;
+      nav.push('<a href="#d-' + del + '">' + esc(D.deliverables[del]) + '</a>');
+      html += '<section class="deliv" id="d-' + del + '"><header><h2>' + esc(D.deliverables[del]) + '</h2><span class="label" id="len-' + del + '"></span></header>';
+      groups.forEach(function (g) {
+        var first = g.lines[0], last = g.lines[g.lines.length - 1];
+        html += '<div class="scene" id="s-' + g.id + '"><div class="scene-head"><h3>' + esc(g.heading) + '</h3><span class="meta">' +
+          clock(first.start) + '–' + clock(last.end) + ' in the draft · <span id="slen-' + g.id + '"></span></span></div>';
+        html += '<div class="notes"><label for="n-' + g.id + '">Notes on this scene\'s visuals or timing</label><textarea id="n-' + g.id + '" rows="1" placeholder="Optional"></textarea></div>';
+        g.lines.forEach(function (l) {
+          html += '<div class="line' + (l.vertical ? ' vertical' : '') + '" id="l-' + l.id + '">' +
+            '<div class="frames"><figure><img loading="lazy" src="f/' + l.id + '-a.jpg" alt="On screen as line ' + l.id + ' starts"><figcaption>' + clock(l.start) + ' · as it starts</figcaption></figure>' +
+            '<figure><img loading="lazy" src="f/' + l.id + '-b.jpg" alt="On screen as line ' + l.id + ' ends"><figcaption>' + clock(l.end) + ' · as it ends</figcaption></figure></div>' +
+            '<div class="edit"><textarea id="t-' + l.id + '" rows="2" aria-label="Line ' + l.id + '">' + esc(l.text) + '</textarea>' +
+            '<div class="meta-row"><button type="button" data-play="' + l.id + '">▶ Play</button><span>' + l.id + '</span>' +
+            (l.claims.length ? l.claims.map(function (c) { return '<span class="claim-chip" title="' + esc(D.claims[c] ? D.claims[c].text : '') + '">' + c + '</span>'; }).join('')
+              : '<span>no numbers, no claim</span>') +
+            '<span id="est-' + l.id + '"></span><span class="pill" id="st-' + l.id + '">Unchanged</span>' +
+            '<button type="button" class="link" data-revert="' + l.id + '" hidden>Restore the v3 line</button></div>' +
+            '<div class="issues" id="iss-' + l.id + '"></div><div class="was" id="was-' + l.id + '" hidden><b>v3</b>' + esc(l.text) + '</div></div></div>';
+        });
+        html += '</div>';
+      });
+      html += '</section>';
+    });
+    $('board').innerHTML = html;
+    $('nav').innerHTML = nav.join('');
+  }
+
+  function autosize(t) { t.style.height = 'auto'; t.style.height = (t.scrollHeight + 2) + 'px'; }
+  var saving = {};
+  function refreshLine(id) {
+    var l = LINES[id], t = $('t-' + id), text = t.value, changed = text.trim() !== l.text;
+    var issues = changed ? check(l, text) : [];
+    $('iss-' + id).innerHTML = issues.map(function (i) { return '<div class="issue">' + esc(i) + '</div>'; }).join('');
+    $('was-' + id).hidden = !changed;
+    document.querySelector('[data-revert="' + id + '"]').hidden = !changed;
+    var st = $('st-' + id);
+    st.className = 'pill' + (issues.length ? ' warn' : changed ? ' ok' : '');
+    st.textContent = saving[id] ? 'Saving…' : issues.length ? 'Check' : changed ? (db ? 'Edited · saved' : 'Edited') : 'Unchanged';
+    $('est-' + id).textContent = '≈ ' + estimate(l).toFixed(1) + ' s' + (changed ? ' (was ' + l.seconds.toFixed(1) + ')' : '');
+  }
+  function refreshTotals() {
+    var edited = 0, flagged = 0, totals = {};
+    D.scenes.forEach(function (g) {
+      var s = 0, was = 0;
+      g.lines.forEach(function (l) {
+        s += estimate(l); was += l.seconds;
+        if (current(l.id).trim() !== l.text) { edited++; if (check(l, current(l.id)).length) flagged++; }
+      });
+      $('slen-' + g.id).textContent = 'speech ≈ ' + clock(s) + (Math.abs(s - was) > 0.5 ? ' (was ' + clock(was) + ')' : '');
+      totals[g.deliverable] = totals[g.deliverable] || [0, 0];
+      totals[g.deliverable][0] += s; totals[g.deliverable][1] += was;
+    });
+    Object.keys(totals).forEach(function (d) { $('len-' + d).textContent = 'speech ≈ ' + clock(totals[d][0]) + ' · was ' + clock(totals[d][1]); });
+    $('edited-count').textContent = edited + ' line' + (edited === 1 ? '' : 's') + ' edited';
+    $('issue-count').textContent = flagged + ' to check';
+    $('issue-count').className = 'pill' + (flagged ? ' warn' : '');
+    $('length').textContent = 'film speech ≈ ' + clock(totals.film ? totals.film[0] : 0);
+  }
+
+  // ---- Saving: the artifact's store when available, this browser otherwise ----
+  var db = null, timers = {}, inflight = {}, again = {}, pending = {};
+  var LOCAL = 'script-desk-drafts';
+  function localDrafts() { try { return JSON.parse(localStorage.getItem(LOCAL) || '{}'); } catch (e) { return {}; } }
+  function keepLocal(key, text) { try { var d = localDrafts(); if (text == null) delete d[key]; else d[key] = text; localStorage.setItem(LOCAL, JSON.stringify(d)); } catch (e) { /* storage unavailable */ } }
+  function setSaveState(text, cls) { var s = $('save-state'); s.textContent = text; s.className = 'pill' + (cls ? ' ' + cls : ''); }
+
+  function schedule(kind, id, text) {
+    var key = kind + '/' + id;
+    keepLocal(key, text);
+    if (!db) return;
+    pending[key] = true;
+    if (kind === 'lines') { saving[id] = true; refreshLine(id); }
+    clearTimeout(timers[key]);
+    timers[key] = setTimeout(function () { flush(kind, id); }, 800);
+  }
+  async function flush(kind, id) {
+    var key = kind + '/' + id;
+    if (inflight[key]) { again[key] = true; return; }
+    inflight[key] = true;
+    var text = kind === 'lines' ? $('t-' + id).value : $('n-' + id).value;
+    var ref = db.collection(kind).doc(id);
+    try {
+      var unchanged = kind === 'lines' ? text.trim() === LINES[id].text : !text.trim();
+      if (unchanged) await ref.delete(); else await ref.set({ text: text, updated: new Date().toISOString() });
+      keepLocal(key, null);
+      setSaveState('All changes saved', 'ok');
+    } catch (e) {
+      setSaveState(e && e.code === 'invalid_argument' ? 'You can view but not save here' : 'Couldn\'t save; kept in this browser', 'warn');
+    }
+    inflight[key] = false;
+    if (again[key]) { again[key] = false; flush(kind, id); return; }
+    pending[key] = false;
+    if (kind === 'lines') { saving[id] = false; refreshLine(id); }
+  }
+
+  function applyRemote(kind, snap) {
+    snap.docs.forEach(function (d) {
+      var body = d.data() || {}, el = kind === 'lines' ? $('t-' + d.id) : $('n-' + d.id);
+      if (!el || document.activeElement === el || pending[kind + '/' + d.id]) return;
+      if (typeof body.text === 'string' && el.value !== body.text) { el.value = body.text; autosize(el); if (kind === 'lines') refreshLine(d.id); }
+    });
+    snap.docChanges().forEach(function (c) {
+      if (c.type !== 'removed') return;
+      var el = kind === 'lines' ? $('t-' + c.doc.id) : $('n-' + c.doc.id);
+      if (!el || document.activeElement === el) return;
+      el.value = kind === 'lines' ? LINES[c.doc.id].text : '';
+      autosize(el); if (kind === 'lines') refreshLine(c.doc.id);
+    });
+    refreshTotals();
+  }
+
+  // ---- Wire up ----
+  build();
+  var drafts = localDrafts();
+  Object.keys(drafts).forEach(function (key) {
+    var parts = key.split('/'), el = parts[0] === 'lines' ? $('t-' + parts[1]) : $('n-' + parts[1]);
+    if (el) el.value = drafts[key];
+  });
+  document.querySelectorAll('textarea').forEach(function (t) {
+    autosize(t);
+    t.addEventListener('input', function () {
+      autosize(t);
+      var id = t.id.slice(2);
+      if (t.id.indexOf('t-') === 0) { refreshLine(id); refreshTotals(); schedule('lines', id, t.value); }
+      else schedule('notes', id, t.value);
+    });
+  });
+  Object.keys(LINES).forEach(refreshLine);
+  refreshTotals();
+
+  var player = $('player'), playing = null;
+  document.addEventListener('click', function (e) {
+    var p = e.target.closest('[data-play]'), r = e.target.closest('[data-revert]');
+    if (p) {
+      var id = p.getAttribute('data-play');
+      document.querySelectorAll('[data-play]').forEach(function (b) { b.textContent = '▶ Play'; });
+      if (playing === id && !player.paused) { player.pause(); playing = null; return; }
+      player.src = 'a/' + id + '.mp3'; playing = id;
+      player.play().then(function () { p.textContent = '■ Stop'; }).catch(function () { playing = null; });
+    }
+    if (r) {
+      var rid = r.getAttribute('data-revert'), t = $('t-' + rid);
+      t.value = LINES[rid].text; autosize(t); refreshLine(rid); refreshTotals(); schedule('lines', rid, t.value);
+    }
+  });
+  player.addEventListener('ended', function () { playing = null; document.querySelectorAll('[data-play]').forEach(function (b) { b.textContent = '▶ Play'; }); });
+
+  var use = window.claude && window.claude.use ? window.claude.use('db') : Promise.resolve(null);
+  use.then(function (store) {
+    db = store;
+    if (!db) { setSaveState('Saving here is off; edits stay in this browser', 'warn'); Object.keys(LINES).forEach(refreshLine); return; }
+    setSaveState('Connected', 'ok');
+    db.collection('lines').onSnapshot(function (s) { applyRemote('lines', s); }, function () { setSaveState('Lost the connection; edits stay in this browser', 'warn'); });
+    db.collection('notes').onSnapshot(function (s) { applyRemote('notes', s); }, function () {});
+    Object.keys(drafts).forEach(function (key) { var parts = key.split('/'); flush(parts[0], parts[1]); });
+  }).catch(function () { setSaveState('Saving here is off; edits stay in this browser', 'warn'); });
+})();
+</script>

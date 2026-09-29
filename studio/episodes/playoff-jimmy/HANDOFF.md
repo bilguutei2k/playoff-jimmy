@@ -17,7 +17,10 @@ Draft videos exist, narrated by a local AI voice (Kokoro-82M, voice
 
 ## Next actions
 
-1. User: watch `renders/draft/film.mp4` and the three shorts; note changes.
+1. User: revise the script in the script desk,
+   https://claude.ai/artifact/FJKKJQXat7T8z5De4nU88B (rebuild it with
+   `python3 studio/tools/storyboard.py studio/episodes/playoff-jimmy`). Claude reads
+   the edits (collections `lines` and `notes`) and makes script v4.
 2. Optional: pick another voice from `renders/audio/audition/`, then rerun
    narrate.py with `--voice` and assemble.py; the timing follows the words.
 3. Companion page (PJ-11): first draft published privately at

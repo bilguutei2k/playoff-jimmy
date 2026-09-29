@@ -442,6 +442,17 @@
       "id": "PJ-12",
       "status": "pending",
       "title": "Publishing package (title, description with sources and links, thumbnail)"
+    },
+    {
+      "acceptance": "The user's edits read from the script desk; every changed line passes story_check or gets a claim; delivery marks (/ // *word*) carried into narration; drafts rebuilt.",
+      "artifact": "https://claude.ai/artifact/FJKKJQXat7T8z5De4nU88B (db collections 'lines' and 'notes'); STORY.md",
+      "depends_on": [
+        "PJ-08"
+      ],
+      "id": "PJ-13",
+      "progress": "2026-09-29: script desk published (every line beside its start and end frames and its current narration; edits save to the page's store). Waiting on the user's edits.",
+      "status": "active",
+      "title": "Script v4: personality and delivery marks, edited in the script desk"
     }
   ]
 }
