@@ -17,7 +17,7 @@ const flags = FT.series('above_median'), games = FT.series('butler_playoff_games
 const shortRuns = { '2017-18': FT.value('subjects.butler[season=2017-18].measures.playoff_games'), '2020-21': FT.value('subjects.butler[season=2020-21].measures.playoff_games') };
 FT.scene({ duration: 11, background: 'paper', formats: { landscape: (f) => {
   const kicker = FT.kicker(f, 'Not every year · per 36 minutes', { x: 96, y: 96, size: 30 });
-  const claim = FT.claim(f, ['Season by season, it\'s a coin flip'], { x: 96, y: 150, size: 112 });
+  const claim = FT.claim(f, ['Year by year, nearly a coin flip'], { x: 96, y: 150, size: 112 });
   const markerRow = (who, y, color, label) => {
     const items = flags[who].similar;
     const head = FT.el(f, 'label', { left: '96px', top: y + 'px', fontSize: '30px', color: who === 'butler' ? 'var(--player-a-text)' : 'var(--player-b)' }, label);

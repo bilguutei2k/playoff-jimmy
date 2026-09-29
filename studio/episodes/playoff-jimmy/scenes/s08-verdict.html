@@ -5,7 +5,7 @@
 // S08 (Night): the verdict, career numbers only (no single-season rectangle; see DIRECTION.md).
 // Numbers: PJ-C005 (typical -1.7 in his seasons, Butler -0.25, 11 runs), PJ-C012 (similar scorers -2.1), PJ-C013 (coin flip, no digits).
 const K = 'benchmark.butler.career.A_100.';
-const rows = [['Players who score like him', FT.value('exploratory.matched_peers.butler.rate_within_3.career.minute_weighted_peer_median'), 'var(--field)', 1],
+const rows = [['Similar scorers · added later', FT.value('exploratory.matched_peers.butler.rate_within_3.career.minute_weighted_peer_median'), 'var(--field)', 1],
               ['Typical player, same seasons', FT.value(K + 'minute_weighted_peer_median'), 'var(--field)', 1],
               ['Jimmy Butler', FT.value(K + 'pooled_excess_per_36'), 'var(--player-a)', 2]].sort((a, b) => a[1] - b[1]);
 const runs = FT.value(K + 'n_eligible_seasons');
@@ -23,7 +23,7 @@ FT.scene({ duration: 10, background: 'night', formats: { landscape: (f) => {
             FT.el(f, 'number', { left: (X0 + Math.round(Math.abs(v) * SCALE) + 20) + 'px', top: (y + 16) + 'px', fontSize: '40px', color: 'var(--paper)', letterSpacing: '0' }, FT.fmt(v, digits))];
   });
   const caption = FT.el(f, 'caption', { left: '96px', top: '820px', width: '1400px', fontSize: '44px', fontStyle: 'italic', color: 'var(--paper)' },
-    'Not every year: season by season, it\'s close to a coin flip.');
+    'Not every year: against similar scorers, it\'s close to a coin flip.');
   FT.source(f, [['SOURCE', 'Basketball-Reference · 2011–12 to 2025–26 · the data, code and every check are linked in the description']],
             { x: 96, y: 936, width: 1728, size: 24 });
   return (t) => {

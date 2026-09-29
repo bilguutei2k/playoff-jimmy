@@ -16,7 +16,7 @@ FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
   const card = (x, season, title, d, color, word) => [
     FT.el(f, 'label', { left: x + 'px', top: '330px', fontSize: '30px', color: color === 'var(--player-a)' ? 'var(--player-a-text)' : 'var(--field-text)' }, season + ' · ' + title),
     FT.el(f, 'number', { left: (x - 8) + 'px', top: '380px', fontSize: '200px', color, letterSpacing: '-0.04em' }, ord(d.pct)),
-    FT.el(f, 'label', { left: x + 'px', top: '590px', fontSize: '30px', color: 'var(--ink)' }, 'Percentile' + (word ? ' · ' + word : '')),
+    FT.el(f, 'label', { left: x + 'px', top: '590px', fontSize: '30px', color: 'var(--ink)' }, 'Percentile of the change' + (word ? ' · ' + word : '')),
     FT.el(f, 'tick', { left: x + 'px', top: '636px', fontSize: '26px' }, FT.fmt(d.a, 1) + ' → ' + FT.fmt(d.b, 1) + ' PTS / 36')];
   const left = card(96, '2022–23', 'The legend run', y23, 'var(--ink)', y23.word);          // Butler's own season: ink, not the field grey
   const right = card(1000, '2021–22', 'The year before', y22, 'var(--player-a)', null);
@@ -27,6 +27,10 @@ FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
   const q = band.quantiles;
   const outer = FT.el(f, '', { left: x(q.p05) + 'px', top: (Y - 10) + 'px', width: (x(q.p95) - x(q.p05)) + 'px', height: '20px', background: 'var(--paper-2)' });
   const inner = FT.el(f, '', { left: x(q.p25) + 'px', top: (Y - 10) + 'px', width: (x(q.p75) - x(q.p25)) + 'px', height: '20px', background: 'var(--field)' });
+  // Whiskers: the full range of all the stretches, so the label "every stretch" is literally drawn.
+  const whisk = FT.el(f, '', { left: x(q.min) + 'px', top: (Y - 1) + 'px', width: (x(q.max) - x(q.min)) + 'px', height: '2px', background: 'var(--ink)' },
+    '<div style="position:absolute;left:-1px;top:-9px;width:2px;height:20px;background:var(--ink)"></div>' +
+    '<div style="position:absolute;right:-1px;top:-9px;width:2px;height:20px;background:var(--ink)"></div>');
   const med = FT.el(f, '', { left: (x(q.p50) - 2) + 'px', top: (Y - 18) + 'px', width: '4px', height: '36px', background: 'var(--ink)' });
   const dot = FT.el(f, 'dot', { left: (x(band.playoff) - 16) + 'px', top: (Y - 16) + 'px', width: '32px', height: '32px', background: 'var(--player-a)',
     boxShadow: '0 0 0 4px var(--paper), 0 0 0 7px var(--ink)' });
@@ -35,6 +39,8 @@ FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
   const dotLabel = FT.el(f, 'label', { left: (x(band.playoff) - 200) + 'px', width: '400px', textAlign: 'center', whiteSpace: 'nowrap', top: (Y - 58) + 'px', fontSize: '24px',
     fontWeight: '600', color: 'var(--player-a-text)' }, 'Playoffs: above all');
   const ticks = [18, 22, 26].map((v) => FT.el(f, 'tick', { left: (x(v) - 40) + 'px', top: (Y + 30) + 'px', width: '80px', textAlign: 'center', fontSize: '24px' }, String(v)));
+  const bandKey = FT.el(f, 'tick', { left: X0 + 'px', top: (Y + 66) + 'px', fontSize: '20px' },
+    'LINE: ALL ' + band.n_windows + ' STRETCHES · BAND: MIDDLE 90% · DARK: MIDDLE HALF');
   FT.source(f, [['SOURCE', 'Basketball-Reference · percentiles among eligible players that season · stretches from game logs']],
             { x: 96, y: 936, width: 1728, size: 24 });
   return (t) => {
@@ -42,7 +48,7 @@ FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
     left.forEach((e) => FT.rise(e, t, 1.0));
     divider.style.transform = 'scaleY(' + FT.p(t, 2.6, 0.5) + ')'; divider.style.transformOrigin = 'top';
     right.forEach((e) => FT.rise(e, t, 3.0));
-    [outer, inner, med, bandLabel, baseline].concat(ticks).forEach((e) => FT.rise(e, t, 5.0, 6));
+    [whisk, outer, inner, med, bandLabel, baseline, bandKey].concat(ticks).forEach((e) => FT.rise(e, t, 5.0, 6));
     const pd = FT.p(t, 6.2, 0.4); dot.style.opacity = pd; dot.style.transform = 'scale(' + FT.lerp(0.4, 1, pd) + ')';
     FT.rise(dotLabel, t, 6.5, 6);
   };

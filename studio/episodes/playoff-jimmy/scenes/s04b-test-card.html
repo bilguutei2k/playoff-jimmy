@@ -10,7 +10,7 @@ FT.scene({ duration: 9, background: 'paper', formats: { landscape: (f) => {
   const rule = FT.el(f, '', { left: '96px', top: '320px', width: '1728px', height: '3px', background: 'var(--ink)', transformOrigin: 'left' });
   const rows = [['Compare', 'each playoff run with every player who played <em>real minutes</em> that season.'],
                 ['Call it real', 'only if he beats the typical player <em>on average and in most seasons</em>.'],
-                ['Check', 'against 20-point scorers too, at 100 and at 200 playoff minutes.']].map(([k, v], i) => [
+                ['Every version', 'must pass: against all players and against 20-point scorers, at 100 and at 200 playoff minutes.']].map(([k, v], i) => [
     FT.el(f, 'label', { left: '96px', top: (370 + i * 110) + 'px', width: '300px', fontSize: '30px', fontWeight: '600', color: 'var(--ink)' }, k),
     FT.el(f, 'caption', { left: '420px', top: (360 + i * 110) + 'px', width: '1400px', fontSize: '44px' }, v)]);
   const stamp = FT.el(f, '', { left: '1110px', top: '700px', border: '3px solid var(--ink)', padding: '14px 22px', fontFamily: 'var(--mono)', color: 'var(--ink)' },

@@ -26,7 +26,7 @@ FT.scene({ duration: 10, background: 'paper', formats: { vertical: (f) => {
             FT.el(f, 'number', { left: (Math.max(X0 + Math.round(s.ppg * W), refX) + 16) + 'px', top: (y + 58) + 'px', fontSize: '52px', color: 'var(--ink)', letterSpacing: '0' }, FT.fmt(s.ppg, 1))];
   });
   const refLabel = FT.el(f, 'label', { left: (refX + 12) + 'px', top: '556px', fontSize: '28px', color: 'var(--field-text)' }, 'Regular season ' + FT.fmt(regular, 1));
-  const caption = FT.el(f, 'caption', { left: '72px', top: '1300px', width: '848px', fontSize: '52px' }, 'Per minute, the whole run <em>matched his regular season</em>.');
+  const caption = FT.el(f, 'caption', { left: '72px', top: '1300px', width: '848px', fontSize: '52px' }, 'Per minute, the whole run <em>nearly matched his regular season</em>.');
   FT.source(f, [['PTS/GAME', '2022–23 playoffs by series'], ['SCOPE', 'game logs, play-in excluded'], ['SOURCE', 'Basketball-Reference']],
             { x: 72, y: 1500, width: 848, size: 32 });
   return (t) => {

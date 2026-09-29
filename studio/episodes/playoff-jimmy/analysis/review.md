@@ -102,3 +102,46 @@ were testable against the data and were tested before acting.
 | Script errors: "barely got taller"; "stays the same size"; nickname origin implied; Short B benchmark; Short D mixes per-game and per-36; Short A "4.3 of 4.0". | Checked against the claims. | All accepted; fixed in draft v2. |
 | S06 overloaded; S07 buries the twist; S08 overclaims; number density; one precision level; one voice; clichés; hold Short C; Short B needs its caveat. | Editorial. | All accepted in draft v2. Short C held. |
 
+## Review 4 — 2026-09-29, Astra (Codex): final review of script v2 before production
+
+Source: `codex exec --sandbox read-only` (reasoning effort high) over STORY.md,
+CLAIMS.json, results.json, METHOD.md, review.md, DIRECTION.md and the scene
+pages, at the user's request. It was told the numbers had already been
+re-derived (PJ-09) and not to recompute them. Verdict: "ship with
+amendments"; no number was wrong. Every point was checked against the claims
+and METHOD.md before acting.
+
+| Point | Check | Disposition |
+|---|---|---|
+| S08 "His points per game rise because his minutes do" is general and causal. | PJ-C003 is a descriptive split of 2022–23 only. | Accepted: "In 2022–23, the extra minutes account for his whole rise in points per game." |
+| Short A title "He didn't score more. He played more." is false; its rectangle says "+4.3 MIN" and "−0.3 RATE". | He scored 4.0 more per game; +4.3 and −0.3 are points per game, and his minutes rose 6.3. | Accepted: title "He didn't score faster. He played longer."; labels say PTS/G. |
+| S05 presents the similar-scorer comparison as if it were part of the advance test. | METHOD.md amendments 4 and 5: exploratory, "labeled as such wherever used". | Accepted: narration says it was added after seeing the results; S05 and S08 label it "added later". The chip "Passes" stays (the narration names the advance test as it lands). |
+| "His 11 playoff runs" and "his two worst runs" drop the eligibility scope. | Butler's 2011–12 run is outside the cutoffs (PJ-C005, PJ-C008). | Accepted: "11 playoff runs with real minutes", "of those 11", "11 qualifying runs" (Short B, on screen with years). |
+| S07 does not say what the percentiles rank. | They rank the change in scoring rate; the 17-game comparison is about the playoff rate (PJ-C004, PJ-C007). | Accepted, in shorter words than proposed; label "Percentile of the change". |
+| "Coin flip" should become "close to half" and be scoped to similar scorers. | PJ-C013's verified text says "close to a coin flip", and it holds only against similar scorers (8 of 11 against everyone). | Scope accepted (S06, S08, Short B say "against similar scorers"); "close to a coin flip" kept as verified. |
+| Short D "then a normal run" and "matched his regular season". | No claim calls the later series normal; 24.7 → 24.4 per 36 is a small drop. | Accepted: dropped; "barely changed", "nearly matched". |
+| Explain per 36 minutes in S03, Short A and Short B. | Clarity. | Accepted for S03 and Short A ("Scale ... to the same 36 minutes"); Short B keeps its unit on screen. |
+| S04 "1,325 player-seasons" and "shrink less than everyone else". | PJ-C005 compares with the typical peer. | Accepted. |
+| S02/S03 headline "He scores more in the playoffs"; title caption. | The wording rules forbid the unqualified phrase. | Accepted: "He scores more per game"; "More points when it counts. Or just more minutes?" |
+| S04b does not say every version must pass. | METHOD.md "Peer benchmark". | Accepted: "Every version must pass: against all players and against 20-point scorers, at 100 and at 200 playoff minutes." |
+| TTS spoken forms. | — | Applied in `studio/tools/narrate.py` (seasons as "twenty twenty-two to twenty-three"; decimals, ordinals and counts spelled out). |
+
+The full list of script changes is in STORY.md, "Changes after the lock".
+
+### Presentation fixes from the statistical audit (2026-09-29)
+
+A statistical audit written to `analysis/audit/` this morning by another
+session (untracked when this was written; `AUDIT.md`) re-derived all 82
+claim values (all agree) and raised two chart problems, both confirmed in the
+scene code and fixed before the first narrated draft:
+
+- S05 pinned 11 peer values to the plot edges (the axis ran −10 to +6; the
+  values run about −14.4 to +9.4). The axis now spans every value shown.
+- S07 drew the 5th–95th percentile band under "every 17-game stretch". It now
+  adds whiskers over the full range of all 41 stretches and a key (line: all,
+  band: middle 90%, dark: middle half).
+
+Its other notes need no change now: S03's widen-then-lower animation is
+schematic (both decompositions round to +4.3 / −0.3); −0.25 is weighted by
+playoff minutes (S05's source line says so); "6 of 11" is an observed count,
+not a probability model (the script says only "close to a coin flip").

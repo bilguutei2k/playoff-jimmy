@@ -10,8 +10,10 @@ const similar = FT.value('exploratory.matched_peers.butler.rate_within_3.career.
 const rows = FT.series('butler_runs_A100');
 if (rows.length !== runs) throw new Error('Run rows do not match PJ-C005');
 FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
-  const LO = -10, HI = 6, X0 = 300, X1 = 1140, TOP = 336, PITCH = 44;
-  const x = (v) => Math.round(X0 + (Math.min(Math.max(v, LO), HI) - LO) / (HI - LO) * (X1 - X0));
+  // The axis spans every value shown, so no dot is pinned to an edge (the spread runs past -14 and +9).
+  const every = rows.flatMap((r) => r.peers.concat([r.delta]));
+  const LO = Math.floor(Math.min(...every)), HI = Math.ceil(Math.max(...every)), X0 = 300, X1 = 1140, TOP = 336, PITCH = 44;
+  const x = (v) => Math.round(X0 + (v - LO) / (HI - LO) * (X1 - X0));
   const kicker = FT.kicker(f, 'The fairer test · per 36 minutes', { x: 96, y: 96, size: 30 });
   const claim = FT.claim(f, ['He slips less than most'], { x: 96, y: 150, size: 112 });
   let seed = 11;
@@ -30,7 +32,7 @@ FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
   });
   const axisY = TOP + rows.length * PITCH + 4;
   const axis = FT.el(f, '', { left: X0 + 'px', top: axisY + 'px', width: (X1 - X0) + 'px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
-  const ticks = [-8, -4, 0, 4].map((v) => FT.el(f, 'tick', { left: (x(v) - 60) + 'px', top: (axisY + 10) + 'px', width: '120px', textAlign: 'center', fontSize: '24px' }, FT.fmt(v, 0, true)));
+  const ticks = [-12, -8, -4, 0, 4, 8].filter((v) => v > LO && v < HI).map((v) => FT.el(f, 'tick', { left: (x(v) - 60) + 'px', top: (axisY + 10) + 'px', width: '120px', textAlign: 'center', fontSize: '24px' }, FT.fmt(v, 0, true)));
   const ends = [FT.el(f, 'tick', { left: X0 + 'px', top: (axisY + 40) + 'px', fontSize: '24px' }, '← WORSE'),
                 FT.el(f, 'tick', { left: (X1 - 200) + 'px', width: '200px', textAlign: 'right', top: (axisY + 40) + 'px', fontSize: '24px' }, 'BETTER →')];
   const key = FT.el(f, 'label', { left: X0 + 'px', top: (TOP - 44) + 'px', fontSize: '24px', color: 'var(--field-text)' },
@@ -41,10 +43,10 @@ FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
     FT.el(f, 'number', { left: '1250px', top: (y + 34) + 'px', fontSize: '120px', color }, FT.fmt(value, digits))];
   const bTyp = block(330, 'Typical player, same seasons', 'var(--field-text)', typical, 1);
   const bHis = block(510, 'Butler, ' + runs + ' runs', 'var(--player-a)', his, 2);
-  const bSim = block(690, 'Players who score like him', 'var(--field-text)', similar, 1);
+  const bSim = block(690, 'Similar scorers · added later', 'var(--field-text)', similar, 1);
   const chip = FT.el(f, 'claim chip', { left: '1600px', top: '560px', fontSize: '60px', padding: '8px 16px' }, 'Passes');
   FT.source(f, [['SOURCE', 'Basketball-Reference · Butler\'s ' + runs + ' eligible runs, 2012–13 to 2024–25 · pooled by playoff minutes'],
-                ['SCOPE', 'peers: at least 1,500 regular-season and 100 playoff minutes, same season']], { x: 96, y: 903, width: 1728, size: 24 });
+                ['SCOPE', 'peers: at least 1,500 regular-season and 100 playoff minutes, same season · similar scorers: exploratory']], { x: 96, y: 903, width: 1728, size: 24 });
   return (t) => {
     FT.rise(kicker, t, 0); claim.at(t, 0.2);
     axis.style.transform = 'scaleX(' + FT.p(t, 0.7, 0.5) + ')';

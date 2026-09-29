@@ -36,6 +36,15 @@ class RenderTests(unittest.TestCase):
                 self.assertEqual((manifest["width"], manifest["height"]),
                                  (1080, 1920) if fmt == "vertical" else (1920, 1080))
 
+    def test_short_a_scenes_render_vertically(self):
+        with tempfile.TemporaryDirectory() as out:
+            for page in ("s02-before-after.html", "s03-rectangle.html"):
+                target = Path(out, page.replace(".html", ".png"))
+                done = subprocess.run(["node", str(ROOT / "studio/render/render.mjs"), str(SCENES / page), "--still", "30",
+                                       "--format", "vertical", "--out", str(target)], capture_output=True, text=True, timeout=120)
+                self.assertEqual(done.returncode, 0, page + ": " + done.stderr)
+                self.assertEqual(json.loads(Path(str(target) + ".json").read_text())["height"], 1920)
+
     def test_data_js_matches_the_verified_results(self):
         done = subprocess.run(["python3", "-B", str(SCENES / "build_data.py")], capture_output=True, text=True)
         self.assertEqual(done.returncode, 0, done.stderr)

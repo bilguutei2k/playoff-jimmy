@@ -10,14 +10,14 @@ FT.scene({ duration: 9, background: 'paper', formats: { vertical: (f) => {
   const claim = FT.claim(f, ['Most players slip.', '<span style="color:var(--player-a)">He slips less.</span>'], { x: 66, y: 286, size: 116 });
   const rule = FT.el(f, '', { left: '72px', top: '560px', width: '848px', height: '3px', background: 'var(--ink)' });
   const l1 = FT.el(f, 'label', { left: '72px', top: '600px', fontSize: '38px', color: 'var(--field-text)' }, 'Typical player, same seasons');
-  const n1 = FT.el(f, 'number', { left: '60px', top: '646px', fontSize: '280px', color: 'var(--field-text)' });
-  const l2 = FT.el(f, 'label', { left: '72px', top: '950px', fontSize: '38px', color: 'var(--player-a-text)' }, 'Butler, ' + runs + ' playoff runs');
-  const n2 = FT.el(f, 'number', { left: '60px', top: '996px', fontSize: '280px', color: 'var(--player-a)' });
-  const chip = FT.el(f, 'claim chip', { left: '560px', top: '1282px', fontSize: '68px', padding: '10px 18px', lineHeight: '1' }, 'Slips less');
-  const unit = FT.el(f, 'label', { left: '72px', top: '1300px', fontSize: '38px', color: 'var(--ink)' }, 'Points per 36');
-  const caption = FT.el(f, 'caption', { left: '72px', top: '1410px', width: '848px', fontSize: '52px', color: 'var(--ink)' },
-    'Not every year: <em>close to a coin flip</em>.');
-  FT.source(f, [['PTS/36', 'regular season → playoffs'], ['SCOPE', '1,500+ regular, 100+ playoff min'], ['SOURCE', 'Basketball-Reference']],
+  const n1 = FT.el(f, 'number', { left: '60px', top: '646px', fontSize: '250px', color: 'var(--field-text)' });
+  const l2 = FT.el(f, 'label', { left: '72px', top: '915px', fontSize: '38px', color: 'var(--player-a-text)' }, 'Butler, ' + runs + ' qualifying runs');
+  const n2 = FT.el(f, 'number', { left: '60px', top: '961px', fontSize: '250px', color: 'var(--player-a)' });
+  const chip = FT.el(f, 'claim chip', { left: '560px', top: '1222px', fontSize: '68px', padding: '10px 18px', lineHeight: '1' }, 'Slips less');
+  const unit = FT.el(f, 'label', { left: '72px', top: '1240px', fontSize: '38px', color: 'var(--ink)' }, 'Points per 36');
+  const caption = FT.el(f, 'caption', { left: '72px', top: '1336px', width: '848px', fontSize: '52px', color: 'var(--ink)' },
+    'Not every year: against similar scorers, <em>close to a coin flip</em>.');
+  FT.source(f, [['SCOPE', '1,500+ regular, 100+ playoff min'], ['RUNS', '2012–13 to 2024–25'], ['SOURCE', 'Basketball-Reference']],
             { x: 72, y: 1500, width: 848, size: 32 });
   return (t) => {
     FT.rise(kicker, t, 0);

@@ -52,7 +52,7 @@ landscape: (f) => {
   // S02 end state, which fades out at t = 0 (the 22.9 hero morphs instead).
   const prev = [
     FT.kicker(f, 'The obvious answer', { x: 96, y: 96, size: 30 }),
-    FT.el(f, 'claim', { left: '96px', top: '150px', fontSize: '112px', lineHeight: '0.88' }, 'He scores more in the playoffs'),
+    FT.el(f, 'claim', { left: '96px', top: '150px', fontSize: '112px', lineHeight: '0.88' }, 'He scores more per game'),
     FT.el(f, 'label', { left: '96px', top: '380px', fontSize: '30px', color: 'var(--field-text)' }, '2022–23 regular season'),
     FT.el(f, 'claim', { left: '840px', top: '520px', fontSize: '180px', lineHeight: '1' }, '→'),
     FT.el(f, 'label', { left: '1060px', top: '380px', fontSize: '30px', color: 'var(--player-a-text)' }, '2022–23 playoffs'),
@@ -60,9 +60,11 @@ landscape: (f) => {
     FT.el(f, 'number chip', { left: '1560px', top: '330px', fontSize: '64px', padding: '6px 16px', letterSpacing: '0', transform: 'rotate(-4deg)' },
       FT.fmt(D.poPpg - D.regPpg, 1, true)),
     FT.el(f, 'label', { left: '96px', top: '790px', fontSize: '30px', color: 'var(--ink)' }, 'Points per game · Jimmy Butler'),
+    FT.el(f, 'label', { left: '96px', top: '842px', fontSize: '30px', color: 'var(--ink)' },
+      'Minutes per game · ' + FT.fmt(D.regMpg, 1) + ' → <span style="color:var(--player-a-text)">' + FT.fmt(D.poMpg, 1) + '</span>'),
     FT.el(f, '', { left: '1060px', top: '770px', width: '760px', display: 'flex', alignItems: 'flex-start', gap: '18px' },
       '<div class="tag" style="flex:none;font-size:28px;padding:6px 12px;margin-top:6px">BUT</div><div class="caption" style="font-size:44px;line-height:1.2">he\'s also on the floor <em>a lot longer</em>.</div>'),
-    FT.source(f, [['SOURCE', 'Basketball-Reference · 2022–23 regular season vs playoffs · per game, play-in excluded']], { x: 96, y: 936, width: 1728, size: 24 }),
+    FT.source(f, [['SOURCE', 'Basketball-Reference · 2022–23 regular season vs playoffs · per game, play-in excluded']], { x: 96, y: 930, width: 1728, size: 24 }),
   ];
   // Rectangles (orange underneath, grey fill, dashed regular-season outline).
   const orange = FT.el(f, '', { left: px(X0), background: 'var(--player-a)' });
@@ -216,9 +218,10 @@ vertical: (f) => {
   const areaWho = text(f, 'label', { left: '192px', top: '984px', fontSize: '38px', fontWeight: '600', color: 'var(--ink)', letterSpacing: '0.04em' });
   const strip = FT.el(f, '', mono(0, 600, 'var(--ink)', { left: px(X0 + regW), top: '820px', width: px(poW - regW), display: 'flex',
     flexDirection: 'column', alignItems: 'center', gap: '6px' }),
-    '<div style="font-size:44px;line-height:1">' + FT.fmt(D.minutesPart, 1, true) + '</div><div style="font-size:32px">MIN</div>');
+    '<div style="font-size:44px;line-height:1">' + FT.fmt(D.minutesPart, 1, true) + '</div><div style="font-size:26px">PTS/G</div>' +
+    '<div style="font-size:26px">MINUTES</div>');
   const lead = FT.el(f, '', { left: px(X0 + poW - 16), top: '542px', width: '2px', height: px(Y0 - poH - 542), background: 'var(--ink)', transformOrigin: 'bottom' });
-  const call = text(f, '', mono(32, 600, 'var(--ink)', { left: '560px', top: '500px', width: '360px', textAlign: 'right' }), FT.fmt(D.ratePart, 1) + ' RATE');
+  const call = text(f, '', mono(32, 600, 'var(--ink)', { left: '480px', top: '500px', width: '440px', textAlign: 'right' }), FT.fmt(D.ratePart, 1) + ' PTS/G · RATE');
   FT.source(f, [['AREA', 'min × pts per 36 ÷ 36'], ['SCOPE', '2022–23 reg season vs playoffs'], ['SOURCE', 'Basketball-Reference']],
             { x: 72, y: 1500, width: 848, size: 32 });
   return (t) => {

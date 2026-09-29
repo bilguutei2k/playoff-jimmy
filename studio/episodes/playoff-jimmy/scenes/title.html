@@ -17,7 +17,7 @@ FT.scene({ duration: 6, background: 'night', formats: { landscape: (f) => {
   const kicker = FT.kicker(f, 'Investigation 01 · NBA', { x: 96, y: 190, size: 30, color: 'var(--accent)' });
   const claim = FT.claim(f, ['Is <span style="color:var(--player-a)">Playoff</span>', 'Jimmy real?'], { x: 90, y: 260, size: 200, lh: 0.86, color: 'var(--paper)' });
   const caption = FT.el(f, 'caption', { left: '96px', top: '800px', width: '960px', fontSize: '44px', fontStyle: 'italic', color: 'var(--paper)' },
-    'He scores more when it counts. Or does he just play more?');
+    'More points when it counts. Or just <em>more minutes</em>?');
   return (t) => {
     FT.rise(kicker, t, 0);
     claim.at(t, 0.2);

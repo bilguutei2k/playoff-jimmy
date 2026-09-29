@@ -1,0 +1,8 @@
+# The local AI voice for studio/tools/narrate.py (Apple Silicon, Python 3.10+):
+#   /opt/homebrew/bin/python3.12 -m venv .venv && .venv/bin/pip install -r studio/tools/requirements-voice.txt
+# Kokoro-82M weights (Apache-2.0) download from Hugging Face on first use.
+mlx-audio==0.5.7
+mlx==0.32.3
+misaki[en]==0.9.4
+num2words==0.5.14
+numpy==2.5.3

@@ -3,6 +3,13 @@
 //
 //   node studio/render/render.mjs <scene.html> --still 7.5 --out still.png [--format vertical] [--safe]
 //   node studio/render/render.mjs <scene.html> --video --out clip.mp4 [--format vertical] [--fps 30] [--from 0 --to 8]
+//   node studio/render/render.mjs <scene.html> --video --out clip.mp4 --timemap shot.json
+//
+// A timemap fits a scene to narration: {"duration": seconds of output, "anchors": [[scene_t, output_t], ...]}.
+// Each anchor starts the scene's animation at scene_t exactly at output_t. Between anchors the scene plays at
+// its designed speed and then holds on the frame just before the next anchor (faster only if the narration
+// leaves less time than the animation needs); after the last anchor it plays to its end and holds. Held
+// frames are identical, so each is captured once and reused.
 //
 // Uses the headless Chromium that Playwright installed (or $CHROME) over the
 // DevTools protocol, and ffmpeg for encoding. No npm packages. Writes
@@ -26,6 +33,7 @@ function args() {
     else if (k === '--from') o.from = Number(a[++i]);
     else if (k === '--to') o.to = Number(a[++i]);
     else if (k === '--safe') o.safe = true;
+    else if (k === '--timemap') o.timemap = JSON.parse(readFileSync(resolve(a[++i]), 'utf8'));
     else if (!o.page) o.page = resolve(k);
     else throw new Error('Unknown argument ' + k);
   }
@@ -78,6 +86,23 @@ class CDP {
 
 const sha256 = (path) => createHash('sha256').update(readFileSync(path)).digest('hex');
 
+// Output time -> scene time for a timemap (see the header).
+function timemapper(tm, sceneDuration) {
+  const A = tm.anchors.map(([a, w]) => [Math.min(a, sceneDuration), w]).sort((p, q) => p[1] - q[1]);
+  for (let i = 1; i < A.length; i++) if (A[i][0] < A[i - 1][0]) throw new Error('Timemap anchors go back in scene time at ' + A[i][1] + ' s');
+  const EPS = 1e-3;
+  return (T) => {
+    if (T <= A[0][1]) return A[0][0];
+    let i = 0;
+    while (i + 1 < A.length && T >= A[i + 1][1]) i++;
+    const [a, w] = A[i];
+    if (i + 1 === A.length) return Math.min(a + (T - w), sceneDuration);
+    const [a2, w2] = A[i + 1];
+    const speed = Math.max(1, (a2 - a) / Math.max(w2 - w, 1e-6));
+    return Math.max(a, Math.min(a + (T - w) * speed, a2 - EPS));
+  };
+}
+
 async function main() {
   const o = args();
   const profile = mkdtempSync(join(tmpdir(), 'ft-chrome-'));
@@ -127,18 +152,23 @@ async function main() {
     const data = join(dirname(o.page), 'data.js');
     if (existsSync(data)) manifest.data_sha256 = sha256(data);
     if (o.video) {
-      const from = o.from ?? 0, to = o.to ?? scene.d, frames = Math.round((to - from) * o.fps);
+      const map = o.timemap ? timemapper(o.timemap, scene.d) : (T) => T;
+      const from = o.timemap ? 0 : o.from ?? 0, to = o.timemap ? o.timemap.duration : o.to ?? scene.d;
+      const frames = Math.round((to - from) * o.fps);
       ffmpeg = spawn('ffmpeg', ['-y', '-loglevel', 'error', '-f', 'image2pipe', '-framerate', String(o.fps), '-i', '-',
         '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '16', '-preset', 'medium', '-movflags', '+faststart', o.out],
         { stdio: ['pipe', 'inherit', 'inherit'] });
       const done = new Promise((ok, fail) => ffmpeg.on('exit', (c) => (c === 0 ? ok() : fail(new Error('ffmpeg exited ' + c)))));
+      let lastT = null, lastPng = null, captured = 0;
       for (let i = 0; i < frames; i++) {
-        const png = await shot(from + i / o.fps);
-        if (!ffmpeg.stdin.write(png)) await new Promise((ok) => ffmpeg.stdin.once('drain', ok));
+        const t = map(from + i / o.fps);
+        if (t !== lastT) { lastPng = await shot(t); lastT = t; captured++; }
+        if (!ffmpeg.stdin.write(lastPng)) await new Promise((ok) => ffmpeg.stdin.once('drain', ok));
       }
       ffmpeg.stdin.end();
       await done;
-      Object.assign(manifest, { kind: 'video', fps: o.fps, from, to, frames,
+      if (o.timemap) manifest.timemap = o.timemap;
+      Object.assign(manifest, { kind: 'video', fps: o.fps, from, to, frames, captured,
         ffmpeg: execFileSync('ffmpeg', ['-version']).toString().split('\n')[0] });
     } else {
       writeFileSync(o.out, await shot(o.still));

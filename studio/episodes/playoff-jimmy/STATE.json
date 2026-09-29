@@ -125,6 +125,46 @@
       "name": "blind_recheck",
       "scope": "Codex re-derived all 82 claim values blind from the raw BBRef snapshot on branch recheck-blind (no analysis code, results or claims): 82 exact, 0 disagree, 0 missing. Agent log shows no git history, other branches or reads outside its checkout. Its judgment calls are in the report's notes.",
       "status": "passed"
+    },
+    {
+      "evidence": [
+        "analysis/review.md"
+      ],
+      "name": "script_review_astra",
+      "scope": "Codex read-only review of script v2 against claims, results, METHOD.md and scene text; 11 amendments, all checked against the claims; applied as script v3 except where noted in Review 4.",
+      "status": "passed_with_amendments"
+    },
+    {
+      "command": "python3 studio/tools/story_check.py studio/episodes/playoff-jimmy",
+      "evidence": [
+        "STORY.md"
+      ],
+      "name": "story_claims_lint_v3",
+      "scope": "Script v3: every numbered line cites a verified claim and every spoken number appears in it.",
+      "status": "passed"
+    },
+    {
+      "name": "narration_speech_check",
+      "scope": "Each of the 52 narration lines transcribed back with Parakeet (mlx-community/parakeet-tdt-0.6b-v2) and compared word by word with the spoken script: 51 exact; S03 'Same scorer.' heard as 'Same score.' (soft final syllable; the words are on screen at that moment).",
+      "status": "passed_with_finding"
+    },
+    {
+      "command": "python3 studio/tools/assemble.py studio/episodes/playoff-jimmy",
+      "evidence": [
+        "renders/draft/*.json (not in git)"
+      ],
+      "name": "draft_assembly",
+      "scope": "Film 5:49 (11 shots), Short A 0:40, Short B 0:30, Short D 0:35; 1920x1080 / 1080x1920 H.264 30 fps, AAC 48 kHz; narration -14.3 LUFS, peak -1.0 dBFS; frames inspected at 10 s intervals and across a wipe; .srt captions of at most two rows.",
+      "status": "passed"
+    },
+    {
+      "evidence": [
+        "analysis/review.md",
+        "analysis/audit/AUDIT.md (untracked, from another session)"
+      ],
+      "name": "audit_chart_fixes",
+      "scope": "S05 axis now spans every value (11 were pinned to the edges); S07 draws the full range of all 41 stretches with a key. No research value changed.",
+      "status": "passed"
     }
   ],
   "decisions": [
@@ -212,6 +252,31 @@
       "by": "claude (default; user said proceed)",
       "date": "2026-09-28",
       "decision": "S08 verdict uses career numbers only (bars: -2.1, -1.7, -0.25), not the design's single-season rectangle."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Full set of scene stills approved ('the stills look good')."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Use an AI voiceover for now. After research: Kokoro-82M (Apache-2.0 weights, commercial use allowed), run locally via mlx-audio; the top-rated open models (Breeze TTS 2, Fish Audio S2 Pro, Voxtral) and ElevenLabs' free tier forbid commercial use."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Astra (Codex) runs a final review of the script; apply its amendments and proceed to an almost-final draft video."
+    },
+    {
+      "by": "claude (default; user can switch)",
+      "date": "2026-09-29",
+      "decision": "Voice af_heart (Kokoro's highest-rated voice); five alternatives rendered as auditions in renders/audio/audition/."
+    },
+    {
+      "by": "claude (from Astra's review; user said proceed)",
+      "date": "2026-09-29",
+      "decision": "Script v3: wording narrowed to the claims (analysis/review.md Review 4; STORY.md 'Changes after the lock'). Short A retitled 'He didn't score faster. He played longer.'; S08's minutes line now names 2022-23. No number, claim or verdict changed."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -233,9 +298,10 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
-    "Review the full set of scene stills (renders/stills/final-*.png).",
-    "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
-    "Audience and final narration language (does not block research)."
+    "Review the draft film and shorts (renders/draft/).",
+    "Voice: keep Kokoro af_heart, pick another from the auditions, or record your own voice later (the edit re-times itself).",
+    "Audience and final narration language.",
+    "Where the data, code and checks will be linked from (the description promises them)."
   ],
   "schema_version": 1,
   "stage": "produce",
@@ -321,8 +387,8 @@
         "PJ-07"
       ],
       "id": "PJ-08",
-      "progress": "Scenes built 2026-09-28 from locked data: S01 cold open, title, S02, S03 (build + close-up), S04, S04b (pre-registration card from git), S05, S06, S07, S08; shorts B, D and the Short A rectangle frame. Durations are provisional until narration is recorded. Missing: Short A's opening (S02 vertical).",
-      "status": "active",
+      "progress": "Done 2026-09-29 with a local AI voice (Kokoro af_heart): narration generated line by line with word timings (studio/tools/narrate.py); scene beats cued to spoken words (EDIT.json); Short A's opening (S02 vertical) built; film and shorts A, B, D assembled with panel wipes, -14 LUFS narration and .srt captions (studio/tools/assemble.py).",
+      "status": "done",
       "title": "Narration and full production plan"
     },
     {
@@ -335,6 +401,36 @@
       "progress": "Done 2026-09-29: night run 20260928-225624-287 passed on its first attempt; compare_recheck.py reports 82 exact, 0 disagreements, 0 missing; log checked for blindness.",
       "status": "done",
       "title": "Blind independent re-derivation of the claim values (Codex, overnight)"
+    },
+    {
+      "acceptance": "User has watched the film and the three shorts; requested changes are listed and made, or the drafts are accepted.",
+      "artifact": "renders/draft/",
+      "depends_on": [
+        "PJ-08"
+      ],
+      "id": "PJ-10",
+      "status": "pending",
+      "title": "Review the draft film and shorts; list changes"
+    },
+    {
+      "acceptance": "One control (season set x peer set) moves Butler's and Murray's results; every value read from results.json; no statistics computed in the page.",
+      "artifact": "companion/",
+      "depends_on": [
+        "PJ-04"
+      ],
+      "id": "PJ-11",
+      "status": "pending",
+      "title": "Interactive companion page"
+    },
+    {
+      "acceptance": "Ready for the user to upload; publishing itself stays with the user.",
+      "artifact": "PUBLISH.md",
+      "depends_on": [
+        "PJ-10"
+      ],
+      "id": "PJ-12",
+      "status": "pending",
+      "title": "Publishing package (title, description with sources and links, thumbnail)"
     }
   ]
 }

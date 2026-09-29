@@ -1,0 +1,84 @@
+{
+  "about": "Edit plan: which narration lines play over which scene, and which spoken word starts each animation beat. A cue {t, line, word, offset} starts the scene's animation at scene time t when that word of that line (counted within the shot) is spoken, plus offset seconds; without a word, at the line's start. Numbers that count up get offset -0.55 so the 700 ms count lands on the word; rises get about -0.4. Built by studio/tools/assemble.py.",
+  "gap": 0.45,
+  "lead": 0.4,
+  "tail": 0.9,
+  "wipe": 0.45,
+  "deliverables": {
+    "film": {
+      "format": "landscape",
+      "title": "Is Playoff Jimmy real?",
+      "shots": [
+        {"scene": "s01-cold-open", "bg": "night", "in": "cut", "lead": 0.8, "lines": ["S01", [0, 1, 2, 3]],
+         "cues": [{"t": 0, "line": 0}, {"t": 0.4, "line": 0, "word": "regular", "offset": -0.2},
+                  {"t": 1.8, "line": 1}, {"t": 2.1, "line": 1, "word": "26.9", "offset": -0.55},
+                  {"t": 4.4, "line": 2, "word": "Milwaukee"}]},
+        {"scene": "title", "bg": "night", "in": "wipe", "lines": ["S01", [4]], "tail": 1.2,
+         "cues": [{"t": 0, "line": 0}, {"t": 0.2, "line": 0, "word": "Is"}, {"t": 2.2, "line": 0, "word": "Not"}]},
+        {"scene": "s02-before-after", "bg": "paper", "in": "wipe", "lines": ["S02", [0, 1, 2, 3]],
+         "cues": [{"t": 0, "line": 0}, {"t": 0.7, "line": 0, "word": "22.9", "offset": -0.4},
+                  {"t": 1.5, "line": 0, "word": "26.9", "offset": -0.55}, {"t": 3.4, "line": 2, "word": "Minutes"},
+                  {"t": 4.0, "line": 3, "word": "33.4", "offset": -0.3}]},
+        {"scene": "s03-rectangle", "bg": "paper", "in": "cut", "lead": 0.3, "lines": ["S03", [0, 1, 2, 3, 4, 5]],
+         "cues": [{"t": 0, "line": 0}, {"t": 0.5, "line": 0, "word": "rectangle"}, {"t": 1.5, "line": 0, "word": "width"},
+                  {"t": 3.5, "line": 1, "word": "wider"}, {"t": 4.8, "line": 1, "word": "shorter", "offset": -0.2},
+                  {"t": 5.3, "line": 2, "word": "rate"}, {"t": 8.5, "line": 3}, {"t": 10.3, "line": 4}]},
+        {"scene": "s04-league-strip", "bg": "paper", "in": "wipe", "lines": ["S04", [0, 1, 2, 3, 4]],
+         "cues": [{"t": 0, "line": 0}, {"t": 0.7, "line": 1}, {"t": 2.0, "line": 2, "word": "typical"},
+                  {"t": 2.6, "line": 2, "word": "declined", "offset": -0.3}]},
+        {"scene": "s04b-test-card", "bg": "paper", "in": "cut", "lead": 0.3, "lines": ["S04", [5]], "tail": 1.4,
+         "cues": [{"t": 0, "line": 0}, {"t": 1.2, "line": 0, "word": "wrote"}, {"t": 2.1, "line": 0, "word": "take"},
+                  {"t": 3.0, "line": 0, "word": "real"}, {"t": 4.6, "line": 0, "word": "committed"}]},
+        {"scene": "s05-fairer-test", "bg": "paper", "in": "wipe", "lines": ["S05", [0, 1, 2, 3]],
+         "cues": [{"t": 0, "line": 0}, {"t": 0.7, "line": 0, "word": "every"}, {"t": 2.0, "line": 0, "word": "Each"},
+                  {"t": 2.4, "line": 0, "word": "highlighted"}, {"t": 4.0, "line": 1, "word": "typically"},
+                  {"t": 4.8, "line": 1, "word": "quarter", "offset": -0.4}, {"t": 6.4, "line": 2, "word": "similar"},
+                  {"t": 7.6, "line": 3, "word": "passes", "offset": -0.25}]},
+        {"scene": "s06-not-every-year", "bg": "paper", "in": "wipe", "lines": ["S06", [0, 1, 2, 3]],
+         "cues": [{"t": 0, "line": 0}, {"t": 1.2, "line": 0, "word": "Season"}, {"t": 4.2, "line": 1, "word": "short"},
+                  {"t": 5.2, "line": 2, "word": "Jamal"}, {"t": 7.2, "line": 2, "word": "everyone"}, {"t": 8.8, "line": 3}]},
+        {"scene": "s07-twist", "bg": "paper", "in": "wipe", "lines": ["S07", [0, 1, 2]],
+         "cues": [{"t": 0, "line": 0}, {"t": 1.0, "line": 0, "word": "run"}, {"t": 2.6, "line": 1},
+                  {"t": 3.0, "line": 1, "word": "In"}, {"t": 5.0, "line": 1, "word": "beat"}, {"t": 6.2, "line": 1, "word": "stretch"}]},
+        {"scene": "s03-rectangle", "bg": "paper", "in": "wipe", "lines": ["S08", [0, 1]], "hold": 7.9,
+         "about": "Recap: S03's 'Wider, not taller.' rectangle, frozen, under the 2022-23 minutes answer."},
+        {"scene": "s08-verdict", "bg": "night", "in": "wipe", "lines": ["S08", [2, 3, 4]], "tail": 3.0,
+         "cues": [{"t": 0, "line": 0}, {"t": 0.2, "line": 0, "word": "leans"}, {"t": 1.2, "line": 0, "word": "Most"},
+                  {"t": 5.2, "line": 1}]}
+      ]
+    },
+    "short-a": {
+      "format": "vertical",
+      "title": "He didn't score faster. He played longer.",
+      "shots": [
+        {"scene": "s02-before-after", "bg": "paper", "in": "cut", "lead": 0.15, "lines": ["Short A", [0, 1]],
+         "cues": [{"t": 0, "line": 0}, {"t": 1.0, "line": 0, "word": "22.9", "offset": -0.4},
+                  {"t": 1.9, "line": 0, "word": "26.9", "offset": -0.55}, {"t": 4.0, "line": 1, "word": "minutes"}]},
+        {"scene": "s03-rectangle", "bg": "paper", "in": "wipe", "lead": 0.3, "lines": ["Short A", [2, 3, 4]], "tail": 2.0,
+         "cues": [{"t": 0, "line": 0}, {"t": 1.5, "line": 0, "word": "scoring"}, {"t": 4.0, "line": 1, "word": "played"},
+                  {"t": 5.2, "line": 1, "word": "All"}]}
+      ]
+    },
+    "short-b": {
+      "format": "vertical",
+      "title": "Most players shrink in the playoffs",
+      "shots": [
+        {"scene": "short-b", "bg": "paper", "in": "cut", "lead": 0.15, "lines": ["Short B", [0, 1, 2, 3, 4]], "tail": 2.0,
+         "cues": [{"t": 0, "line": 0}, {"t": 1.2, "line": 1}, {"t": 1.5, "line": 1, "word": "typical"},
+                  {"t": 1.6, "line": 1, "word": "1.7", "offset": -0.55},
+                  {"t": 3.0, "line": 2}, {"t": 5.5, "line": 3}]}
+      ]
+    },
+    "short-d": {
+      "format": "vertical",
+      "title": "The series that built a legend",
+      "shots": [
+        {"scene": "short-d", "bg": "paper", "in": "cut", "lead": 0.15, "lines": ["Short D", [0, 1, 2, 3, 4]], "tail": 2.0,
+         "cues": [{"t": 0, "line": 0}, {"t": 1.4, "line": 0, "word": "37.6", "offset": -0.3},
+                  {"t": 3.2, "line": 2, "word": "24.6", "offset": -0.3}, {"t": 3.7, "line": 2, "word": "24.7", "offset": -0.3},
+                  {"t": 4.2, "line": 2, "word": "21.6", "offset": -0.3}, {"t": 5.0, "line": 3, "word": "regular-season"},
+                  {"t": 6.6, "line": 4, "word": "Across"}]}
+      ]
+    }
+  }
+}
