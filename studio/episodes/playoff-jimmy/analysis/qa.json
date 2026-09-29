@@ -1,0 +1,13 @@
+{
+  "decomposition_identity": "passed",
+  "full_coverage": "not_passed",
+  "independent_review": "pending",
+  "pair_count": 12,
+  "points_identity": "passed",
+  "row_count": 39,
+  "shooting_constraints": "passed",
+  "source_hashes": "passed",
+  "status": "arithmetic_checks_passed_only",
+  "text_hashes": "passed",
+  "unique_player_season_phase": "passed"
+}

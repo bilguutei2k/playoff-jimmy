@@ -1,0 +1,24 @@
+{
+  "sources": [
+    {
+      "id": "heat-2023-24",
+      "url": "https://cdn.nba.com/teams/uploads/sites/1610612748/2023/11/2023-24-Miami-Heat-Media-Guide_39884007.pdf",
+      "retrieved_at": "2026-09-29T00:46:14.007302+00:00",
+      "coverage_verified": false,
+      "status": "downloaded",
+      "path": "studio/episodes/playoff-jimmy/data/raw/heat-2023-24.pdf",
+      "sha256": "4ff14b44d9ad98df0899d8625f01154ad61bf205c01b526d310f28051097d701",
+      "bytes": 16977441
+    },
+    {
+      "id": "nuggets-2025-26",
+      "url": "https://cdn.nba.com/teams/uploads/sites/1610612743/2025/10/2025-26-Denver-Nuggets-Media-Guide.pdf",
+      "retrieved_at": "2026-09-29T00:46:14.783130+00:00",
+      "coverage_verified": false,
+      "status": "downloaded",
+      "path": "studio/episodes/playoff-jimmy/data/raw/nuggets-2025-26.pdf",
+      "sha256": "59f5e565ae57f46f3b76ec5749d9e6a9959cded6024c7d0409da19403782b00a",
+      "bytes": 16769865
+    }
+  ]
+}

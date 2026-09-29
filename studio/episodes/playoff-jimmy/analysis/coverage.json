@@ -1,0 +1,30 @@
+{
+  "common_positive_exposure_seasons": [
+    "2018-19",
+    "2019-20",
+    "2022-23"
+  ],
+  "game_level_coverage": "not_acquired",
+  "guide_pages_visually_inspected": true,
+  "independent_secondary_check": "pending",
+  "missing_source_seasons": {
+    "butler": [
+      "2023-24",
+      "2024-25",
+      "2025-26"
+    ],
+    "murray": [
+      "2025-26"
+    ]
+  },
+  "note": "Missing later seasons must not be interpreted as absent participation. No career-wide verdict is cleared.",
+  "planned_window": [
+    "2016-17",
+    "2025-26"
+  ],
+  "source_last_season": {
+    "butler": "2022-23",
+    "murray": "2024-25"
+  },
+  "status": "incomplete_for_planned_scope"
+}

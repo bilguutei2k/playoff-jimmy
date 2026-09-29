@@ -1,0 +1,146 @@
+{
+  "checks": [
+    {
+      "name": "initial_packet_created",
+      "status": "passed",
+      "evidence": [
+        "EPISODE.md",
+        "METHOD.md"
+      ],
+      "scope": "Planning only; no statistical findings verified."
+    },
+    {
+      "name": "episode_scaffolder_smoke",
+      "status": "passed",
+      "evidence": [
+        "../../README.md"
+      ],
+      "scope": "Creation, status, overwrite protection and path validation."
+    },
+    {
+      "name": "pilot_regression_tests",
+      "status": "passed",
+      "command": "python3 -m unittest discover -s tests -v",
+      "scope": "Seven tests; not an independent statistical review."
+    },
+    {
+      "name": "pilot_reproducibility",
+      "status": "passed",
+      "command": "python3 studio/episodes/playoff-jimmy/analysis/analyze.py",
+      "scope": "All four output files had identical SHA-256 values on rerun."
+    },
+    {
+      "name": "complete_planned_coverage",
+      "status": "not_passed",
+      "evidence": [
+        "analysis/coverage.json"
+      ]
+    },
+    {
+      "name": "claude_partner_review",
+      "status": "blocked",
+      "reason": "Automatic approval review rejected transmission of the named local files to Anthropic; explicit payload authorization required before retry."
+    }
+  ],
+  "episode_id": "playoff-jimmy",
+  "failed_attempts": [
+    {
+      "task": "PJ-02",
+      "approach": "Public stats.nba.com playercareerstats for Butler and Murray",
+      "result": "Both timed out after 12 seconds on 2026-09-29 UTC",
+      "evidence": "data/probes/20260929T004402Z/manifest.json",
+      "next_approach": "Probe official NBA player HTML snapshots; if insufficient, use official team media guides and document any historical coverage limits."
+    }
+  ],
+  "handoff": "Complete the documented later-season coverage gaps and 2023 game-level acquisition; the existing analysis pilot can already be reproduced.",
+  "open_decisions": [
+    "Audience and final narration language (research can proceed).",
+    "User Opus examples and final visual direction.",
+    "Narration source (no paid audio service authorized).",
+    "Final overnight stop time and task budget.",
+    "Authorize the named episode files for one read-only Claude/Anthropic review; automatic approval review blocked the attempted live handoff."
+  ],
+  "schema_version": 1,
+  "stage": "acquire",
+  "status": "in_progress",
+  "tasks": [
+    {
+      "id": "PJ-01",
+      "title": "Define the initial research question and methods",
+      "status": "done",
+      "depends_on": [],
+      "artifact": "EPISODE.md; METHOD.md",
+      "acceptance": "Question, estimand, scope, exclusions and limits are written. This is a working specification; methods partner review is pending."
+    },
+    {
+      "id": "PJ-02",
+      "title": "Test source access and audit the paired-season coverage",
+      "status": "active",
+      "depends_on": [
+        "PJ-01"
+      ],
+      "artifact": "data/probes/; data/manifest.json; analysis/coverage.json",
+      "acceptance": "Accessible sources and exact season/field coverage are documented; gaps are explicitly distinguished from absent participation."
+    },
+    {
+      "id": "PJ-03",
+      "title": "Implement reproducible paired-season calculations and checks",
+      "status": "pending",
+      "depends_on": [
+        "PJ-02"
+      ],
+      "artifact": "analysis/analyze.py; analysis/results.json; analysis/qa.json",
+      "acceptance": "Totals reconcile; complete paired tables and decomposition regenerate from frozen inputs; edge cases pass.",
+      "progress": "Working pilot: 39 source rows, 12 pairs and seven passing regression tests. Full planned coverage and analysis views remain pending."
+    },
+    {
+      "id": "PJ-04",
+      "title": "Obtain independent methods and result review",
+      "status": "pending",
+      "depends_on": [
+        "PJ-03"
+      ],
+      "artifact": "analysis/review.md; CLAIMS.json",
+      "acceptance": "A partner checks inputs and calculations; objections are resolved or retained as explicit limits; only supported claims become verified."
+    },
+    {
+      "id": "PJ-05",
+      "title": "Review user examples and establish visual direction",
+      "status": "blocked",
+      "depends_on": [],
+      "artifact": "../../DIRECTION.md; renders/reference/",
+      "acceptance": "Specific visual rules are selected from examples and a readable representative frame."
+    },
+    {
+      "id": "PJ-06",
+      "title": "Write the evidence-linked narrative and short-form outlines",
+      "status": "pending",
+      "depends_on": [
+        "PJ-04"
+      ],
+      "artifact": "STORY.md",
+      "acceptance": "Every factual scene maps to a verified claim; proposed shorts remain valid in isolation."
+    },
+    {
+      "id": "PJ-07",
+      "title": "Render and inspect a representative 30\u201345 second passage",
+      "status": "pending",
+      "depends_on": [
+        "PJ-05",
+        "PJ-06"
+      ],
+      "artifact": "renders/proof/; renders/qa.json",
+      "acceptance": "Numbers match results, labels are legible, frames are inspected, and voice/timing status is accurately labeled."
+    },
+    {
+      "id": "PJ-08",
+      "title": "Prepare the next production batch and morning handoff",
+      "status": "pending",
+      "depends_on": [
+        "PJ-07"
+      ],
+      "artifact": "HANDOFF.md; STATE.json",
+      "acceptance": "Links to results/preview, check evidence, limitations and exact next tasks are recorded."
+    }
+  ]
+}
