@@ -1,0 +1,58 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S04 what normally happens</title></head><body><script>
+// S04 (Paper): every eligible player-season as one dot; PJ-C001 median, share declined, count.
+const C = 'benchmark_context.100.';
+const median = FT.value(C + 'median_delta_per_36'), share = FT.value(C + 'share_below_zero'), n = FT.value(C + 'n_player_seasons');
+const deltas = FT.series('league_delta_per_36_100');
+if (deltas.length !== n) throw new Error('Series length does not match PJ-C001 count');
+FT.scene({ duration: 8, background: 'paper', formats: { landscape: (f) => {
+  const LO = -8, HI = 6, X0 = 160, X1 = 1760, BASE = 840, PITCH = 9, DOT = 8;
+  const x = (v) => X0 + (v - LO) / (HI - LO) * (X1 - X0);
+  const kicker = FT.kicker(f, 'What normally happens · per 36 minutes', { x: 96, y: 96, size: 30 });
+  const claim = FT.claim(f, ['Most players slip in the playoffs'], { x: 96, y: 150, size: 112 });
+  const axis = FT.el(f, '', { left: X0 + 'px', top: BASE + 'px', width: (X1 - X0) + 'px', height: '2px', background: 'var(--ink)' });
+  const ticks = [-6, -4, -2, 0, 2, 4].map((v) => FT.el(f, 'tick', { left: (x(v) - 60) + 'px', top: (BASE + 14) + 'px', width: '120px',
+    textAlign: 'center', fontSize: '26px' }, FT.fmt(v, 0, true)));
+  const ends = [FT.el(f, 'tick', { left: X0 + 'px', top: (BASE + 18) + 'px', fontSize: '26px' }, '← WORSE'),
+                FT.el(f, 'tick', { left: (X1 - 200) + 'px', width: '200px', textAlign: 'right', top: (BASE + 18) + 'px', fontSize: '26px' }, 'BETTER →')];
+  // Wilkinson dot plot: bins one dot-pitch wide, stacked up from the axis; nothing rounded away.
+  const width = PITCH / (X1 - X0) * (HI - LO), stacks = {};
+  const below = deltas.filter((v) => v < LO).length, above = deltas.filter((v) => v > HI).length;
+  let seed = 7;
+  const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const dots = deltas.filter((v) => v >= LO && v <= HI).map((v) => {
+    const bin = Math.min(Math.floor((v - LO) / width), Math.floor((HI - LO) / width) - 1);
+    const j = (stacks[bin] = (stacks[bin] || 0) + 1) - 1;
+    const e = FT.el(f, 'dot', { left: (X0 + bin * PITCH + (PITCH - DOT) / 2) + 'px', top: (BASE - 6 - DOT - j * PITCH) + 'px',
+      width: DOT + 'px', height: DOT + 'px', background: 'var(--field)' });
+    e.start = 1.0 + rand() * 0.9;
+    return e;
+  });
+  const edges = [FT.el(f, 'tick', { left: X0 + 'px', top: (BASE - 96) + 'px', fontSize: '26px' }, '◂ ' + below + ' more'),
+                 FT.el(f, 'tick', { left: (X1 - 300) + 'px', width: '300px', textAlign: 'right', top: (BASE - 96) + 'px', fontSize: '26px' }, above + ' more ▸')];
+  const mline = FT.el(f, '', { left: (x(median) - 2) + 'px', top: '440px', width: '4px', height: (BASE - 440) + 'px', background: 'var(--ink)', transformOrigin: 'bottom' });
+  const mlabel = FT.el(f, 'label', { left: (x(median) - 520) + 'px', width: '500px', textAlign: 'right', top: '400px', fontSize: '30px',
+    fontWeight: '600', color: 'var(--ink)' }, 'Typical player ' + FT.fmt(median, 1));
+  const chip = FT.el(f, 'claim chip', { left: '250px', top: '470px', fontSize: '80px', padding: '10px 20px' },
+    Math.round(share * 100) + '% declined');
+  FT.source(f, [['SOURCE', 'Basketball-Reference · ' + n.toLocaleString('en-US') + ' player-seasons, 2011–12 to 2025–26'],
+                ['SCOPE', 'at least 1,500 regular-season and 100 playoff minutes · one dot per player-season']],
+            { x: 96, y: 903, width: 1728, size: 24 });
+  return (t) => {
+    FT.rise(kicker, t, 0);
+    claim.at(t, 0.2);
+    const pa = FT.p(t, 0.7, 0.5);
+    axis.style.transform = 'scaleX(' + pa + ')'; axis.style.transformOrigin = 'left';
+    ticks.concat(ends).forEach((e) => FT.rise(e, t, 0.8, 6));
+    dots.forEach((e) => { const p = FT.p(t, e.start, 0.3); e.style.opacity = p; e.style.transform = 'translateY(' + (1 - p) * -30 + 'px)'; });
+    edges.forEach((e) => FT.rise(e, t, 1.9, 6));
+    mline.style.transform = 'scaleY(' + FT.p(t, 2.0, 0.5) + ')';
+    FT.rise(mlabel, t, 2.2);
+    const pk = FT.p(t, 2.6, 0.5);
+    chip.style.opacity = Math.min(1, pk * 2);
+    chip.style.transform = 'rotate(' + (-3 - 3 * Math.sin(Math.PI * pk)) + 'deg) scale(' + FT.lerp(0.85, 1, pk) + ')';
+  };
+} } });
+</script></body></html>

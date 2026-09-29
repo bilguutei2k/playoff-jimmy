@@ -106,6 +106,15 @@
       "name": "runner_codex_smoke",
       "scope": "2026-09-28: the runner launched Codex correctly; Codex refused with a usage limit until 10:37 PM. The runner now stops a run on usage limits and reports the reset time (tested).",
       "status": "passed_with_finding"
+    },
+    {
+      "command": "python3 -B -m unittest tests.test_render",
+      "evidence": [
+        "studio/render/README.md"
+      ],
+      "name": "render_pipeline",
+      "scope": "Every scene renders from data.js with no page errors; the S02 motion test encodes 210 frames at 30 fps.",
+      "status": "passed"
     }
   ],
   "decisions": [
@@ -253,7 +262,7 @@
       "artifact": "../../DIRECTION.md; renders/reference/",
       "depends_on": [],
       "id": "PJ-05",
-      "progress": "Design system v1 adopted 2026-09-28 (studio/design-system/). Next: two or three stills of real scenes with verified numbers, rendered by the new frame pipeline.",
+      "progress": "Design system v1 adopted. Stills rendered 2026-09-28 from locked data: title, S02 before \u2192 after, S04 league dot histogram, Short B (vertical); inspected, layout fixes applied. Waiting for the user's look at the stills and for the rectangle package.",
       "status": "active",
       "title": "Set up the design system and establish visual direction"
     },
@@ -276,6 +285,7 @@
         "PJ-06"
       ],
       "id": "PJ-07",
+      "progress": "Pipeline done 2026-09-28 (studio/render/): S02 rendered as a 7.0 s, 30 fps H.264 motion test and inspected. S03 waits for the rectangle design package.",
       "status": "pending",
       "title": "Silent proof render of one 30-45 second scene"
     },

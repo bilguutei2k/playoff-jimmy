@@ -1,0 +1,51 @@
+/* "The Fairer Test" design system v1 as CSS (studio/design-system/README.md).
+   Frames are absolutely positioned at native pixel size, like the reference. */
+
+:root {
+  --player-a: #E4471F;
+  --player-a-text: #B8360E;
+  --player-b: #3350D6;
+  --field: #A79D8C;
+  --field-text: #675F53;
+  --accent: #5BE0A0;
+  --paper: #F3EBDD;
+  --paper-2: #E6DAC4;
+  --rule-light: #C9BCA4;
+  --ink: #1C1916;
+  --night-line: #2A2622;
+  --display: 'Big Shoulders Display', sans-serif;
+  --serif: 'Source Serif 4', serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+html, body { margin: 0; padding: 0; background: #000; }
+body { overflow: hidden; }
+.frame { position: relative; overflow: hidden; }
+.frame.paper { background: var(--paper); color: var(--ink); }
+.frame.night { background: var(--ink); color: var(--paper); }
+.frame > * { position: absolute; }
+
+.kicker { font-family: var(--mono); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.claim { font-family: var(--display); font-weight: 900; text-transform: uppercase; letter-spacing: -0.01em; }
+.claim .line { display: block; overflow: hidden; }
+.claim .line > span { display: inline-block; }
+.caption { font-family: var(--serif); font-weight: 500; line-height: 1.25; }
+.label { font-family: var(--mono); font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; }
+.tick { font-family: var(--mono); font-weight: 400; color: var(--field-text); font-variant-numeric: tabular-nums; }
+.number { font-family: var(--mono); font-weight: 600; line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.chip { background: var(--accent); color: var(--ink); line-height: 1; }
+.highlight { background: var(--accent); color: var(--ink); padding: 0 0.12em; }
+.tag { font-family: var(--mono); font-weight: 700; background: var(--ink); color: var(--paper); }
+.source { font-family: var(--mono); font-weight: 400; color: var(--field-text); line-height: 1.35; border-top: 2px solid var(--ink); }
+.source b { font-weight: 600; color: var(--ink); }
+.night .source { border-top-color: var(--paper); }
+.night .source b { color: var(--paper); }
+.dot { border-radius: 50%; }
+
+.grain { inset: 0; pointer-events: none; }
+.paper .grain { opacity: 0.4; mix-blend-mode: multiply;
+  background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%22.8%22 numOctaves=%222%22 stitchTiles=%22stitch%22/><feColorMatrix values=%220 0 0 0 .1  0 0 0 0 .08  0 0 0 0 .06  0 0 0 .45 0%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>'); }
+.night .grain { opacity: 0.35; mix-blend-mode: screen;
+  background-image: url('data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22300%22 height=%22300%22><filter id=%22n%22><feTurbulence type=%22fractalNoise%22 baseFrequency=%22.8%22 numOctaves=%222%22 stitchTiles=%22stitch%22/><feColorMatrix values=%220 0 0 0 1  0 0 0 0 .95  0 0 0 0 .9  0 0 0 .35 0%22/></filter><rect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23n)%22/></svg>'); }
+
+.safe { pointer-events: none; border: 3px dashed var(--player-b); }

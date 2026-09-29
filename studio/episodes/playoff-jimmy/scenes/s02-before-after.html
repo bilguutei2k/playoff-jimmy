@@ -1,0 +1,38 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S02 before and after</title></head><body><script>
+// S02 the obvious answer (Paper). Numbers: PJ-C002 (points per game), PJ-C003 (the +4.0 rise).
+const B = 'subjects.butler[season=2022-23].measures.';
+const before = FT.value(B + 'regular.ppg'), after = FT.value(B + 'playoffs.ppg'), rise = FT.value(B + 'delta_ppg');
+FT.scene({ duration: 7, background: 'paper', formats: { landscape: (f) => {
+  const kicker = FT.kicker(f, 'The obvious answer', { x: 96, y: 96, size: 30 });
+  const claim = FT.claim(f, ['He scores more in the playoffs'], { x: 96, y: 150, size: 112 });
+  const lab1 = FT.el(f, 'label', { left: '96px', top: '380px', fontSize: '30px', color: 'var(--field-text)' }, '2022–23 regular season');
+  const n1 = FT.el(f, 'number', { left: '84px', top: '430px', fontSize: '320px', color: 'var(--field)' }, FT.fmt(before, 1));
+  const arrow = FT.el(f, 'claim', { left: '840px', top: '520px', fontSize: '180px', lineHeight: '1', overflow: 'hidden', width: '200px' }, '<span style="display:inline-block">→</span>');
+  const lab2 = FT.el(f, 'label', { left: '1060px', top: '380px', fontSize: '30px', color: 'var(--player-a-text)' }, '2022–23 playoffs');
+  const n2 = FT.el(f, 'number', { left: '1048px', top: '430px', fontSize: '320px', color: 'var(--player-a)' });
+  const chip = FT.el(f, 'number chip', { left: '1560px', top: '330px', fontSize: '64px', padding: '6px 16px', letterSpacing: '0' }, FT.fmt(rise, 1, true));
+  const unit = FT.el(f, 'label', { left: '96px', top: '790px', fontSize: '30px', color: 'var(--ink)' }, 'Points per game · Jimmy Butler');
+  const but = FT.el(f, '', { left: '1060px', top: '770px', width: '760px', display: 'flex', alignItems: 'flex-start', gap: '18px' },
+    '<div class="tag" style="flex:none;font-size:28px;padding:6px 12px;margin-top:6px">BUT</div><div class="caption" style="font-size:44px;line-height:1.2">he\'s also on the floor <em>a lot longer</em>.</div>');
+  FT.source(f, [['SOURCE', 'Basketball-Reference · 2022–23 regular season vs playoffs · per game, play-in excluded']], { x: 96, y: 930, width: 1728, size: 24 });
+  return (t) => {
+    FT.rise(kicker, t, 0);
+    claim.at(t, 0.2);
+    FT.rise(lab1, t, 0.7); FT.rise(n1, t, 0.7, 24);
+    const pa = FT.p(t, 1.2, 0.4);
+    arrow.firstChild.style.transform = 'translateX(' + (pa - 1) * 110 + '%)';
+    FT.rise(lab2, t, 1.4);
+    const pc = FT.p(t, 1.5, 0.7);
+    n2.style.opacity = t >= 1.5 ? 1 : 0;
+    n2.textContent = FT.fmt(FT.lerp(before, after, pc), 1);   // count up from the previous value, never from 0
+    FT.rise(unit, t, 0.7);
+    const pk = FT.p(t, 2.6, 0.5);
+    chip.style.opacity = Math.min(1, pk * 2);
+    chip.style.transform = 'rotate(' + (-4 - 3 * Math.sin(Math.PI * pk)) + 'deg) scale(' + FT.lerp(0.85, 1, pk) + ')';
+    FT.cut(but, t, 3.4);
+  };
+} } });
+</script></body></html>
