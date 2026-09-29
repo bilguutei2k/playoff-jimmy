@@ -46,6 +46,15 @@
       "name": "claude_partner_review_1",
       "scope": "Pilot and plan review with independent re-parse and recomputation. Not the methods gate for analysis v2.",
       "status": "passed"
+    },
+    {
+      "command": "python3 analysis/fetch_bbref.py totals; python3 analysis/fetch_bbref.py gamelogs",
+      "evidence": [
+        "data/bbref-manifest.json"
+      ],
+      "name": "bbref_snapshot_integrity",
+      "scope": "33 pages, HTTP 200, stored bytes match manifest SHA-256, required tables present. Not a coverage or reconciliation check.",
+      "status": "passed"
     }
   ],
   "decisions": [
@@ -113,6 +122,7 @@
         "PJ-01"
       ],
       "id": "PJ-02",
+      "progress": "Snapshot done 2026-09-28: 15 BBRef league totals pages and 18 game logs, hashes verified (data/bbref-manifest.json). Next: parse, reconcile against the guides, compute exposure classes.",
       "status": "active",
       "title": "Snapshot sources, reconcile guides against Basketball-Reference, compute coverage"
     },

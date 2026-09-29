@@ -1,0 +1,335 @@
+{
+  "pages": [
+    {
+      "bytes": 324218,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2012",
+      "path": "data/raw/bbref/gamelogs/butler-2012.html.gz",
+      "retrieved_at": "2026-09-29T01:37:48.088641+00:00",
+      "sha256": "989cfe38af585c147a34ed1fd8a7e9315b6ac8507b54519e1786f76f6629e8d5",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2012"
+    },
+    {
+      "bytes": 430580,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2013",
+      "path": "data/raw/bbref/gamelogs/butler-2013.html.gz",
+      "retrieved_at": "2026-09-29T01:38:19.136439+00:00",
+      "sha256": "c2da46b7f66687d43015c54f88422f3893ddf7f6fd4d580afd344f1797c31333",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2013"
+    },
+    {
+      "bytes": 389740,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2014",
+      "path": "data/raw/bbref/gamelogs/butler-2014.html.gz",
+      "retrieved_at": "2026-09-29T01:38:27.327113+00:00",
+      "sha256": "7e018ec3f88d16befb59c85b584c06b98d999c10598a6a0b6508d5ee184ae7f6",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2014"
+    },
+    {
+      "bytes": 405234,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2015",
+      "path": "data/raw/bbref/gamelogs/butler-2015.html.gz",
+      "retrieved_at": "2026-09-29T01:38:35.665584+00:00",
+      "sha256": "b9bfc1a724a65048182a44998c9fca5097350b5fbd330b0d93d4f2114a39198f",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2015"
+    },
+    {
+      "bytes": 406493,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2017",
+      "path": "data/raw/bbref/gamelogs/butler-2017.html.gz",
+      "retrieved_at": "2026-09-29T01:38:44.030932+00:00",
+      "sha256": "e40a74e4078209da43ca33b9cd957c5c9a49cfbe88cca48abf8fd7154e3bd9bf",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2017"
+    },
+    {
+      "bytes": 377480,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2018",
+      "path": "data/raw/bbref/gamelogs/butler-2018.html.gz",
+      "retrieved_at": "2026-09-29T01:38:51.349155+00:00",
+      "sha256": "f291d8bfe44e075b96e77dee5157a7b039662b0e3cf1cedd17c47d8b45793beb",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2018"
+    },
+    {
+      "bytes": 404470,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2019",
+      "path": "data/raw/bbref/gamelogs/butler-2019.html.gz",
+      "retrieved_at": "2026-09-29T01:38:58.654694+00:00",
+      "sha256": "b696afe9ec8094729ff3d062be19f7d9e1b94a08afb604b987872c44cb850340",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2019"
+    },
+    {
+      "bytes": 411739,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2020",
+      "path": "data/raw/bbref/gamelogs/butler-2020.html.gz",
+      "retrieved_at": "2026-09-29T01:39:14.437358+00:00",
+      "sha256": "47497f8fb7d46b6b005b992518633572027e1dc95942d2283cecd5476244e72e",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2020"
+    },
+    {
+      "bytes": 352288,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2021",
+      "path": "data/raw/bbref/gamelogs/butler-2021.html.gz",
+      "retrieved_at": "2026-09-29T01:39:29.866250+00:00",
+      "sha256": "b155d23e61a8b6c4303380155ca46df409d1f2ba5ca4fc8fe70badaf507f060c",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2021"
+    },
+    {
+      "bytes": 405115,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2022",
+      "path": "data/raw/bbref/gamelogs/butler-2022.html.gz",
+      "retrieved_at": "2026-09-29T01:39:37.156745+00:00",
+      "sha256": "abc892e8893c29301a5a90dfacd83503edc6e59a8b820e33c5372118db9654dc",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2022"
+    },
+    {
+      "bytes": 430884,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2023",
+      "path": "data/raw/bbref/gamelogs/butler-2023.html.gz",
+      "retrieved_at": "2026-09-29T01:39:44.574734+00:00",
+      "sha256": "1aae68f643816dc2c8a153c719e174af7595419630593f2923cdee906598340d",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2023"
+    },
+    {
+      "bytes": 386671,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/butler-2025",
+      "path": "data/raw/bbref/gamelogs/butler-2025.html.gz",
+      "retrieved_at": "2026-09-29T01:40:08.544644+00:00",
+      "sha256": "d0f08692b0ee127b1c4a755554fc880ec218e71dab1d6a0b4b917935b179f930",
+      "url": "https://www.basketball-reference.com/players/b/butleji01/gamelog/2025"
+    },
+    {
+      "bytes": 416807,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/murray-2019",
+      "path": "data/raw/bbref/gamelogs/murray-2019.html.gz",
+      "retrieved_at": "2026-09-29T01:39:06.119118+00:00",
+      "sha256": "293be7189fdaa8486279d4b8e9f58d0fda3a59f972e554bd6255833913cd46f6",
+      "url": "https://www.basketball-reference.com/players/m/murraja01/gamelog/2019"
+    },
+    {
+      "bytes": 398296,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/murray-2020",
+      "path": "data/raw/bbref/gamelogs/murray-2020.html.gz",
+      "retrieved_at": "2026-09-29T01:39:21.729903+00:00",
+      "sha256": "f1ff65f2c7c7c747c30240d84cd5055a97458bf352d92cbe046f8aa63532c293",
+      "url": "https://www.basketball-reference.com/players/m/murraja01/gamelog/2020"
+    },
+    {
+      "bytes": 418437,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/murray-2023",
+      "path": "data/raw/bbref/gamelogs/murray-2023.html.gz",
+      "retrieved_at": "2026-09-29T01:39:52.080106+00:00",
+      "sha256": "1876fd16efc119b0f670ceb6b9bd3caac57491d6b2a94023d8223e9f67474994",
+      "url": "https://www.basketball-reference.com/players/m/murraja01/gamelog/2023"
+    },
+    {
+      "bytes": 387080,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/murray-2024",
+      "path": "data/raw/bbref/gamelogs/murray-2024.html.gz",
+      "retrieved_at": "2026-09-29T01:40:00.311481+00:00",
+      "sha256": "f9693ee718ae4818110220eb55c58b3c8ca6bd330c56d38cc3204551c58db74b",
+      "url": "https://www.basketball-reference.com/players/m/murraja01/gamelog/2024"
+    },
+    {
+      "bytes": 404473,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/murray-2025",
+      "path": "data/raw/bbref/gamelogs/murray-2025.html.gz",
+      "retrieved_at": "2026-09-29T01:40:16.923886+00:00",
+      "sha256": "e291f99de73984024db7880a979b627b19cb946b5f33782e24d18b423f98b87c",
+      "url": "https://www.basketball-reference.com/players/m/murraja01/gamelog/2025"
+    },
+    {
+      "bytes": 396436,
+      "content_type": "text/html; charset=UTF-8",
+      "http_status": 200,
+      "id": "gamelogs/murray-2026",
+      "path": "data/raw/bbref/gamelogs/murray-2026.html.gz",
+      "retrieved_at": "2026-09-29T01:40:25.192282+00:00",
+      "sha256": "ed6a45043c7763105ff795a63772e748ec64eb7b8db0865edb2f5fdc61b64df2",
+      "url": "https://www.basketball-reference.com/players/m/murraja01/gamelog/2026"
+    },
+    {
+      "bytes": 1492885,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2012",
+      "path": "data/raw/bbref/totals/season-2012.html.gz",
+      "retrieved_at": "2026-09-29T01:31:50.254954+00:00",
+      "sha256": "a0464faecfd831426108382cb9c291ca7c1978d5c89f0b93edd1da5b02fb51a4",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2012_totals.html"
+    },
+    {
+      "bytes": 1541346,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2013",
+      "path": "data/raw/bbref/totals/season-2013.html.gz",
+      "retrieved_at": "2026-09-29T01:32:31.946411+00:00",
+      "sha256": "4dd66160652bde5a772f01c33802d0cd084c26dbc7a614b3cba27acadcabfa96",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2013_totals.html"
+    },
+    {
+      "bytes": 1599324,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2014",
+      "path": "data/raw/bbref/totals/season-2014.html.gz",
+      "retrieved_at": "2026-09-29T01:32:39.433118+00:00",
+      "sha256": "220fb4e861c47f047d2e9c88b625ec6bec55536241a39bfe2edb617920e4a190",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2014_totals.html"
+    },
+    {
+      "bytes": 1679162,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2015",
+      "path": "data/raw/bbref/totals/season-2015.html.gz",
+      "retrieved_at": "2026-09-29T01:32:46.802826+00:00",
+      "sha256": "1f5ffbdfa2030f761a0a375b1a6241c3ba4af5804bfe7ec2c81271502a27d605",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2015_totals.html"
+    },
+    {
+      "bytes": 1562147,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2016",
+      "path": "data/raw/bbref/totals/season-2016.html.gz",
+      "retrieved_at": "2026-09-29T01:32:54.684243+00:00",
+      "sha256": "56ebabef6725afd90d7ab5b3f24c48607af962362632577d0fab3e26619ffb55",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2016_totals.html"
+    },
+    {
+      "bytes": 1592274,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2017",
+      "path": "data/raw/bbref/totals/season-2017.html.gz",
+      "retrieved_at": "2026-09-29T01:33:02.194907+00:00",
+      "sha256": "178e1c99b75c740598d20599755fceffd1834a91e929816dac0f3bed808c4a54",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2017_totals.html"
+    },
+    {
+      "bytes": 1704424,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2018",
+      "path": "data/raw/bbref/totals/season-2018.html.gz",
+      "retrieved_at": "2026-09-29T01:33:09.615687+00:00",
+      "sha256": "0a511d0f87aa96bcd1b57dbc74985facc47d76f33291531b430ceb8a99821002",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2018_totals.html"
+    },
+    {
+      "bytes": 1788121,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2019",
+      "path": "data/raw/bbref/totals/season-2019.html.gz",
+      "retrieved_at": "2026-09-29T01:33:17.074103+00:00",
+      "sha256": "451ee4455958b004b7457ed1a58ee4b56ec376e24d2886a8e97b358f1946f838",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2019_totals.html"
+    },
+    {
+      "bytes": 1693073,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2020",
+      "path": "data/raw/bbref/totals/season-2020.html.gz",
+      "retrieved_at": "2026-09-29T01:33:24.683739+00:00",
+      "sha256": "59b5c49b1966414f1b1d37ec89ee5f99188869a5d0863b3f376ae3e1961598ea",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2020_totals.html"
+    },
+    {
+      "bytes": 1829033,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2021",
+      "path": "data/raw/bbref/totals/season-2021.html.gz",
+      "retrieved_at": "2026-09-29T01:33:32.137254+00:00",
+      "sha256": "daca2ef3de02d5e59b6542560758914fef3f818287a891030dd28907032bb120",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2021_totals.html"
+    },
+    {
+      "bytes": 1979028,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2022",
+      "path": "data/raw/bbref/totals/season-2022.html.gz",
+      "retrieved_at": "2026-09-29T01:33:39.732757+00:00",
+      "sha256": "3e20d05389c919f4d3e239ac4db0d918d7faf46b87089d255071c67fcbbc4fcc",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2022_totals.html"
+    },
+    {
+      "bytes": 1744647,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2023",
+      "path": "data/raw/bbref/totals/season-2023.html.gz",
+      "retrieved_at": "2026-09-29T01:33:47.386299+00:00",
+      "sha256": "a5dae0b3fecc718ba2db19df69d7cec65c0494003712648ad3bf465cbfb4bbb3",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2023_totals.html"
+    },
+    {
+      "bytes": 1838219,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2024",
+      "path": "data/raw/bbref/totals/season-2024.html.gz",
+      "retrieved_at": "2026-09-29T01:33:54.849534+00:00",
+      "sha256": "27d6d4a8bc6f99d8d968ba7eab59ed306a333ca42b4743d8c164c06d89c85a8f",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2024_totals.html"
+    },
+    {
+      "bytes": 1847985,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2025",
+      "path": "data/raw/bbref/totals/season-2025.html.gz",
+      "retrieved_at": "2026-09-29T01:34:02.445197+00:00",
+      "sha256": "35244d6da917df6f8d68ded9ca93089fe0b1065573da645d46cc1ec12ced3139",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2025_totals.html"
+    },
+    {
+      "bytes": 1863258,
+      "content_type": "text/html",
+      "http_status": 200,
+      "id": "totals/season-2026",
+      "path": "data/raw/bbref/totals/season-2026.html.gz",
+      "retrieved_at": "2026-09-29T01:34:09.904743+00:00",
+      "sha256": "948766ab3ff945d2ac58e2f8afc9a7920e747266a28959efbb829f7ba820e068",
+      "url": "https://www.basketball-reference.com/leagues/NBA_2026_totals.html"
+    }
+  ],
+  "source": "Basketball-Reference"
+}
