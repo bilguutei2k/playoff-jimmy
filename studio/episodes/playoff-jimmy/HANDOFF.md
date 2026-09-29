@@ -5,7 +5,7 @@ decisions and failed attempts are in `STATE.json`; rules are in `METHOD.md`.
 
 ## Where we are
 
-Stage: tell. Research is locked at tag `research-lock-v1`: 11 verified claims
+Stage: tell. Research is locked at tag `research-lock-v2`: 13 verified claims
 in `CLAIMS.json` (checked by `analysis/verify_claims.py`), methods review in
 `analysis/review.md`. Storyline chosen: "Real, but not how you think"
 (`STORY.md`). Any change to data or method now needs a recorded amendment,
@@ -13,8 +13,8 @@ a rerun, re-verification and a new lock tag.
 
 ## Next actions
 
-1. User: review script draft v1 in `STORY.md` (8 scenes, about 5 minutes of
-   narration, 4 shorts). Changes go back through
+1. User: review script draft v2 in `STORY.md` (8 scenes, about 5 minutes of
+   narration, shorts A, B and D; C held). Changes go back through
    `python3 studio/tools/story_check.py studio/episodes/playoff-jimmy`.
 2. PJ-05: design system in Claude Design using `studio/design-prompt.md`,
    then two or three stills of real scenes.
