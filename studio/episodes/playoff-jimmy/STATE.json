@@ -102,6 +102,16 @@
       "by": "user",
       "date": "2026-09-28",
       "decision": "Finish this episode in daytime sessions where possible. Overnight runs only when needed, using the minimal sequential runner, not a general supervisor."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "The Raphinha reel was a sample only; nothing in it is binding. The design system will be set up separately (possibly in Claude Design) before production starts."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Narrated videos are preferred for both long-form and shorts, for engagement; music-only shorts remain an option."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -123,8 +133,8 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
-    "Visual direction: waiting for the user's Opus examples (blocks PJ-05).",
-    "Narration: the user's own voice, or a captions-only first version. Needed before final timing, not before the proof render.",
+    "Design system: set up separately, possibly in Claude Design, before the PJ-05 stills. The sample reel's source can be retrieved from its Claude chat if a render path is needed.",
+    "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
     "Approval to install ffmpeg (needed for PJ-07).",
     "Audience and final narration language (does not block research)."
   ],
@@ -173,12 +183,12 @@
       "title": "Methods gate and research lock"
     },
     {
-      "acceptance": "Two or three stills of real scenes with real numbers; chosen rules recorded in DIRECTION.md.",
+      "acceptance": "Design system chosen separately (possibly in Claude Design); two or three stills of real scenes with real numbers; rules recorded in DIRECTION.md.",
       "artifact": "../../DIRECTION.md; renders/reference/",
       "depends_on": [],
       "id": "PJ-05",
       "status": "blocked",
-      "title": "Establish visual direction from the user's examples"
+      "title": "Set up the design system and establish visual direction"
     },
     {
       "acceptance": "Every factual line maps to a verified claim; script read-aloud timing recorded; each short stands alone with its scope caption.",
@@ -202,14 +212,14 @@
       "title": "Silent proof render of one 30-45 second scene"
     },
     {
-      "acceptance": "Narration source chosen; scene durations and render order listed; exact next production tasks recorded.",
+      "acceptance": "Narrator voice chosen and recorded to the locked script; scene durations and render order listed; exact next production tasks recorded.",
       "artifact": "HANDOFF.md; STATE.json",
       "depends_on": [
         "PJ-07"
       ],
       "id": "PJ-08",
       "status": "pending",
-      "title": "Narration decision and full production plan"
+      "title": "Narration and full production plan"
     }
   ]
 }

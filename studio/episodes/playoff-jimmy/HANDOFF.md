@@ -15,13 +15,16 @@ no claim is verified and the storyline is not chosen.
 1. PJ-04 (daytime, with Claude): review the packet against `METHOD.md`,
    resolve objections, write 5–10 claims in `CLAIMS.json`, choose the
    storyline, tag the research lock.
-2. PJ-05 when the Opus examples arrive: two or three stills of real scenes.
+2. PJ-05 once the design system exists: two or three stills of real scenes.
 3. PJ-06 after the lock: scenes, script draft and short-form outlines.
 
 ## Waiting on the user
 
-- Opus examples for the visual direction (blocks PJ-05).
-- Narration choice and approval to install ffmpeg (needed by PJ-07).
+- PJ-04 review session (about an hour).
+- Design system, set up separately (possibly in Claude Design) before the
+  PJ-05 stills. The Raphinha reel was a sample only.
+- Narrator voice (own voice or a free local AI voice) before PJ-08; approval
+  to install ffmpeg before PJ-07.
 
 ## Commands
 
