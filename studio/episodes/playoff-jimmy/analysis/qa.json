@@ -1,13 +1,54 @@
 {
-  "decomposition_identity": "passed",
-  "full_coverage": "not_passed",
-  "independent_review": "pending",
-  "pair_count": 12,
-  "points_identity": "passed",
-  "row_count": 39,
-  "shooting_constraints": "passed",
-  "source_hashes": "passed",
-  "status": "arithmetic_checks_passed_only",
-  "text_hashes": "passed",
-  "unique_player_season_phase": "passed"
+  "all_data_checks_passed": true,
+  "checks": {
+    "bbref_hashes_and_integrity": {
+      "records": 11119,
+      "scope": "manifest hashes, one row per player, counts, shooting limits, points identity",
+      "status": "passed"
+    },
+    "bbref_traded_combined_rows": {
+      "checked": 1010,
+      "mismatched": [],
+      "status": "passed"
+    },
+    "decomposition_identity": {
+      "status": "passed"
+    },
+    "gamelogs_vs_totals": {
+      "checked": 36,
+      "max_minutes_gap": 0.5,
+      "status": "passed"
+    },
+    "guide_hashes_and_integrity": {
+      "rows": 39,
+      "scope": "source and text hashes, unique keys, counts, shooting limits, points identity, printed per-game column",
+      "status": "passed"
+    },
+    "guide_printed_totals": {
+      "discrepancies": [
+        {
+          "field": "minutes",
+          "phase": "playoffs",
+          "player": "butler",
+          "printed_total": 4512,
+          "sum_of_rows": 4511,
+          "within_tolerance": true
+        }
+      ],
+      "status": "passed"
+    },
+    "guide_vs_bbref": {
+      "counts": {
+        "both_no_games": 3,
+        "match": 35,
+        "minutes_within_1": 1
+      },
+      "status": "passed"
+    },
+    "independent_methods_review": {
+      "status": "pending",
+      "task": "PJ-04"
+    }
+  },
+  "status": "analysis_v2_pending_methods_review"
 }

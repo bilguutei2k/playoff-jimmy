@@ -1,30 +1,81 @@
 {
-  "common_positive_exposure_seasons": [
+  "bbref_seasons": [
+    "2011-12",
+    "2012-13",
+    "2013-14",
+    "2014-15",
+    "2015-16",
+    "2016-17",
+    "2017-18",
     "2018-19",
     "2019-20",
-    "2022-23"
-  ],
-  "game_level_coverage": "not_acquired",
-  "guide_pages_visually_inspected": true,
-  "independent_secondary_check": "pending",
-  "missing_source_seasons": {
-    "butler": [
-      "2023-24",
-      "2024-25",
-      "2025-26"
-    ],
-    "murray": [
-      "2025-26"
-    ]
-  },
-  "note": "Missing later seasons must not be interpreted as absent participation. No career-wide verdict is cleared.",
-  "planned_window": [
-    "2016-17",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24",
+    "2024-25",
     "2025-26"
   ],
-  "source_last_season": {
-    "butler": "2022-23",
-    "murray": "2024-25"
+  "exposure_classes": {
+    "butler": {
+      "2011-12": "paired",
+      "2012-13": "paired",
+      "2013-14": "paired",
+      "2014-15": "paired",
+      "2015-16": "team_missed_playoffs",
+      "2016-17": "paired",
+      "2017-18": "paired",
+      "2018-19": "paired",
+      "2019-20": "paired",
+      "2020-21": "paired",
+      "2021-22": "paired",
+      "2022-23": "paired",
+      "2023-24": "playoff_team_no_games",
+      "2024-25": "paired",
+      "2025-26": "team_missed_playoffs"
+    },
+    "murray": {
+      "2016-17": "team_missed_playoffs",
+      "2017-18": "team_missed_playoffs",
+      "2018-19": "paired",
+      "2019-20": "paired",
+      "2020-21": "playoff_team_no_games",
+      "2021-22": "no_games",
+      "2022-23": "paired",
+      "2023-24": "paired",
+      "2024-25": "paired",
+      "2025-26": "paired"
+    }
   },
-  "status": "incomplete_for_planned_scope"
+  "game_log_seasons": [
+    "butler 2011-12",
+    "butler 2012-13",
+    "butler 2013-14",
+    "butler 2014-15",
+    "butler 2016-17",
+    "butler 2017-18",
+    "butler 2018-19",
+    "butler 2019-20",
+    "butler 2020-21",
+    "butler 2021-22",
+    "butler 2022-23",
+    "butler 2024-25",
+    "murray 2018-19",
+    "murray 2019-20",
+    "murray 2022-23",
+    "murray 2023-24",
+    "murray 2024-25",
+    "murray 2025-26"
+  ],
+  "guide_coverage": {
+    "butler": [
+      "2011-12",
+      "2022-23"
+    ],
+    "murray": [
+      "2016-17",
+      "2024-25"
+    ]
+  },
+  "note": "Exposure classes are computed from the snapshot. Only 'paired' seasons enter rates; missing is never zero."
 }

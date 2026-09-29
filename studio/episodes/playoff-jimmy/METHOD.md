@@ -138,4 +138,18 @@ causal effect.
 
 ## Amendments
 
-None yet.
+2026-09-28, during PJ-02/PJ-03. These clarifications were written after the
+first results existed, so each records its effect:
+
+1. Exposure class "no games that season" added (Murray 2021–22). The four
+   pre-registered classes had no label for a season with no regular-season
+   games; "not in source" would have implied a data gap. Labeling only; no
+   rate changes.
+2. Wording bands at the boundaries follow the table literally: 25 ≤ p ≤ 75 is
+   "typical", 75 < p < 90 "above typical", p ≥ 90 "exceptional". One value
+   sits exactly on a boundary (Butler, peer set B, 2014–15, 90.0).
+3. Peer set B uses unrounded regular-season points per game (≥ 20.0). Two
+   eligible peers average 19.95–19.99, including Murray in 2022–23. Reading
+   the threshold as a rounded average would move three percentiles by at most
+   2.8 points and changes no career condition or rule outcome for either
+   player.
