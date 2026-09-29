@@ -1,15 +1,15 @@
 {
-  "all_passed": true,
+  "all_passed": false,
   "claims": [
     {
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C001",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 1,
@@ -47,11 +47,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C002",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 1,
@@ -99,11 +99,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C003",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 1,
@@ -141,11 +141,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C004",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 1,
@@ -202,11 +202,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C005",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 0,
@@ -293,11 +293,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C006",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 0,
@@ -409,11 +409,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C007",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 1,
@@ -471,11 +471,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C008",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 0,
@@ -553,11 +553,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C009",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "independent": "MIL",
@@ -643,11 +643,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C010",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 0,
@@ -754,11 +754,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": true,
+        "results_hash_current": false,
         "revision_produced_results": true
       },
       "id": "PJ-C011",
-      "passed": true,
+      "passed": false,
       "values": [
         {
           "digits": 2,
@@ -833,5 +833,5 @@
     }
   ],
   "note": "Independent code path by the same author as the analysis; not an independent reviewer.",
-  "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6"
+  "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a"
 }

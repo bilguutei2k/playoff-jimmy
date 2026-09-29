@@ -46,9 +46,10 @@
       "status": "passed"
     },
     "independent_methods_review": {
-      "status": "pending",
-      "task": "PJ-04"
+      "evidence": "analysis/review.md",
+      "note": "Same author as the analysis; claim values are re-derived by verify_claims.py. A Codex re-derivation is recommended before publication.",
+      "status": "self_review_done"
     }
   },
-  "status": "analysis_v2_pending_methods_review"
+  "status": "analysis_v2_methods_reviewed"
 }

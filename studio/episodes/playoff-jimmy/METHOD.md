@@ -162,3 +162,14 @@ first results existed, so each records its effect:
    such wherever used, and cannot change the rule outcome above. Reason: the
    rule gates wording but does not say whether the pattern exceeds chance or
    how unusual it is among long playoff careers; both temper the headline.
+5. Matched-peer check added after an external review of the script objected
+   that the benchmark mixes stars and role players: each eligible run is also
+   compared with eligible peers whose regular-season scoring rate was within
+   3 points per 36 of the subject's (sensitivities: the 25 nearest scorers;
+   shot volume within 3 attempts per 36). Exploratory, reported whichever way
+   it came out, under `exploratory.matched_peers`. Outcome: Butler's average
+   edge grows (similar scorers fell 2.08 per 36, against 1.70 for all peers),
+   but his runs above the median fall from 8 of 11 to 6 of 11, while
+   Murray's rise from 3 of 6 to 5 of 6. Which player looks more consistent
+   depends on the peer group, so no consistency comparison is claimed beyond
+   the counts. The rule outcome above is unchanged.

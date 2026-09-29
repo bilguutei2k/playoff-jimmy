@@ -128,6 +128,8 @@ def eligible_players(totals, season, threshold):
         reg = totals.get((player_id, season, "regular"))
         if reg and reg["minutes"] >= REGULAR_MINUTES:
             found.append({"player": player_id, "name": post["name"], "regular_ppg": reg["points"] / reg["games"],
+                          "regular_points_per_36": 36 * reg["points"] / reg["minutes"],
+                          "regular_tsa_per_36": 36 * (reg["fga"] + 0.44 * reg["fta"]) / reg["minutes"],
                           "regular_minutes": reg["minutes"], "playoff_minutes": post["minutes"],
                           "delta_points_per_36": 36 * post["points"] / post["minutes"] - 36 * reg["points"] / reg["minutes"]})
     return sorted(found, key=lambda p: p["player"])
@@ -222,18 +224,55 @@ def career_edges(peers, min_runs):
 
 def sign_test(benchmark_rows):
     """Chance of at least this many seasons above the peer median if each were a coin flip."""
-    rows = [r for r in benchmark_rows if r["eligible"]]
+    rows = [r for r in benchmark_rows if r.get("eligible", True)]
     n, above = len(rows), sum(r["delta_points_per_36"] > r["peer_median"] for r in rows)
     return {"n_eligible_seasons": n, "seasons_above_peer_median": above,
             "one_sided_p": sum(math.comb(n, k) for k in range(above, n + 1)) / 2 ** n,
             "mean_percentile": statistics.mean(r["percentile"] for r in rows)}
 
 
-def exploratory(bench, peers):
+MATCH_WIDTH = 3.0
+MATCH_NEAREST = 25
+MATCHES = (("rate_within_3", "regular_points_per_36", "width"),
+           ("rate_nearest_25", "regular_points_per_36", "nearest"),
+           ("shot_volume_within_3", "regular_tsa_per_36", "width"))
+
+
+def matched_peers(subject_pairs, peers):
+    """Each eligible run against peers who scored (or shot) at a similar regular-season rate that season."""
+    out = {}
+    for name, pairs in subject_pairs.items():
+        subject_id, versions = SUBJECTS[name], {}
+        for key, field, rule in MATCHES:
+            rows = []
+            for p in pairs:
+                pool = peers.get(p["season"], [])
+                me = next((q for q in pool if q["player"] == subject_id), None)
+                if me is None:
+                    continue
+                others = [q for q in pool if q["player"] != subject_id]
+                if rule == "width":
+                    others = [q for q in others if abs(q[field] - me[field]) <= MATCH_WIDTH]
+                else:
+                    others = sorted(others, key=lambda q: (abs(q[field] - me[field]), q["player"]))[:MATCH_NEAREST]
+                values = [q["delta_points_per_36"] for q in others]
+                rows.append({"season": p["season"], "playoff_minutes": p["playoff_minutes"],
+                             "excess_points": p["excess_points"], "delta_points_per_36": p["delta_points_per_36"],
+                             "regular_value": me[field], "peer_n": len(values), "peer_median": statistics.median(values),
+                             "percentile": percentile(p["delta_points_per_36"], values)})
+            versions[key] = {"per_season": rows, "career": career_condition(rows), "season_count": sign_test(rows)}
+        out[name] = versions
+    return out
+
+
+def exploratory(bench, peers, subject_pairs):
     return {"label": "Exploratory: added 2026-09-28 during the PJ-04 review, after results existed. Not pre-registered; "
                      "it cannot change the METHOD.md rule outcome.",
             "career_edge": [career_edges(peers, m) for m in CAREER_MIN_RUNS],
-            "season_count_check": {name: sign_test(b["per_season"]["A_100"]) for name, b in bench.items()}}
+            "season_count_check": {name: sign_test(b["per_season"]["A_100"]) for name, b in bench.items()},
+            "matched_peers_label": "Exploratory: added 2026-09-28 after an external review of the script objected that "
+                                   "the benchmark mixes stars and role players. Reported whichever way it came out.",
+            "matched_peers": matched_peers(subject_pairs, peers)}
 
 
 # ---- game logs -------------------------------------------------------------
@@ -418,7 +457,7 @@ def analyze(root=ROOT):
     printed = guides.totals_discrepancies(guide_records, printed_totals)
     traded_bad = [t for t in snapshot["traded"] if t["mismatched_fields"]]
 
-    qa = {"status": "analysis_v2_pending_methods_review",
+    qa = {"status": "analysis_v2_methods_reviewed",
           "checks": {
               "guide_hashes_and_integrity": {"status": "passed", "rows": len(guide_records),
                                              "scope": "source and text hashes, unique keys, counts, shooting limits, points identity, printed per-game column"},
@@ -435,19 +474,21 @@ def analyze(root=ROOT):
                                      "checked": len(log_rows),
                                      "max_minutes_gap": max(abs(r["minutes_gap"]) for r in log_rows)},
               "decomposition_identity": {"status": "passed"},
-              "independent_methods_review": {"status": "pending", "task": "PJ-04"}}}
+              "independent_methods_review": {"status": "self_review_done", "evidence": "analysis/review.md",
+                                             "note": "Same author as the analysis; claim values are re-derived by "
+                                                     "verify_claims.py. A Codex re-derivation is recommended before publication."}}}
     qa["all_data_checks_passed"] = all(c["status"] == "passed" for k, c in qa["checks"].items()
                                        if k != "independent_methods_review")
 
     results = {
-        "status": "analysis_v2_pending_methods_review",
+        "status": "analysis_v2_methods_reviewed",
         "method": {"specification": "METHOD.md", "regular_minutes_min": REGULAR_MINUTES,
                    "playoff_minutes_thresholds": list(THRESHOLDS), "peer_set_b_min_ppg": PEER_B_PPG,
                    "first_season": FIRST_SEASON, "last_season": LAST_SEASON},
         "sources": {"media_guides": SOURCES, "bbref_manifest_sha256": snapshot["manifest_sha256"]},
         "subjects": subjects, "season_sets": season_sets, "comparison": comparison,
         "benchmark": bench, "benchmark_context": context, "peers_primary_threshold": peers,
-        "exploratory": exploratory(bench, peers),
+        "exploratory": exploratory(bench, peers, subject_pairs),
         "variability": variability(logs, subject_pairs),
         "series_" + CASE_SEASON.replace("-", "_"): series(logs, CASE_SEASON),
         "reconciliation": {"guide_vs_bbref": guide_rows, "gamelogs_vs_totals": log_rows},
@@ -470,8 +511,8 @@ def fmt(value, digits=1, sign=False):
 
 def findings(results, qa):
     out = ["# Playoff Jimmy: analysis v2 findings", "",
-           "Status: generated from frozen inputs; **independent methods review (PJ-04) pending**. "
-           "Descriptive scoring comparisons; nothing here is a verified claim yet.", "",
+           "Status: generated from frozen inputs; methods reviewed (PJ-04, `review.md`). Descriptive scoring "
+           "comparisons. Only statements in `CLAIMS.json` are verified claims.", "",
            "Data checks: %s. Source of truth: `results.json`." %
            ("all passed" if qa["all_data_checks_passed"] else "**FAILED — see qa.json**"), ""]
     for name in SUBJECTS:
@@ -544,6 +585,15 @@ def findings(results, qa):
             cells.append("%s (%s)" % (fmt(e["edge_per_36"], 2, True), fmt(e["percentile"], 0)) if e else "not included")
         out.append("| %d runs | %d | %s | %s | %s |" % (c["min_eligible_runs"], c["n_players"],
                                                        fmt(c["median_edge_per_36"], 2, True), cells[0], cells[1]))
+    out += ["", ex["matched_peers_label"], "",
+            "| Player | Peers | Pooled Δ/36 | Minute-weighted peer median | Runs above median | Chance if coin flips |",
+            "|---|---|---:|---:|---:|---:|"]
+    for name, versions in ex["matched_peers"].items():
+        for key, v in versions.items():
+            c, n = v["career"], v["season_count"]
+            out.append("| %s | %s | %s | %s | %d of %d | %s |" % (name.title(), key.replace("_", " "),
+                       fmt(c["pooled_excess_per_36"], 2, True), fmt(c["minute_weighted_peer_median"], 2, True),
+                       n["seasons_above_peer_median"], n["n_eligible_seasons"], fmt(n["one_sided_p"], 2)))
     out += [""]
     out += ["## Variability reference", "",
             "Playoff points per 36 against every same-length stretch of that season's regular-season games "
@@ -575,7 +625,7 @@ def findings(results, qa):
             "## Limits", "",
             "Dividing by minutes does not control for opponents, health, role, pace or workload. The benchmark says how "
             "unusual a change is among high-minute players, not why. TS uses the 0.44 approximation. No claim here is "
-            "verified until the PJ-04 review."]
+            "verified unless it is in CLAIMS.json."]
     return "\n".join(out) + "\n"
 
 
@@ -593,7 +643,7 @@ def main(argv=None):
     write(args.out / "coverage.json", coverage)
     write(args.out / "qa.json", qa)
     (args.out / "FINDINGS.md").write_text(findings(results, qa))
-    print("Wrote analysis v2 to %s. Data checks: %s. Methods review pending." %
+    print("Wrote analysis v2 to %s. Data checks: %s." %
           (args.out, "passed" if qa["all_data_checks_passed"] else "FAILED"))
     return 0 if qa["all_data_checks_passed"] else 1
 

@@ -78,6 +78,18 @@ class SnapshotTests(unittest.TestCase):
                                    career["pooled_excess_per_36"] - career["minute_weighted_peer_median"], places=9)
             self.assertEqual(edge["runs_above_peer_median"], career["seasons_above_peer_median"])
 
+    def test_matched_peers_are_similar_scorers(self):
+        matched = self.results["exploratory"]["matched_peers"]
+        butler, murray = matched["butler"]["rate_within_3"], matched["murray"]["rate_within_3"]
+        self.assertEqual((butler["season_count"]["seasons_above_peer_median"], butler["season_count"]["n_eligible_seasons"]), (6, 11))
+        self.assertEqual((murray["season_count"]["seasons_above_peer_median"], murray["season_count"]["n_eligible_seasons"]), (5, 6))
+        self.assertAlmostEqual(butler["career"]["minute_weighted_peer_median"], -2.08, places=2)
+        for row in butler["per_season"]:
+            pool = self.results["peers_primary_threshold"][row["season"]]
+            similar = [p for p in pool if p["player"] != "butleji01"
+                       and abs(p["regular_points_per_36"] - row["regular_value"]) <= analysis.MATCH_WIDTH]
+            self.assertEqual(row["peer_n"], len(similar))
+
     def test_rerun_is_byte_identical(self):
         with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:
             self.assertEqual(analysis.main(["--out", first]), 0)
@@ -96,7 +108,7 @@ class SnapshotTests(unittest.TestCase):
             page = Path(out, "index.html").read_text()
             digest = hashlib.sha256(Path(out, "results.json").read_bytes()).hexdigest()
             self.assertIn(digest, page)
-            self.assertIn("Unreviewed", page)
+            self.assertIn("Methods reviewed", page)
 
 
 class ClaimTests(unittest.TestCase):

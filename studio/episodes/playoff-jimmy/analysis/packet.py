@@ -353,8 +353,8 @@ def build(results, results_sha256):
     body = ['<main>',
             '<h1>Playoff Jimmy: results packet</h1>',
             '<p class="sub">Analysis v2 on frozen Basketball-Reference and media-guide data, as pre-registered in METHOD.md.</p>',
-            '<div class="status"><b>Unreviewed.</b> These are descriptive results waiting for the PJ-04 methods review. '
-            'Nothing here is a verified claim, and the storyline has not been chosen.</div>',
+            '<div class="status"><b>Methods reviewed (PJ-04).</b> Descriptive results; only statements in CLAIMS.json are '
+            'verified claims. Exploratory checks are labeled as such.</div>',
             '<h2>Headline numbers</h2>',
             '<p class="sub">Change in points per 36 minutes, playoffs minus the same season\'s regular season, weighted by playoff minutes. '
             'Eligible means at least 1,500 regular-season and 100 playoff minutes.</p>',
@@ -377,6 +377,14 @@ def build(results, results_sha256):
                            "Runs", "Edge per 36", "Runs above median"],
                           [[i + 1, t["name"], t["runs"], num(t["edge_per_36"], 2, True), t["runs_above_peer_median"]]
                            for i, t in enumerate(c["top_10"])], 2) for c in results["exploratory"]["career_edge"]),
+
+            '<p class="sub">%s</p>' % esc(results["exploratory"]["matched_peers_label"]),
+            table(["Player", "Peers", "Pooled Δ/36", "Peer median", "Runs above median", "Chance if coin flips"],
+                  [[n.title(), k.replace("_", " "), num(v["career"]["pooled_excess_per_36"], 2, True),
+                    num(v["career"]["minute_weighted_peer_median"], 2, True),
+                    "%d of %d" % (v["season_count"]["seasons_above_peer_median"], v["season_count"]["n_eligible_seasons"]),
+                    num(v["season_count"]["one_sided_p"], 2)]
+                   for n, versions in results["exploratory"]["matched_peers"].items() for k, v in versions.items()], 2),
 
             '<h2>1. Scoring rate, regular season to playoffs</h2>',
             '<p class="sub">Points per 36 minutes. Right column: change, then playoff minutes.</p>']

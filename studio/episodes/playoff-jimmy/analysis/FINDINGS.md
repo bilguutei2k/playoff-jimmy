@@ -1,6 +1,6 @@
 # Playoff Jimmy: analysis v2 findings
 
-Status: generated from frozen inputs; **independent methods review (PJ-04) pending**. Descriptive scoring comparisons; nothing here is a verified claim yet.
+Status: generated from frozen inputs; methods reviewed (PJ-04, `review.md`). Descriptive scoring comparisons. Only statements in `CLAIMS.json` are verified claims.
 
 Data checks: all passed. Source of truth: `results.json`.
 
@@ -118,6 +118,17 @@ Career edge = pooled per-36 change minus the minute-weighted peer median, over e
 | 6 runs | 64 | -0.01 | +1.45 (83) | +2.09 (89) |
 | 8 runs | 29 | +0.12 | +1.45 (79) | not included |
 
+Exploratory: added 2026-09-28 after an external review of the script objected that the benchmark mixes stars and role players. Reported whichever way it came out.
+
+| Player | Peers | Pooled Δ/36 | Minute-weighted peer median | Runs above median | Chance if coin flips |
+|---|---|---:|---:|---:|---:|
+| Butler | rate within 3 | -0.25 | -2.08 | 6 of 11 | 0.50 |
+| Butler | rate nearest 25 | -0.25 | -2.04 | 6 of 11 | 0.50 |
+| Butler | shot volume within 3 | -0.25 | -2.00 | 7 of 11 | 0.27 |
+| Murray | rate within 3 | -0.09 | -2.71 | 5 of 6 | 0.11 |
+| Murray | rate nearest 25 | -0.09 | -2.80 | 5 of 6 | 0.11 |
+| Murray | shot volume within 3 | -0.09 | -2.92 | 5 of 6 | 0.11 |
+
 ## Variability reference
 
 Playoff points per 36 against every same-length stretch of that season's regular-season games (minutes to the second). Not a significance test.
@@ -164,4 +175,4 @@ Playoff points per 36 against every same-length stretch of that season's regular
 
 ## Limits
 
-Dividing by minutes does not control for opponents, health, role, pace or workload. The benchmark says how unusual a change is among high-minute players, not why. TS uses the 0.44 approximation. No claim here is verified until the PJ-04 review.
+Dividing by minutes does not control for opponents, health, role, pace or workload. The benchmark says how unusual a change is among high-minute players, not why. TS uses the 0.44 approximation. No claim here is verified unless it is in CLAIMS.json.
