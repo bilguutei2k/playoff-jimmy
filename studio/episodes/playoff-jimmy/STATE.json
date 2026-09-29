@@ -1,146 +1,180 @@
 {
   "checks": [
     {
-      "name": "initial_packet_created",
-      "status": "passed",
       "evidence": [
         "EPISODE.md",
         "METHOD.md"
       ],
-      "scope": "Planning only; no statistical findings verified."
+      "name": "initial_packet_created",
+      "scope": "Planning only; no statistical findings verified.",
+      "status": "passed"
     },
     {
-      "name": "episode_scaffolder_smoke",
-      "status": "passed",
       "evidence": [
         "../../README.md"
       ],
-      "scope": "Creation, status, overwrite protection and path validation."
+      "name": "episode_scaffolder_smoke",
+      "scope": "Creation, status, overwrite protection and path validation.",
+      "status": "passed"
     },
     {
-      "name": "pilot_regression_tests",
-      "status": "passed",
       "command": "python3 -m unittest discover -s tests -v",
-      "scope": "Seven tests; not an independent statistical review."
+      "name": "pilot_regression_tests",
+      "scope": "Seven tests; not an independent statistical review.",
+      "status": "passed"
     },
     {
-      "name": "pilot_reproducibility",
-      "status": "passed",
       "command": "python3 studio/episodes/playoff-jimmy/analysis/analyze.py",
-      "scope": "All four output files had identical SHA-256 values on rerun."
+      "evidence": [
+        "analysis/review.md"
+      ],
+      "name": "pilot_reproducibility",
+      "scope": "All four output files had identical SHA-256 values on rerun. Re-verified 2026-09-28 from a clean scratch copy (analysis/review.md).",
+      "status": "passed"
     },
     {
-      "name": "complete_planned_coverage",
-      "status": "not_passed",
       "evidence": [
         "analysis/coverage.json"
-      ]
+      ],
+      "name": "complete_planned_coverage",
+      "status": "not_passed"
     },
     {
-      "name": "claude_partner_review",
-      "status": "blocked",
-      "reason": "Automatic approval review rejected transmission of the named local files to Anthropic; explicit payload authorization required before retry."
+      "evidence": [
+        "analysis/review.md"
+      ],
+      "name": "claude_partner_review_1",
+      "scope": "Pilot and plan review with independent re-parse and recomputation. Not the methods gate for analysis v2.",
+      "status": "passed"
+    }
+  ],
+  "decisions": [
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Add a peer benchmark. Rules were pre-registered in METHOD.md before any peer data was downloaded."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Basketball-Reference is an approved source for season totals and game logs. It becomes the analysis source; the media guides become the independent check."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Scope: Butler 2011-12 to 2025-26, Murray 2016-17 to 2025-26, peers in the same seasons."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Finish this episode in daytime sessions where possible. Overnight runs only when needed, using the minimal sequential runner, not a general supervisor."
     }
   ],
   "episode_id": "playoff-jimmy",
   "failed_attempts": [
     {
-      "task": "PJ-02",
       "approach": "Public stats.nba.com playercareerstats for Butler and Murray",
-      "result": "Both timed out after 12 seconds on 2026-09-29 UTC",
       "evidence": "data/probes/20260929T004402Z/manifest.json",
-      "next_approach": "Probe official NBA player HTML snapshots; if insufficient, use official team media guides and document any historical coverage limits."
+      "next_approach": "Probe official NBA player HTML snapshots; if insufficient, use official team media guides and document any historical coverage limits.",
+      "result": "Both timed out after 12 seconds on 2026-09-29 UTC",
+      "task": "PJ-02"
+    },
+    {
+      "approach": "Official NBA player pages (nba.com/stats/player)",
+      "evidence": "data/probes/20260929T004507Z-web/manifest.json",
+      "next_approach": "Official team media guides (done), then Basketball-Reference after user approval.",
+      "result": "Downloaded, but the embedded data lacked historical season totals.",
+      "task": "PJ-02"
     }
   ],
-  "handoff": "Complete the documented later-season coverage gaps and 2023 game-level acquisition; the existing analysis pilot can already be reproduced.",
+  "handoff": "See HANDOFF.md.",
   "open_decisions": [
-    "Audience and final narration language (research can proceed).",
-    "User Opus examples and final visual direction.",
-    "Narration source (no paid audio service authorized).",
-    "Final overnight stop time and task budget.",
-    "Authorize the named episode files for one read-only Claude/Anthropic review; automatic approval review blocked the attempted live handoff."
+    "Visual direction: waiting for the user's Opus examples (blocks PJ-05).",
+    "Narration: the user's own voice, or a captions-only first version. Needed before final timing, not before the proof render.",
+    "Approval to install ffmpeg (needed for PJ-07).",
+    "Audience and final narration language (does not block research)."
   ],
   "schema_version": 1,
   "stage": "acquire",
   "status": "in_progress",
   "tasks": [
     {
-      "id": "PJ-01",
-      "title": "Define the initial research question and methods",
-      "status": "done",
-      "depends_on": [],
+      "acceptance": "Question, scope, measures, benchmark and wording rules are pre-registered and committed before peer data exists.",
       "artifact": "EPISODE.md; METHOD.md",
-      "acceptance": "Question, estimand, scope, exclusions and limits are written. This is a working specification; methods partner review is pending."
+      "depends_on": [],
+      "id": "PJ-01",
+      "status": "done",
+      "title": "Define the research question and methods"
     },
     {
-      "id": "PJ-02",
-      "title": "Test source access and audit the paired-season coverage",
-      "status": "active",
+      "acceptance": "Snapshot hashed; every guide row reconciles (counts exact, minutes within 1) or is listed; every player-season in scope has an exposure class computed from the data.",
+      "artifact": "data/raw/bbref/; data/bbref-manifest.json; analysis/coverage.json",
       "depends_on": [
         "PJ-01"
       ],
-      "artifact": "data/probes/; data/manifest.json; analysis/coverage.json",
-      "acceptance": "Accessible sources and exact season/field coverage are documented; gaps are explicitly distinguished from absent participation."
+      "id": "PJ-02",
+      "status": "active",
+      "title": "Snapshot sources, reconcile guides against Basketball-Reference, compute coverage"
     },
     {
-      "id": "PJ-03",
-      "title": "Implement reproducible paired-season calculations and checks",
-      "status": "pending",
+      "acceptance": "Reproduces the pilot values in analysis/review.md on guide rows; all METHOD.md outputs exist; byte-identical rerun; tests pass; packet charts read only results.json.",
+      "artifact": "analysis/analyze.py; analysis/results.json; analysis/qa.json; analysis/packet/",
       "depends_on": [
         "PJ-02"
       ],
-      "artifact": "analysis/analyze.py; analysis/results.json; analysis/qa.json",
-      "acceptance": "Totals reconcile; complete paired tables and decomposition regenerate from frozen inputs; edge cases pass.",
-      "progress": "Working pilot: 39 source rows, 12 pairs and seven passing regression tests. Full planned coverage and analysis views remain pending."
+      "id": "PJ-03",
+      "progress": "Pilot exists: 39 guide rows, 12 pairs, 7 tests.",
+      "status": "pending",
+      "title": "Analysis v2: pre-registered measures, benchmark, variability reference, 2022-23 series, results packet"
     },
     {
-      "id": "PJ-04",
-      "title": "Obtain independent methods and result review",
-      "status": "pending",
+      "acceptance": "Objections resolved or kept as limits; 5-10 claims resolve to result keys, input hashes and a commit; wording follows METHOD.md; research-lock commit tagged.",
+      "artifact": "analysis/review.md; CLAIMS.json",
       "depends_on": [
         "PJ-03"
       ],
-      "artifact": "analysis/review.md; CLAIMS.json",
-      "acceptance": "A partner checks inputs and calculations; objections are resolved or retained as explicit limits; only supported claims become verified."
-    },
-    {
-      "id": "PJ-05",
-      "title": "Review user examples and establish visual direction",
-      "status": "blocked",
-      "depends_on": [],
-      "artifact": "../../DIRECTION.md; renders/reference/",
-      "acceptance": "Specific visual rules are selected from examples and a readable representative frame."
-    },
-    {
-      "id": "PJ-06",
-      "title": "Write the evidence-linked narrative and short-form outlines",
+      "id": "PJ-04",
       "status": "pending",
+      "title": "Methods gate and research lock"
+    },
+    {
+      "acceptance": "Two or three stills of real scenes with real numbers; chosen rules recorded in DIRECTION.md.",
+      "artifact": "../../DIRECTION.md; renders/reference/",
+      "depends_on": [],
+      "id": "PJ-05",
+      "status": "blocked",
+      "title": "Establish visual direction from the user's examples"
+    },
+    {
+      "acceptance": "Every factual line maps to a verified claim; script read-aloud timing recorded; each short stands alone with its scope caption.",
+      "artifact": "STORY.md",
       "depends_on": [
         "PJ-04"
       ],
-      "artifact": "STORY.md",
-      "acceptance": "Every factual scene maps to a verified claim; proposed shorts remain valid in isolation."
+      "id": "PJ-06",
+      "status": "pending",
+      "title": "Story: scenes, script draft and short-form outlines"
     },
     {
-      "id": "PJ-07",
-      "title": "Render and inspect a representative 30\u201345 second passage",
-      "status": "pending",
+      "acceptance": "Values read from results.json with its hash recorded; 16:9 and 9:16 frames inspected at delivery size; labeled silent provisional.",
+      "artifact": "renders/proof/; renders/qa.json",
       "depends_on": [
         "PJ-05",
         "PJ-06"
       ],
-      "artifact": "renders/proof/; renders/qa.json",
-      "acceptance": "Numbers match results, labels are legible, frames are inspected, and voice/timing status is accurately labeled."
+      "id": "PJ-07",
+      "status": "pending",
+      "title": "Silent proof render of one 30-45 second scene"
     },
     {
-      "id": "PJ-08",
-      "title": "Prepare the next production batch and morning handoff",
-      "status": "pending",
+      "acceptance": "Narration source chosen; scene durations and render order listed; exact next production tasks recorded.",
+      "artifact": "HANDOFF.md; STATE.json",
       "depends_on": [
         "PJ-07"
       ],
-      "artifact": "HANDOFF.md; STATE.json",
-      "acceptance": "Links to results/preview, check evidence, limitations and exact next tasks are recorded."
+      "id": "PJ-08",
+      "status": "pending",
+      "title": "Narration decision and full production plan"
     }
   ]
 }

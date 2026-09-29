@@ -15,21 +15,24 @@ a whole playoff run or a recurring pattern. Do not prescribe a winner or a
 
 ## Scope
 
-Working scope: paired regular seasons and postseasons for Butler and Murray,
-2016–17 through 2025–26, subject to an explicit source-coverage audit. Both
-players are compared within their own seasons. Present a common-season
-comparison separately from summaries of each player's available seasons.
+Decided 2026-09-28: Butler's paired seasons from 2011–12 and Murray's from
+2016–17, both through 2025–26, compared with a peer benchmark of high-minute
+players in the same seasons. `METHOD.md` holds the pre-registered rules:
+season sets, benchmark, wording bands and the conditions for any "real"
+verdict. Each player is compared within his own seasons; the shared-season
+comparison is shown beside each player's full record, never instead of it.
 
-Use the 2022–23 Butler run as the potential opening case study; the existing
-research is a lead to independently verify. Analyze complete coverage before
-selecting examples for the film. Include seasons where a player's scoring
-declines; absence from the playoffs is missing exposure, not zero performance.
+Use the 2022–23 postseason, which ended with the two players meeting in the
+Finals, as the potential opening case study; the earlier research is a lead to
+verify, not a finding. Analyze complete coverage before selecting examples for
+the film. Include seasons where a player's scoring declines; absence from the
+playoffs is missing exposure, not zero performance.
 
-Primary endpoint: change in points per 36 minutes. Also report points per game,
-minutes per game and approximate true shooting. Round/series detail and
-assists/turnovers provide additional context where complete data are available.
-This is an investigation of scoring, not a complete ranking of basketball
-ability or proof of a psychological "clutch" effect.
+Primary endpoint: change in points per 36 minutes, placed against the peer
+benchmark. Also report points per game, minutes per game, shot volume and
+approximate true shooting. Series detail is limited to 2022–23. This is an
+investigation of scoring, not a complete ranking of basketball ability or
+proof of a psychological "clutch" effect.
 
 ## Audience and delivery
 

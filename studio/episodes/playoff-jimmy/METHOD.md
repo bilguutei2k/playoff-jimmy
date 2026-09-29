@@ -1,103 +1,141 @@
 # Is Playoff Jimmy real? — methods
 
-Status: pre-analysis working specification. Calculations and source coverage
-must be validated before any substantive result is called verified.
+Status: pre-registered specification, committed on 2026-09-28 before any
+Basketball-Reference or peer data was downloaded. Later changes go under
+"Amendments" with a reason, and are never made because a result looked more
+or less attractive.
 
-## Definitions
+## Question
 
-The main observation is a player-season with recorded positive minutes in both
-regular season and playoffs. Use totals from the full corresponding regular
-season and full postseason. Proposed window: 2016–17 through 2025–26. Do not
-include preseason or play-in games in postseason totals. Explain NBA Cup
-classification if it affects source coverage.
+Does Jimmy Butler score more in the playoffs than in the same season's regular
+season? How much of any change comes from playing time rather than scoring
+rate? Is his per-minute change unusual compared with other high-minute players
+in the same seasons? Jamal Murray is a named comparison, not the benchmark.
 
-The primary descriptive comparison is playoff minus regular-season points per
-36. Per-game scoring and efficiency are complementary endpoints. No composite
-score or global "best riser" title is specified.
+Per game and per minute are separate questions. A per-game rise that comes
+from extra minutes is reported as such; it is not evidence of a different
+scoring rate.
 
-## Data contract
+## Scope and sources
 
-Required season totals: player ID, player name, season, season type, games,
-minutes, points, field-goal attempts, free-throw attempts. Field goals made,
-three-point makes and free-throw makes allow an independent points identity
-check. Assists, turnovers, team and opponent/series identifiers extend context.
+- Butler: every season from 2011–12 through 2025–26 with positive minutes in
+  both the regular season and the playoffs.
+- Murray: every such season from 2016–17 through 2025–26.
+- Peers: all players in the same seasons.
+- Analysis source: Basketball-Reference (BBRef) season totals (regular season
+  and playoffs) and player game logs, so subjects and peers share one set of
+  definitions. Pages are snapshotted once with hashes; analysis never fetches.
+- Independent check: every official media-guide row (Butler 2011–12 to
+  2022–23, Murray 2016–17 to 2024–25) is reconciled against BBRef. Counts must
+  match exactly and minutes within ±1. Other discrepancies are listed and
+  resolved before results are used; neither source is edited.
+- Play-in and preseason games are excluded. For a traded player, use the
+  season aggregate row once (BBRef "TOT", "2TM" or "3TM"), never also the
+  team rows.
+- Every player-season in scope gets an exposure class: paired; team missed the
+  playoffs; player on a playoff team with 0 playoff games; not in source. Only
+  paired seasons enter rates. Missing is never zero.
 
-Preserve source totals and units. Minutes may be decimal or a minutes:seconds
-string; record conversion and source precision. Missing counts are not zeros.
-When a traded player has both aggregate and team-stint rows, use the verified
-aggregate once, or reconcile and sum the stints once. Never add both.
+## Measures
 
-Each raw input has a URL, retrieval timestamp, SHA-256, source schema and
-coverage description. Save source failures and missing periods in the coverage
-report. Keep raw bytes immutable; transformations write separate outputs.
+For a player-season, with r = regular-season points / regular-season minutes:
 
-For round-level work, require game ID, player ID, date, season type, team,
-opponent, minutes, points and a supported series/round mapping. Enforce a unique
-player-game key. Do not infer a career-wide pattern from season totals that
-were selected because their results looked interesting.
+- Expected playoff points E = playoff minutes × r.
+- Excess = actual playoff points − E.
+- Excess per 36 = 36 × excess / playoff minutes. For one season this equals
+  the change in points per 36. Across seasons, 36 × Σ excess / Σ playoff
+  minutes is the playoff-minute-weighted change; always report Σ minutes and
+  the number of seasons beside it.
+- Points per game, minutes per game, and the exact decomposition of the
+  per-game change into a minutes part and a rate part (symmetric average
+  form). Descriptive arithmetic, not a causal estimate.
+- Shot volume and efficiency: points per 36 = 2 × TS × TSA per 36, where
+  TSA = FGA + 0.44 × FTA. Report the change in each factor. TS uses the
+  conventional 0.44 approximation and is labeled approximate.
 
-## Analysis
+Season sets, always reported side by side:
 
-For each player-season/type, compute from totals:
+1. All paired seasons for each player.
+2. Seasons that both Butler and Murray have paired.
+3. Paired seasons with at least 100 playoff minutes.
 
-- Points per game = points / games.
-- Minutes per game = minutes / games.
-- Points per 36 = 36 × points / minutes.
-- Approximate true shooting = points / [2 × (FGA + 0.44 × FTA)].
+No "who rises more" statement unless it holds in all three sets.
 
-Treat the 0.44 free-throw coefficient as an approximation; check the actual
-source definition before asserting agreement with a provider's displayed TS%.
-Return an undefined result for a zero denominator rather than inventing zero.
+## Peer benchmark
 
-Define `m = minutes/games` and `r = points/minutes`. The per-game difference
-can be decomposed exactly as:
+- Eligible player-season: at least 1,500 regular-season minutes and at least
+  100 playoff minutes. Sensitivity: at least 200 playoff minutes.
+- Peer set A (primary): every eligible player in that season except the
+  subject. Peer set B (sensitivity): eligible peers who averaged at least 20.0
+  regular-season points per game.
+- Per season, the subject's percentile is the share of peers with a lower
+  excess per 36, counting ties as half.
+- Career comparison: the subject's pooled excess per 36 against the peer
+  median for each of his seasons, weighted by his playoff minutes; plus the
+  number of his eligible seasons above that season's peer median.
+- Subject seasons below the eligibility threshold stay in the full table,
+  labeled; they are not removed from the season sets above.
+- The same procedure applies to Butler and to Murray.
 
-`PPG_playoffs - PPG_regular = mean(r) * change(m) + mean(m) * change(r)`
+Wording, fixed in advance:
 
-This symmetric arithmetic decomposition associates one part with minutes and
-one with scoring rate. It is not a causal estimate of what would happen if a
-coach changed minutes. Verify the identity against full-precision totals.
+| Percentile among peers | Wording |
+|---|---|
+| below 25th | below typical |
+| 25th to 75th | typical |
+| 75th to 90th | above typical |
+| 90th and above | exceptional |
 
-Show all paired seasons and exposure, including short runs. For multi-season
-summaries, report the number of pairs; show equal-season summaries separately
-from pooled-exposure summaries. Repeat a clearly labeled sensitivity view with
-minimum postseason games of 5 and 10. Retain the full table so the filters
-cannot hide an inconvenient result. Identify common paired seasons when
-directly comparing players; differences in their postseason selection matter.
+The film may say Playoff Jimmy is real in the per-minute sense only if his
+pooled excess per 36 is above the minute-weighted peer median and a majority
+of his eligible seasons are above their season's peer median, in both peer
+sets and at both playoff-minute thresholds. Otherwise it states what the
+per-game and per-minute results show, without a "real" or "myth" verdict.
 
-For 2022–23, compare Butler's round-level rates with the complete postseason
-only if game-level coverage and round mapping are verified. Treat a single
-series as a descriptive case study, not an independent replication.
+## Variability reference
 
-Do not manufacture uncertainty intervals from aggregate rates alone. If adding
-game-level bootstrap or hierarchical estimates, specify the sampling unit and
-dependence assumptions, check their suitability for few series, and distinguish
-sampling uncertainty from sensitivity to analytic choices. League-wide ranks
-and predictive modeling are later extensions requiring a declared cohort and
-validation; they are not required to answer this first episode's question.
+For each subject run with k playoff games and at least 100 playoff minutes,
+take every window of k consecutive regular-season games he played that
+season, compute points per 36 for each window (36 × Σ points / Σ minutes),
+and report where the playoff run falls in that distribution. This is a
+variability reference, not a significance test: the windows overlap, and
+playoff opponents and minutes differ.
+
+Game logs must reconcile with the same source's season totals (games,
+points, FGA and FTA exactly; minutes within rounding) before use.
+
+## 2022–23 case study
+
+Map each 2022–23 playoff game to its series by opponent. Report per-series
+points per game, minutes per game and points per 36 for both players,
+including the Finals in which they met. Descriptive only; one series is not a
+replication.
 
 ## Verification
 
-Required checks:
-
 1. Snapshot hashes, schema and coverage; unique keys; nonnegative counts;
-   shooting makes no greater than attempts; no duplicated aggregate/stint rows.
-2. Reconcile selected player-season totals with an independent primary source,
-   preferably the team media guide or published season totals.
-3. Recompute all rates from totals and check the per-game decomposition.
-4. Exercise missing/zero exposure, traded-player rows and short playoff runs.
-5. Produce the complete table before selecting the story's examples.
-6. A partner review checks exclusions, arithmetic, causal language and whether
-   the narrative overstates the endpoint. Record objections and resolutions.
-7. A fresh analysis run reproduces result content using the frozen raw inputs.
+   makes no greater than attempts; points = 2 × FGM + 3PM + FTM; printed
+   totals rows and per-game columns reconcile where a source has them.
+2. Guide-to-BBRef reconciliation as specified above.
+3. Rates recomputed from totals; decomposition identities hold.
+4. Tests cover zero and missing exposure, traded-player aggregate rows and
+   short runs.
+5. Full tables exist before any example is chosen for the film.
+6. A partner methods review checks exclusions, arithmetic and wording against
+   these rules. Objections and resolutions go in `analysis/review.md`.
+7. A fresh run reproduces the results byte for byte from the frozen snapshots.
 
-Execution commands and outputs must be recorded in `STATE.json` and the
-analysis QA report once they exist. Planned checks are not passing checks.
+Planned checks are not passing checks. Record commands and outcomes in
+`STATE.json` and `analysis/qa.json`.
 
 ## Limits
 
-Playoff selection, opponent quality, health, team role and changing workloads
-are not controlled by dividing by minutes. Scoring is not total player impact.
-The chosen window is not both players' entire careers. An observed difference
-is not proof of a psychological transformation or a repeatable causal effect.
-Numbers from prior prose research remain unverified until inputs are checked.
+Dividing by minutes does not control for opponents, health, role, pace or
+workload. Scoring is not total player impact. The benchmark says how unusual a
+change is among high-minute players; it does not explain why. An observed
+difference is not proof of a psychological "clutch" trait or a repeatable
+causal effect.
+
+## Amendments
+
+None yet.
