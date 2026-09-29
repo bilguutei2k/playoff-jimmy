@@ -99,7 +99,7 @@
   const SAFE = { landscape: { top: 96, bottom: 96, left: 96, right: 96 },
                  vertical: { top: 220, bottom: 420, left: 72, right: 160 } };
 
-  // Register a scene: formats it supports, background, duration, build and render.
+  // Register a scene: formats it supports, background, duration (seconds, or {landscape, vertical}), build and render.
   FT.scene = (def) => {
     const params = new URLSearchParams(location.search);
     const name = params.get('format') || Object.keys(def.formats)[0];
@@ -117,9 +117,10 @@
       const s = SAFE[name];
       FT.el(frame, 'safe', { left: s.left + 'px', top: s.top + 'px', right: s.right + 'px', bottom: s.bottom + 'px' });
     }
-    window.__ft = { ready: true, duration: def.duration, width: size.w, height: size.h, format: name,
+    const duration = typeof def.duration === 'object' ? def.duration[name] : def.duration;
+    window.__ft = { ready: true, duration, width: size.w, height: size.h, format: name,
                     seek: (t) => { render(t); return true; } };
-    render(Number(params.get('t') || def.duration));
+    render(Number(params.get('t') || duration));
   };
 
   window.FT = FT;

@@ -187,6 +187,11 @@
       "by": "user",
       "date": "2026-09-28",
       "decision": "Run a blind Codex re-derivation of the claim values as the first overnight job (recheck/PLAN.md)."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-28",
+      "decision": "Stills approved ('the stills look good'); rectangle component H package delivered from Claude Design."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -208,12 +213,13 @@
   ],
   "handoff": "See HANDOFF.md.",
   "open_decisions": [
-    "Rectangle chart: generate it in Claude Design with studio/design-prompt-rectangle.md and bring back the package.",
+    "Review the S03 proof clips (renders/motion/s03-rectangle*.mp4).",
+    "S08 verdict frame: career numbers without the 2022-23 rectangle geometry (recommended), or 2022-23 figures with a new claim. See DIRECTION.md.",
     "Narrator voice: the user's own voice, or a free local AI voice (paid audio services are not authorized). Needed before PJ-08; a scratch voice is enough for PJ-07.",
     "Audience and final narration language (does not block research)."
   ],
   "schema_version": 1,
-  "stage": "look",
+  "stage": "produce",
   "status": "in_progress",
   "tasks": [
     {
@@ -262,8 +268,8 @@
       "artifact": "../../DIRECTION.md; renders/reference/",
       "depends_on": [],
       "id": "PJ-05",
-      "progress": "Design system v1 adopted. Stills rendered 2026-09-28 from locked data: title, S02 before \u2192 after, S04 league dot histogram, Short B (vertical); inspected, layout fixes applied. Waiting for the user's look at the stills and for the rectangle package.",
-      "status": "active",
+      "progress": "Done 2026-09-28: design system v1 + component H; stills rendered, inspected and approved by the user.",
+      "status": "done",
       "title": "Set up the design system and establish visual direction"
     },
     {
@@ -285,7 +291,7 @@
         "PJ-06"
       ],
       "id": "PJ-07",
-      "progress": "Pipeline done 2026-09-28 (studio/render/): S02 rendered as a 7.0 s, 30 fps H.264 motion test and inspected. S03 waits for the rectangle design package.",
+      "progress": "S03 proof rendered 2026-09-28: landscape 13.0 s (S02 hand-off, build, close-up) and vertical Short A frame 9.0 s, 30 fps; geometry from the data; frames inspected at each transition. Waiting for the user's review.",
       "status": "pending",
       "title": "Silent proof render of one 30-45 second scene"
     },

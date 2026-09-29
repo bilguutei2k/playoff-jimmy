@@ -1,0 +1,226 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S03 the scoring rectangle</title></head><body><script>
+// S03 (Paper): points per game as a rectangle, width = minutes, height = points per 36.
+// Spec: studio/design-system/README.md, component H, and "Scoring Rectangle.dc.html".
+// Numbers: PJ-C002 (ppg, mpg), PJ-C003 (+4.3 / -0.3), PJ-C004 (pts/36). Geometry is computed from them.
+const B = 'subjects.butler[season=2022-23].measures.';
+const D = {
+  regMpg: FT.value(B + 'regular.mpg'), poMpg: FT.value(B + 'playoffs.mpg'),
+  reg36: FT.value(B + 'regular.points_per_36'), po36: FT.value(B + 'playoffs.points_per_36'),
+  regPpg: FT.value(B + 'regular.ppg'), poPpg: FT.value(B + 'playoffs.ppg'),
+  minutesPart: FT.value(B + 'ppg_decomposition.minutes_component'), ratePart: FT.value(B + 'ppg_decomposition.rate_component'),
+};
+D.minutesOnly = D.poMpg * D.reg36 / 36;                 // width grown, height not yet settled (derived)
+const PRE = 0.5;                                         // S02's last frame holds before the word "rectangle"
+const countEase = (x) => 1 - Math.pow(1 - Math.min(Math.max(x, 0), 1), 3.2);
+const op = (t, inAt, outAt, dur = 0.25) => FT.p(t, inAt, dur) * (outAt == null ? 1 : 1 - FT.p(t, outAt, dur));
+const mix = (a, b, p) => 'rgb(' + a.map((v, i) => Math.round(FT.lerp(v, b[i], p))).join(',') + ')';
+const FIELD = [167, 157, 140], INK = [28, 25, 22];
+const px = (v) => v + 'px';
+const text = (f, cls, s, html) => FT.el(f, cls, s, html);
+
+FT.scene({ duration: { landscape: PRE + 12.5, vertical: 9 }, background: 'paper', formats: {
+landscape: (f) => {
+  const X0 = 216, Y0 = 860, SX = 30, SY = 22;
+  const regW = D.regMpg * SX, poW = D.poMpg * SX, regH = D.reg36 * SY, poH = D.po36 * SY;
+  const mono = (size, weight, color, extra) => Object.assign({ fontFamily: 'var(--mono)', fontSize: px(size), fontWeight: weight || 400,
+    color: color || 'var(--field-text)' }, extra || {});
+  // S02 end state, which fades out at t = 0 (the 22.9 hero morphs instead).
+  const prev = [
+    FT.kicker(f, 'The obvious answer', { x: 96, y: 96, size: 30 }),
+    FT.el(f, 'claim', { left: '96px', top: '150px', fontSize: '112px', lineHeight: '0.88' }, 'He scores more in the playoffs'),
+    FT.el(f, 'label', { left: '96px', top: '380px', fontSize: '30px', color: 'var(--field-text)' }, '2022–23 regular season'),
+    FT.el(f, 'claim', { left: '840px', top: '520px', fontSize: '180px', lineHeight: '1' }, '→'),
+    FT.el(f, 'label', { left: '1060px', top: '380px', fontSize: '30px', color: 'var(--player-a-text)' }, '2022–23 playoffs'),
+    FT.el(f, 'number', { left: '1048px', top: '430px', fontSize: '320px', color: 'var(--player-a)' }, FT.fmt(D.poPpg, 1)),
+    FT.el(f, 'number chip', { left: '1560px', top: '330px', fontSize: '64px', padding: '6px 16px', letterSpacing: '0', transform: 'rotate(-4deg)' },
+      FT.fmt(D.poPpg - D.regPpg, 1, true)),
+    FT.el(f, 'label', { left: '96px', top: '790px', fontSize: '30px', color: 'var(--ink)' }, 'Points per game · Jimmy Butler'),
+    FT.el(f, '', { left: '1060px', top: '770px', width: '760px', display: 'flex', alignItems: 'flex-start', gap: '18px' },
+      '<div class="tag" style="flex:none;font-size:28px;padding:6px 12px;margin-top:6px">BUT</div><div class="caption" style="font-size:44px;line-height:1.2">he\'s also on the floor <em>a lot longer</em>.</div>'),
+    FT.source(f, [['SOURCE', 'Basketball-Reference · 2022–23 regular season vs playoffs · per game, play-in excluded']], { x: 96, y: 936, width: 1728, size: 24 }),
+  ];
+  // Rectangles (orange underneath, grey fill, dashed regular-season outline).
+  const orange = FT.el(f, '', { left: px(X0), background: 'var(--player-a)' });
+  const grey = FT.el(f, '', { left: px(X0), background: 'var(--field)' });
+  const outline = FT.el(f, '', { left: px(X0), top: px(Y0 - regH), width: px(regW), height: px(regH), boxSizing: 'border-box',
+    border: '2px dashed var(--field-text)' });
+  const ext = FT.el(f, '', { left: px(X0 + regW), top: px(Y0 - regH - 1), width: px(poW - regW), height: '0', borderTop: '2px dashed var(--field-text)' });
+  const yAxis = FT.el(f, '', { left: px(X0 - 1), top: '290px', width: '2px', height: px(Y0 - 290 + 1), background: 'var(--ink)', transformOrigin: 'bottom' });
+  const xAxis = FT.el(f, '', { left: px(X0), top: px(Y0 - 1), width: '1224px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
+  const lab1 = [
+    text(f, '', mono(26), 'HEIGHT · PTS / 36'), text(f, '', mono(26, 400, null, { width: '104px', textAlign: 'right' }), FT.fmt(D.reg36, 1)),
+    text(f, '', mono(26), 'WIDTH · MIN / GAME'), FT.el(f, '', { width: '2px', height: '12px', background: 'var(--ink)' }),
+    text(f, '', mono(26, 400, null, { width: '120px', textAlign: 'center' }), FT.fmt(D.regMpg, 1)),
+  ];
+  [[216, 256], [96, Y0 - regH - 16], [216, 876], [X0 + regW - 1, Y0], [X0 + regW - 60, 876]].forEach(([x, y], i) => {
+    lab1[i].style.left = px(x); lab1[i].style.top = px(y);
+  });
+  const zero = text(f, '', mono(26, 400, null, { left: '96px', top: px(Y0 - 16), width: '104px', textAlign: 'right' }), '0');
+  const wlab = [FT.el(f, '', { left: px(X0 + poW - 1), top: px(Y0), width: '2px', height: '12px', background: 'var(--ink)' }),
+                text(f, '', mono(26, 600, 'var(--player-a-text)', { left: px(X0 + poW - 60), top: '876px', width: '120px', textAlign: 'center' }), FT.fmt(D.poMpg, 1))];
+  const regLabel = text(f, '', mono(26, 600, 'var(--ink)', { left: px(X0 + 24), top: px(Y0 - regH + 25) }), 'REG SEASON · ' + FT.fmt(D.regPpg, 1));
+  const area = text(f, 'number', { lineHeight: '1' });
+  const areaWho = text(f, 'label', { left: '264px', top: '612px', fontSize: '30px', fontWeight: '600', color: 'var(--ink)' });
+  const strip = FT.el(f, '', mono(0, 600, 'var(--ink)', { left: px(X0 + regW), top: '470px', width: px(poW - regW), display: 'flex',
+    flexDirection: 'column', alignItems: 'center', gap: '6px' }),
+    '<div style="font-size:56px;line-height:1">' + FT.fmt(D.minutesPart, 1, true) + '</div><div style="font-size:26px">PTS / GAME</div><div style="font-size:26px">MINUTES</div>');
+  const lead = FT.el(f, '', { left: px(X0 + poW + 6), top: px(Y0 - poH - 4), width: '47px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
+  const call = FT.el(f, '', mono(0, 600, 'var(--ink)', { left: px(X0 + poW + 63), top: px(Y0 - poH - 35), display: 'flex', flexDirection: 'column', gap: '6px' }),
+    '<div style="font-size:56px;line-height:1">' + FT.fmt(D.ratePart, 1) + '</div><div style="font-size:26px">PTS / GAME · RATE</div>' +
+    '<div style="font-size:26px;font-weight:400;color:var(--field-text)">' + FT.fmt(D.reg36, 1) + ' → ' + FT.fmt(D.po36, 1) + ' PTS / 36</div>');
+  const kicker = FT.kicker(f, 'Points per game is a rectangle', { x: 96, y: 96, size: 30 });
+  const claim = FT.el(f, 'claim', { left: '96px', top: '140px', fontSize: '112px', lineHeight: '0.88' }, 'Wider, not taller.');
+  const source = FT.source(f, [['SOURCE', 'Basketball-Reference · 2022–23 regular season vs playoffs · area = minutes × points per 36 ÷ 36']],
+    { x: 96, y: 936, width: 1728, size: 24 });
+  // Close-up: height only, same y-scale, with a labelled zoom inset.
+  const colW = 240, colX2 = 516;
+  const colLab = [
+    text(f, 'number', mono(56, 600, 'var(--ink)', { left: px(X0), top: px(Y0 - regH + 43), width: px(colW), textAlign: 'center', letterSpacing: '0' }), FT.fmt(D.reg36, 1)),
+    text(f, 'number', mono(56, 600, 'var(--ink)', { left: px(colX2), top: px(Y0 - poH + 43), width: px(colW), textAlign: 'center', letterSpacing: '0' }), FT.fmt(D.po36, 1)),
+    text(f, '', mono(26, 600, 'var(--ink)', { left: px(X0), top: px(Y0 - regH + 113), width: px(colW), textAlign: 'center' }), 'PTS / 36'),
+    text(f, '', mono(26, 600, 'var(--ink)', { left: px(colX2), top: px(Y0 - poH + 113), width: px(colW), textAlign: 'center' }), 'PTS / 36'),
+    text(f, '', mono(24, 400, null, { left: px(X0 - 20), top: '874px', width: '280px', textAlign: 'center', whiteSpace: 'nowrap' }), 'REG · ' + FT.fmt(D.regMpg, 1) + ' MIN'),
+    text(f, '', mono(24, 600, 'var(--player-a-text)', { left: px(colX2 - 20), top: '874px', width: '280px', textAlign: 'center', whiteSpace: 'nowrap' }),
+      'PLAYOFFS · ' + FT.fmt(D.poMpg, 1) + ' MIN'),
+  ];
+  const zoomBox = FT.el(f, '', { left: '200px', top: px(Y0 - regH - 17), width: '572px', height: '44px', boxSizing: 'border-box', border: '2px solid var(--ink)' });
+  const zoomLink = FT.el(f, '', { left: '772px', top: px(Y0 - regH + 4), width: '128px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
+  const Z = (v) => 438 - (v - 24) * 330;                // inset scale: x15, 24.0 to 25.0 points per 36
+  const inset = FT.el(f, '', { left: '900px', top: '290px', width: '924px', height: '560px', boxSizing: 'border-box', border: '2px solid var(--ink)',
+    background: 'var(--paper-2)', overflow: 'hidden' },
+    '<div style="position:absolute;left:22px;top:14px;font-family:var(--mono);font-size:26px;color:var(--field-text)">ZOOM ×15 · 24.0 – 25.0 PTS / 36</div>' +
+    '<div style="position:absolute;left:88px;top:108px;width:620px;border-top:2px dashed var(--rule-light)"></div>' +
+    '<div style="position:absolute;left:88px;top:438px;width:620px;border-top:2px dashed var(--rule-light)"></div>' +
+    '<div style="position:absolute;left:22px;top:94px;font-family:var(--mono);font-size:26px;color:var(--field-text)">25.0</div>' +
+    '<div style="position:absolute;left:22px;top:424px;font-family:var(--mono);font-size:26px;color:var(--field-text)">24.0</div>' +
+    '<div class="zbars" style="position:absolute;inset:0">' +
+    '<div style="position:absolute;left:98px;top:' + Z(D.reg36) + 'px;width:240px;height:' + (567 - Z(D.reg36)) + 'px;background:var(--field)"></div>' +
+    '<div style="position:absolute;left:398px;top:' + Z(D.po36) + 'px;width:240px;height:' + (567 - Z(D.po36)) + 'px;background:var(--player-a)"></div>' +
+    '<div style="position:absolute;left:98px;top:' + (Z(D.reg36) + 17) + 'px;width:240px;text-align:center;font-family:var(--mono);font-weight:600;font-size:40px;line-height:1;color:var(--ink)">' + FT.fmt(D.reg36, 1) + '</div>' +
+    '<div style="position:absolute;left:398px;top:' + (Z(D.po36) + 17) + 'px;width:240px;text-align:center;font-family:var(--mono);font-weight:600;font-size:40px;line-height:1;color:var(--ink)">' + FT.fmt(D.po36, 1) + '</div></div>' +
+    '<div class="zbracket" style="position:absolute;inset:0">' +
+    '<div style="position:absolute;left:98px;top:' + (Z(D.reg36) - 1) + 'px;width:600px;border-top:2px dashed var(--ink)"></div>' +
+    '<div style="position:absolute;left:678px;top:' + Z(D.reg36) + 'px;width:3px;height:' + (Z(D.po36) - Z(D.reg36)) + 'px;background:var(--ink)"></div>' +
+    '<div style="position:absolute;left:670px;top:' + (Z(D.reg36) - 1) + 'px;width:19px;height:3px;background:var(--ink)"></div>' +
+    '<div style="position:absolute;left:670px;top:' + (Z(D.po36) - 2) + 'px;width:19px;height:3px;background:var(--ink)"></div>' +
+    '<div style="position:absolute;left:708px;top:' + (Z(D.reg36) + 3) + 'px;display:flex;flex-direction:column;gap:6px;font-family:var(--mono)">' +
+    '<div style="font-weight:600;font-size:56px;line-height:1;color:var(--ink)">' + FT.fmt(D.po36 - D.reg36, 1) + '</div>' +
+    '<div style="font-weight:600;font-size:26px;color:var(--ink)">PTS / 36</div>' +
+    '<div style="font-size:26px;color:var(--field-text)">' + FT.fmt(100 * (D.po36 - D.reg36) / D.reg36, 1) + '%</div></div></div>');
+  const zbars = inset.querySelector('.zbars'), zbracket = inset.querySelector('.zbracket');
+  const kicker2 = FT.kicker(f, 'Height only · points per 36', { x: 96, y: 96, size: 30 });
+  const claim2 = FT.el(f, 'claim', { left: '96px', top: '140px', fontSize: '112px', lineHeight: '0.88', width: '1728px' }, 'Same scorer. More minutes.');
+  const source2 = FT.source(f, [['SOURCE', 'Basketball-Reference · 2022–23 regular season vs playoffs · pts per 36 = pts ÷ min × 36 · inset: labelled zoom']],
+    { x: 96, y: 936, width: 1728, size: 24 });
+  const C = 8.0;                                          // close-up starts
+  return (tau) => {
+    const t = tau - PRE;
+    prev.forEach((e) => { e.style.opacity = 1 - FT.p(t, 0, 0.25); });
+    // 22.9 hero -> area number
+    const pm = FT.p(t, 0, 0.6);
+    Object.assign(area.style, { left: px(FT.lerp(84, 260, pm)), top: px(FT.lerp(430, 480, pm)), fontSize: px(FT.lerp(320, 120, pm)),
+      color: mix(FIELD, INK, pm), opacity: 1 - FT.p(t, C, 0.25) });
+    let value = D.regPpg;
+    if (t >= 3.0) value = FT.lerp(D.regPpg, D.minutesOnly, countEase((t - 3.0) / 0.6));
+    if (t >= 4.3) value = FT.lerp(D.minutesOnly, D.poPpg, countEase((t - 4.3) / 0.5));
+    area.textContent = FT.fmt(value, 1);
+    areaWho.textContent = 'PTS / GAME · ' + (t >= 3.0 ? 'PLAYOFFS' : 'REG SEASON');
+    areaWho.style.opacity = op(t, 1.0, C);
+    FT.rise(kicker, t, 0); kicker.style.opacity = op(t, 0, C + 1.8);
+    const axisP = FT.p(t, 0.2, 0.6);
+    yAxis.style.transform = 'scaleY(' + axisP + ')';
+    xAxis.style.transform = 'scaleX(' + axisP * FT.lerp(1, 600 / 1224, FT.p(t, C, 0.6)) + ')';
+    // grey rectangle: grows at 0.4, hands over to the outline at 3.0, returns as the close-up's regular column
+    const gw = FT.p(t, 0.4, 0.6), gh = FT.p(t, 0.4, 0.5), cw = FT.p(t, C, 0.6);
+    Object.assign(grey.style, { top: px(Y0 - regH * gh), height: px(regH * gh), width: px(FT.lerp(regW * gw, colW, cw)),
+      opacity: t < C ? 1 - FT.p(t, 3.0, 0.25) : FT.p(t, C, 0.25) });
+    source.style.opacity = op(t, 0.4, C);
+    lab1.forEach((e) => { e.style.opacity = op(t, 1.0, C); });
+    zero.style.opacity = FT.p(t, 1.0, 0.25);
+    // orange: appears at 3.0, widens, then its height settles at 4.3; slides into the close-up column at C
+    const ow = FT.p(t, 3.0, 0.6), oh = FT.p(t, 4.3, 0.5);
+    const h = FT.lerp(regH, poH, oh);
+    Object.assign(orange.style, { opacity: FT.p(t, 3.0, 0.25), top: px(Y0 - h), height: px(h),
+      width: px(FT.lerp(FT.lerp(regW, poW, ow), colW, cw)), left: px(FT.lerp(X0, colX2, cw)) });
+    outline.style.opacity = op(t, 3.0, C);
+    regLabel.style.opacity = op(t, 3.0, C);
+    wlab.forEach((e) => { e.style.opacity = op(t, 3.6, C); });
+    strip.style.opacity = op(t, 3.7, C);
+    lead.style.transform = 'scaleX(' + FT.p(t, 4.8, 0.3) + ')'; lead.style.opacity = 1 - FT.p(t, C, 0.25);
+    ext.style.opacity = op(t, 4.8, C); call.style.opacity = op(t, 4.8, C);
+    const pc = FT.p(t, 5.4, 0.5);
+    claim.style.clipPath = 'inset(' + (1 - pc) * 100 + '% 0 0 0)'; claim.style.opacity = 1 - FT.p(t, C + 1.8, 0.25);
+    // close-up
+    colLab.forEach((e) => { e.style.opacity = FT.p(t, C + 0.6, 0.25); });
+    source2.style.opacity = FT.p(t, C, 0.25);
+    const pi = FT.p(t, C + 0.6, 0.4);
+    [zoomBox, zoomLink].forEach((e) => { e.style.opacity = pi; });
+    zoomLink.style.transform = 'scaleX(' + pi + ')';
+    inset.style.opacity = t >= C + 0.6 ? 1 : 0;
+    inset.style.clipPath = 'inset(0 ' + (1 - pi) * 100 + '% 0 0)';
+    zbars.style.clipPath = 'inset(' + (1 - FT.p(t, C + 0.6, 0.4)) * 100 + '% 0 0 0)';
+    zbracket.style.opacity = FT.p(t, C + 1.4, 0.25);
+    kicker2.style.opacity = FT.p(t, C + 1.8, 0.25);
+    const pc2 = FT.p(t, C + 1.8, 0.5);
+    claim2.style.clipPath = 'inset(' + (1 - pc2) * 100 + '% 0 0 0)';
+  };
+},
+vertical: (f) => {
+  // Short A frame: its own scale (19 px/min, 30 px per pt/36), timeline compressed about 40%.
+  const X0 = 160, Y0 = 1330, SX = 19, SY = 30;
+  const regW = D.regMpg * SX, poW = D.poMpg * SX, regH = D.reg36 * SY, poH = D.po36 * SY;
+  const mono = (size, weight, color, extra) => Object.assign({ fontFamily: 'var(--mono)', fontSize: px(size), fontWeight: weight || 400,
+    color: color || 'var(--field-text)' }, extra || {});
+  const kicker = FT.kicker(f, 'Playoff Jimmy · 1 / 3', { x: 72, y: 220, size: 38 });
+  const claim = FT.claim(f, ['Wider,', 'not taller.'], { x: 66, y: 286, size: 116 });
+  const orange = FT.el(f, '', { left: px(X0), background: 'var(--player-a)' });
+  const grey = FT.el(f, '', { left: px(X0), background: 'var(--field)' });
+  const outline = FT.el(f, '', { left: px(X0), top: px(Y0 - regH), width: px(regW), height: px(regH), boxSizing: 'border-box', border: '2px dashed var(--field-text)' });
+  const ext = FT.el(f, '', { left: px(X0 + regW), top: px(Y0 - regH - 1), width: px(poW - regW), borderTop: '2px dashed var(--field-text)' });
+  const yAxis = FT.el(f, '', { left: px(X0 - 1), top: '556px', width: '2px', height: px(Y0 - 556 + 1), background: 'var(--ink)', transformOrigin: 'bottom' });
+  const xAxis = FT.el(f, '', { left: px(X0), top: px(Y0 - 1), width: '760px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
+  const lab1 = [text(f, '', mono(32, 400, null, { left: '72px', top: '504px' }), 'HEIGHT · PTS / 36'),
+                text(f, '', mono(30, 400, null, { left: '60px', top: px(Y0 - regH - 15), width: '90px', textAlign: 'right' }), FT.fmt(D.reg36, 1)),
+                text(f, '', mono(32, 400, null, { left: px(X0), top: '1350px' }), 'WIDTH · MIN / GAME'),
+                FT.el(f, '', { left: px(X0 + regW - 1), top: px(Y0), width: '2px', height: '12px', background: 'var(--ink)' }),
+                text(f, '', mono(32, 400, null, { left: px(X0 + regW - 50), top: '1350px', width: '100px', textAlign: 'center' }), FT.fmt(D.regMpg, 1))];
+  const wlab = [FT.el(f, '', { left: px(X0 + poW - 1), top: px(Y0), width: '2px', height: '12px', background: 'var(--ink)' }),
+                text(f, '', mono(32, 600, 'var(--player-a-text)', { left: px(X0 + poW - 75), top: '1350px', width: '80px', textAlign: 'right' }), FT.fmt(D.poMpg, 1))];
+  const regLabel = text(f, '', mono(32, 600, 'var(--ink)', { left: px(X0 + 30), top: px(Y0 - regH + 29) }), 'REG SEASON · ' + FT.fmt(D.regPpg, 1));
+  const area = text(f, 'number', { left: '186px', top: '840px', fontSize: '128px', color: 'var(--ink)' });
+  const areaWho = text(f, 'label', { left: '192px', top: '984px', fontSize: '38px', fontWeight: '600', color: 'var(--ink)', letterSpacing: '0.04em' });
+  const strip = FT.el(f, '', mono(0, 600, 'var(--ink)', { left: px(X0 + regW), top: '820px', width: px(poW - regW), display: 'flex',
+    flexDirection: 'column', alignItems: 'center', gap: '6px' }),
+    '<div style="font-size:44px;line-height:1">' + FT.fmt(D.minutesPart, 1, true) + '</div><div style="font-size:32px">MIN</div>');
+  const lead = FT.el(f, '', { left: px(X0 + poW - 16), top: '542px', width: '2px', height: px(Y0 - poH - 542), background: 'var(--ink)', transformOrigin: 'bottom' });
+  const call = text(f, '', mono(32, 600, 'var(--ink)', { left: '560px', top: '500px', width: '360px', textAlign: 'right' }), FT.fmt(D.ratePart, 1) + ' RATE');
+  FT.source(f, [['AREA', 'min × pts per 36 ÷ 36'], ['SCOPE', '2022–23 reg season vs playoffs'], ['SOURCE', 'Basketball-Reference']],
+            { x: 72, y: 1500, width: 848, size: 32 });
+  return (t) => {
+    FT.rise(kicker, t, 0);
+    claim.at(t, 0.3);
+    const a = FT.p(t, 1.5, 0.36);
+    yAxis.style.transform = 'scaleY(' + a + ')'; xAxis.style.transform = 'scaleX(' + a + ')';
+    const gw = FT.p(t, 1.6, 0.36), gh = FT.p(t, 1.6, 0.3);
+    Object.assign(grey.style, { top: px(Y0 - regH * gh), height: px(regH * gh), width: px(regW * gw), opacity: 1 - FT.p(t, 4.0, 0.2) });
+    lab1.forEach((e) => { e.style.opacity = FT.p(t, 2.1, 0.2); });
+    area.style.opacity = FT.p(t, 2.1, 0.2);
+    let value = D.regPpg;
+    if (t >= 4.0) value = FT.lerp(D.regPpg, D.minutesOnly, countEase((t - 4.0) / 0.36));
+    if (t >= 5.2) value = FT.lerp(D.minutesOnly, D.poPpg, countEase((t - 5.2) / 0.3));
+    area.textContent = FT.fmt(value, 1);
+    areaWho.innerHTML = 'PTS / GAME<br>' + (t >= 4.0 ? 'PLAYOFFS' : 'REG SEASON');
+    areaWho.style.opacity = FT.p(t, 2.1, 0.2);
+    const ow = FT.p(t, 4.0, 0.36), oh = FT.p(t, 5.2, 0.3), h = FT.lerp(regH, poH, oh);
+    Object.assign(orange.style, { opacity: FT.p(t, 4.0, 0.2), top: px(Y0 - h), height: px(h), width: px(FT.lerp(regW, poW, ow)) });
+    outline.style.opacity = FT.p(t, 4.0, 0.2); regLabel.style.opacity = FT.p(t, 4.0, 0.2);
+    wlab.forEach((e) => { e.style.opacity = FT.p(t, 4.4, 0.2); });
+    strip.style.opacity = FT.p(t, 4.5, 0.2);
+    lead.style.transform = 'scaleY(' + FT.p(t, 5.8, 0.2) + ')';
+    ext.style.opacity = FT.p(t, 5.8, 0.2); call.style.opacity = FT.p(t, 5.8, 0.2);
+  };
+} } });
+</script></body></html>

@@ -12,16 +12,16 @@ to this episode. ffmpeg is installed.
 
 ## Next actions
 
-1. Frame pipeline: HTML/SVG scene pages on an explicit frame clock, captured
-   with headless Chromium, encoded with ffmpeg; fonts stored in the repo.
-2. PJ-05: two or three stills of real scenes (title, before → after, the
-   dot strip) with verified numbers.
-3. PJ-07: silent proof of S03 at 1920×1080 and 1080×1920, then inspect it.
+1. User: watch the S03 proof clips (`renders/motion/s03-rectangle.mp4` and
+   `s03-rectangle-vertical.mp4`; regenerate with `studio/render/render.mjs`).
+2. Tonight after 10:37 PM, plugged in: launch the blind Codex re-check
+   (`recheck/PLAN.md`).
+3. Remaining scenes (S05–S08, shorts A/B/D verticals); S08 needs the
+   decision in `studio/DIRECTION.md` first.
+4. Narration recording, then timing, assembly and QA.
 
 ## Waiting on the user
 
-- Rectangle chart: paste `studio/design-prompt-rectangle.md` into Claude
-  Design and bring the package back.
 - Tonight, after 10:37 PM (Codex allowance reset), plugged in: launch the
   blind re-check, `python3 -m nightshift.runner
   studio/episodes/playoff-jimmy/recheck/PLAN.md` (details in that file).
