@@ -1,0 +1,301 @@
+{
+  "scope": "Independent mathematical recomputation from frozen source pages, source identities and official-guide cross-checks; not a fresh live-source census or causal validation.",
+  "checks": {
+    "source_integrity": 98,
+    "source_row_identities": 132110,
+    "aggregate_selection": 11119,
+    "aggregate_sums": 20200,
+    "benchmark_context": 6,
+    "peer_population": 7965,
+    "subject_measures": 416,
+    "career_benchmarks": 48,
+    "per_season_benchmarks": 576,
+    "matched_peers": 252,
+    "season_sets": 48,
+    "career_rankings": 193,
+    "guide_pilot": 55,
+    "game_log_identities": 1357,
+    "game_log_totals": 720,
+    "variability": 221,
+    "series": 78,
+    "media_guide_rows": 638,
+    "media_guide_totals": 70,
+    "claim_unrounded_values": 85,
+    "claim_published_rounding": 85,
+    "scene_export": 135
+  },
+  "total_checks": 176475,
+  "failures": [
+    {
+      "group": "media_guide_rows",
+      "label": "murray.2017.regular.games_started",
+      "stored_or_observed": 9,
+      "independent_or_expected": 10
+    }
+  ],
+  "status": "fail",
+  "claims": [
+    {
+      "id": "PJ-C001",
+      "values": 3,
+      "pass": true
+    },
+    {
+      "id": "PJ-C002",
+      "values": 4,
+      "pass": true
+    },
+    {
+      "id": "PJ-C003",
+      "values": 3,
+      "pass": true
+    },
+    {
+      "id": "PJ-C004",
+      "values": 5,
+      "pass": true
+    },
+    {
+      "id": "PJ-C005",
+      "values": 8,
+      "pass": true
+    },
+    {
+      "id": "PJ-C006",
+      "values": 11,
+      "pass": true
+    },
+    {
+      "id": "PJ-C007",
+      "values": 5,
+      "pass": true
+    },
+    {
+      "id": "PJ-C008",
+      "values": 7,
+      "pass": true
+    },
+    {
+      "id": "PJ-C009",
+      "values": 8,
+      "pass": true
+    },
+    {
+      "id": "PJ-C010",
+      "values": 10,
+      "pass": true
+    },
+    {
+      "id": "PJ-C011",
+      "values": 7,
+      "pass": true
+    },
+    {
+      "id": "PJ-C012",
+      "values": 6,
+      "pass": true
+    },
+    {
+      "id": "PJ-C013",
+      "values": 8,
+      "pass": true
+    }
+  ],
+  "unique_claim_values": 82,
+  "source_pages": 33,
+  "source_counts": {
+    "source_player_rows": 13211,
+    "combined_rows": 1010
+  },
+  "source_notes": [
+    {
+      "type": "guide_career_minutes_rounding",
+      "player": "butler",
+      "phase": "playoffs",
+      "sum_rows": 4511,
+      "printed": 4512
+    },
+    {
+      "type": "guide_bbref_minutes_rounding",
+      "player": "murray",
+      "year": 2017,
+      "phase": "regular",
+      "guide": 1765,
+      "bbref": 1764
+    }
+  ],
+  "guide_tables": [
+    {
+      "player": "butler",
+      "regular_rows": 12,
+      "playoff_rows": 11
+    },
+    {
+      "player": "murray",
+      "regular_rows": 9,
+      "playoff_rows": 7
+    }
+  ],
+  "log_tables": 36,
+  "maximum_log_minute_gap": 0.5,
+  "variability": [
+    {
+      "player": "butler",
+      "season": "2012-13",
+      "n_windows": 71,
+      "min": 9.008797653958945,
+      "max": 14.073447283804366,
+      "playoff_rate": 11.755501887819314
+    },
+    {
+      "player": "butler",
+      "season": "2013-14",
+      "n_windows": 63,
+      "min": 7.988422575976845,
+      "max": 16.562463135543236,
+      "playoff_rate": 11.25
+    },
+    {
+      "player": "butler",
+      "season": "2014-15",
+      "n_windows": 54,
+      "min": 14.582410801785779,
+      "max": 20.85115216940004,
+      "playoff_rate": 19.552337063857802
+    },
+    {
+      "player": "butler",
+      "season": "2016-17",
+      "n_windows": 71,
+      "min": 17.491214667685256,
+      "max": 31.36199447552943,
+      "playoff_rate": 20.51110180142438
+    },
+    {
+      "player": "butler",
+      "season": "2017-18",
+      "n_windows": 55,
+      "min": 14.33865054988606,
+      "max": 29.35191637630662,
+      "playoff_rate": 16.69340637839953
+    },
+    {
+      "player": "butler",
+      "season": "2018-19",
+      "n_windows": 54,
+      "min": 17.70563648906383,
+      "max": 23.0648182840015,
+      "playoff_rate": 19.92477928659092
+    },
+    {
+      "player": "butler",
+      "season": "2019-20",
+      "n_windows": 38,
+      "min": 20.41249580114209,
+      "max": 22.602974828375284,
+      "playoff_rate": 20.847352539990908
+    },
+    {
+      "player": "butler",
+      "season": "2020-21",
+      "n_windows": 49,
+      "min": 14.822853495052666,
+      "max": 30.636440780700692,
+      "playoff_rate": 13.543783783783784
+    },
+    {
+      "player": "butler",
+      "season": "2021-22",
+      "n_windows": 41,
+      "min": 20.12086195206792,
+      "max": 24.92500871991629,
+      "playoff_rate": 26.654661970712073
+    },
+    {
+      "player": "butler",
+      "season": "2022-23",
+      "n_windows": 43,
+      "min": 22.13700079344089,
+      "max": 27.444397817876627,
+      "playoff_rate": 24.383509400861904
+    },
+    {
+      "player": "butler",
+      "season": "2024-25",
+      "n_windows": 45,
+      "min": 16.810557354860542,
+      "max": 23.02465023317788,
+      "playoff_rate": 19.152798789712556
+    },
+    {
+      "player": "murray",
+      "season": "2018-19",
+      "n_windows": 62,
+      "min": 17.111169791391603,
+      "max": 23.820026466696074,
+      "playoff_rate": 21.10080314702508
+    },
+    {
+      "player": "murray",
+      "season": "2019-20",
+      "n_windows": 41,
+      "min": 18.513761986931062,
+      "max": 22.787852888544645,
+      "playoff_rate": 24.09668422683607
+    },
+    {
+      "player": "murray",
+      "season": "2022-23",
+      "n_windows": 46,
+      "min": 20.251156642432253,
+      "max": 25.044719173500482,
+      "playoff_rate": 23.533635282085534
+    },
+    {
+      "player": "murray",
+      "season": "2023-24",
+      "n_windows": 48,
+      "min": 20.95221958658082,
+      "max": 27.66152805296477,
+      "playoff_rate": 19.255088783022952
+    },
+    {
+      "player": "murray",
+      "season": "2024-25",
+      "n_windows": 54,
+      "min": 18.057266635077507,
+      "max": 25.621600366996528,
+      "playoff_rate": 18.98066783831283
+    },
+    {
+      "player": "murray",
+      "season": "2025-26",
+      "n_windows": 70,
+      "min": 18.742604717204387,
+      "max": 31.416349070545227,
+      "playoff_rate": 21.463960811756472
+    }
+  ],
+  "snapshot_hashes": {
+    "METHOD.md": "95bd1c9ad359fe4e078a7e60d438c83b1bd7de18fd9bdfbecffbfaaf4158fcb5",
+    "CLAIMS.json": "f192af587b95b3ca9319d1f80f2a2114ad025d122244405877a3c6c4b9aff6e9",
+    "STORY.md": "4e601a2184dfe046149427d3ebe8e15da7616c545493f90d62817ee522bb08fc",
+    "analysis/results.json": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+    "scenes/data.js": "9b92913f158b976fbb999a4a8f2e58f349a99273c8c2d5624f7849d5bb021d4d",
+    "scenes/s01-cold-open.html": "74b41f3e3e63db589a58b79daf27150b51b1cb91731acbefe5f45c108b4e332c",
+    "scenes/s02-before-after.html": "4f8803d0def647727258e5d04ccf58e8dfd5f1f4eb899c6439a438d5a8ae54e5",
+    "scenes/s03-rectangle.html": "3ded3c947adedca4d832e6afc2033dcf55de4f9b3c99210e664f67bb11ec9728",
+    "scenes/s04-league-strip.html": "ca1bad1a02778cadf1ed9958b7b6c104d8393ab2785c698630c71e0afa0edab1",
+    "scenes/s04b-test-card.html": "aec241d525a4fb1efbf093cb482b6fc5e96c278bfe4426514e8f1146f6a259e3",
+    "scenes/s05-fairer-test.html": "ddd195ff15fba5561eac1dd69b03af914f5be6c968478639d9a390e861afa476",
+    "scenes/s06-not-every-year.html": "d5625081712cf6d60ba48591943843a68662cc9695c70d7c696e2dc2e5688685",
+    "scenes/s07-twist.html": "be875a8c846f746ad231295f367c212742042057e977b7c7b3fd2acdbbf39acb",
+    "scenes/s08-verdict.html": "cc287b47f61e12574365b157e9ebe71b464e1962f666ce36cf52631827156b6d",
+    "scenes/short-b.html": "942313823e5ff00792ed6fd1862a1233783d632c5de559f11e8dda07e16991fa",
+    "scenes/short-d.html": "4453110948ae91dc84bba9736155fe9d225da652d40a94afc6c6d883d9bdc3be",
+    "scenes/title.html": "ca1c6fd49d3c78ce156ba8f38fea8deac7a4a02741f3cedcba8029df2c8d4195"
+  },
+  "claim_values_status": "pass",
+  "calculation_status": "pass",
+  "source_reconciliation_status": "discrepancy"
+}
