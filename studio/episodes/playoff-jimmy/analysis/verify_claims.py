@@ -78,7 +78,7 @@ def season_tables(year):
             if pid and pid.group(1) not in found:
                 c = cells(row)
                 found[pid.group(1)] = {"name": c["name_display"], "g": int(c["games"]), "mp": int(c["mp"] or 0),
-                                       "pts": int(c["pts"] or 0)}
+                                       "pts": int(c["pts"] or 0), "fga": int(c["fga"] or 0), "fta": int(c["fta"] or 0)}
         out[phase] = found
     return out
 
@@ -202,6 +202,35 @@ def independent():
         latest = {p: next(t[y]["playoffs"][p]["name"] for y in sorted(runs[p])) for p in ranked[:10]}
         for i, p in enumerate(ranked[:10]):
             out[base + "top_10[%d].name" % i] = latest[p]
+
+    def regular(year, p, field):
+        r = t[year]["regular"][p]
+        return 36 * (r["pts"] if field == "rate" else r["fga"] + 0.44 * r["fta"]) / r["mp"]
+
+    for name, pid in IDS.items():
+        seasons = [y for y in paired[name] if (y, pid, 100) in delta]
+        for version, field, rule in (("rate_within_3", "rate", "width"), ("rate_nearest_25", "rate", "nearest"),
+                                     ("shot_volume_within_3", "volume", "width")):
+            medians = {}
+            for y in seasons:
+                pool = sorted(p for (yy, p, th) in delta if yy == y and th == 100 and p != pid)
+                mine = regular(y, pid, field)
+                if rule == "width":
+                    pool = [p for p in pool if abs(regular(y, p, field) - mine) <= 3.0]
+                else:
+                    pool = sorted(pool, key=lambda p: (abs(regular(y, p, field) - mine), p))[:25]
+                medians[y] = statistics.median(delta[(y, p, 100)] for p in pool)
+            minutes = sum(paired[name][y][1]["mp"] for y in seasons)
+            excess = sum(paired[name][y][1]["pts"] - paired[name][y][1]["mp"] * paired[name][y][0]["pts"] / paired[name][y][0]["mp"]
+                         for y in seasons)
+            above, n = sum(delta[(y, pid, 100)] > medians[y] for y in seasons), len(seasons)
+            base = "exploratory.matched_peers.%s.%s." % (name, version)
+            out[base + "career.n_eligible_seasons"] = n
+            out[base + "career.pooled_excess_per_36"] = 36 * excess / minutes
+            out[base + "career.minute_weighted_peer_median"] = sum(paired[name][y][1]["mp"] * medians[y] for y in seasons) / minutes
+            out[base + "season_count.seasons_above_peer_median"] = above
+            out[base + "season_count.n_eligible_seasons"] = n
+            out[base + "season_count.one_sided_p"] = sum(math.comb(n, k) for k in range(above, n + 1)) / 2 ** n
 
     reg, post = games("gamelogs/butler-2022", "player_game_log_reg"), games("gamelogs/butler-2022", "player_game_log_post")
     k = len(post)

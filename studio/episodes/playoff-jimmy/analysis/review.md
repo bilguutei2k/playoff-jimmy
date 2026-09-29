@@ -87,3 +87,18 @@ re-derive the claim values from the snapshot with its own code.
 Outcome: 11 claims proposed in `CLAIMS.json`; all pass `verify_claims.py`
 (`analysis/claims_check.json`). They stay `proposed` until the user approves
 them, per the autonomy boundary in `docs/decisions.md`.
+
+## Review 3 — 2026-09-28: external review of script draft v1
+
+Source: an outside review the user pasted into the session. Two of its points
+were testable against the data and were tested before acting.
+
+| Point | Test or decision | Disposition |
+|---|---|---|
+| The benchmark mixes stars and role players; rerun against similar scorers. | Peer set B (20+ points per game) already existed and passed. The better design, matching on regular-season scoring rate, was added as METHOD.md amendment 5. | Accepted. Average edge grows (2.08 vs 1.70); runs above median fall to 6 of 11 (Murray rises to 5 of 6). New claims PJ-C012 and PJ-C013; PJ-C005, PJ-C006 and PJ-C011 limitations revised. Lock v2. |
+| Holding rate over more minutes "usually costs something"; add a line. | Across 1,325 eligible player-seasons, players whose minutes rose 6+ a game declined least (median −1.1 per 36) and those whose minutes fell declined most (−2.2); slope +0.09 per extra minute, r = 0.14. Descriptive, probably coaches giving minutes to players who are playing well. | Rejected: the data does not support the assumption. No line added. |
+| No efficiency; scope it. | Scope line added to S02. A true-shooting beat would need a new claim. | Accepted (scope line). |
+| "The rule we wrote down" is unverifiable on screen. | The rules were committed (2827174) before the snapshot (de8233c); git records the order. | Accepted: show the rule and its commit date on screen. |
+| Script errors: "barely got taller"; "stays the same size"; nickname origin implied; Short B benchmark; Short D mixes per-game and per-36; Short A "4.3 of 4.0". | Checked against the claims. | All accepted; fixed in draft v2. |
+| S06 overloaded; S07 buries the twist; S08 overclaims; number density; one precision level; one voice; clichés; hold Short C; Short B needs its caveat. | Editorial. | All accepted in draft v2. Short C held. |
+

@@ -7,7 +7,9 @@ Narration lives in STORY.md as blockquote lines ("> ...") under "### " scene
 headings, each citing claims like [PJ-C002]. Rules: every cited claim exists
 and is verified; a line containing a number cites at least one claim; and
 every number in the line appears in a cited claim's text, scope or
-limitations. Lines without numbers may carry context without a citation.
+limitations, or rounds a more precise number there (decimals only: "1.7" for
+1.70 passes, "2" for 2.08 does not). Lines without numbers may carry context
+without a citation.
 """
 
 import argparse
@@ -41,6 +43,22 @@ def scenes(story):
     return found
 
 
+def decimals(number):
+    return len(number.split(".")[1]) if "." in number else 0
+
+
+def supported(number, evidence):
+    """Exact match, or a rounding of a more precise claim number (never for whole numbers)."""
+    if re.search(r"(?<![\d.])%s(?!\d|\.\d)" % re.escape(number), evidence):
+        return True
+    places = decimals(number)
+    if not places:
+        return False
+    spoken = float(number.replace(",", ""))
+    return any(decimals(c) > places and abs(round(float(c.replace(",", "")), places) - spoken) < 1e-9
+               for c in NUMBER.findall(evidence))
+
+
 def lint(found, claims):
     problems = []
     for (_, scene), lines in found.items():
@@ -59,7 +77,7 @@ def lint(found, claims):
             evidence = " ".join(normalize(" ".join([claims[c]["text"], claims[c]["scope"]] + claims[c]["limitations"]))
                                 for c in cited if c in claims)
             for number in numbers:
-                if not re.search(r"(?<![\d.])%s(?![\d])" % re.escape(number), evidence):
+                if not supported(number, evidence):
                     problems.append("%s: %s is not in %s" % (scene, number, ", ".join(cited)))
     return problems
 

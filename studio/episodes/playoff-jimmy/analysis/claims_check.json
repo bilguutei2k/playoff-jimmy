@@ -1,15 +1,15 @@
 {
-  "all_passed": false,
+  "all_passed": true,
   "claims": [
     {
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C001",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 1,
@@ -47,11 +47,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C002",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 1,
@@ -99,11 +99,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C003",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 1,
@@ -141,11 +141,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C004",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 1,
@@ -202,11 +202,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C005",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 0,
@@ -293,11 +293,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C006",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 0,
@@ -409,11 +409,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C007",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 1,
@@ -471,11 +471,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C008",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 0,
@@ -553,11 +553,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C009",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "independent": "MIL",
@@ -643,11 +643,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C010",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 0,
@@ -754,11 +754,11 @@
       "checks": {
         "all_values_ok": true,
         "input_hashes_match": true,
-        "results_hash_current": false,
+        "results_hash_current": true,
         "revision_produced_results": true
       },
       "id": "PJ-C011",
-      "passed": false,
+      "passed": true,
       "values": [
         {
           "digits": 2,
@@ -827,6 +827,170 @@
           "ok": true,
           "resolved": "murray",
           "stated": "murray",
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C012",
+      "passed": true,
+      "values": [
+        {
+          "digits": 0,
+          "independent": 11,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.rate_within_3.career.n_eligible_seasons",
+          "ok": true,
+          "resolved": 11,
+          "stated": 11,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -0.2501665490902226,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.rate_within_3.career.pooled_excess_per_36",
+          "ok": true,
+          "resolved": -0.2501665490902232,
+          "stated": -0.25,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -2.0849911845396014,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.rate_within_3.career.minute_weighted_peer_median",
+          "ok": true,
+          "resolved": -2.0849911845396014,
+          "stated": -2.08,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -1.704022456064956,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.career.A_100.minute_weighted_peer_median",
+          "ok": true,
+          "resolved": -1.704022456064956,
+          "stated": -1.7,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -2.043667428186559,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.rate_nearest_25.career.minute_weighted_peer_median",
+          "ok": true,
+          "resolved": -2.043667428186559,
+          "stated": -2.04,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": -1.998167048703803,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.shot_volume_within_3.career.minute_weighted_peer_median",
+          "ok": true,
+          "resolved": -1.998167048703803,
+          "stated": -2.0,
+          "stated_matches_results": true
+        }
+      ]
+    },
+    {
+      "checks": {
+        "all_values_ok": true,
+        "input_hashes_match": true,
+        "results_hash_current": true,
+        "revision_produced_results": true
+      },
+      "id": "PJ-C013",
+      "passed": true,
+      "values": [
+        {
+          "digits": 0,
+          "independent": 6,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.rate_within_3.season_count.seasons_above_peer_median",
+          "ok": true,
+          "resolved": 6,
+          "stated": 6,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 11,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.rate_within_3.season_count.n_eligible_seasons",
+          "ok": true,
+          "resolved": 11,
+          "stated": 11,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 2,
+          "independent": 0.5,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.rate_within_3.season_count.one_sided_p",
+          "ok": true,
+          "resolved": 0.5,
+          "stated": 0.5,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 5,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.murray.rate_within_3.season_count.seasons_above_peer_median",
+          "ok": true,
+          "resolved": 5,
+          "stated": 5,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 6,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.murray.rate_within_3.season_count.n_eligible_seasons",
+          "ok": true,
+          "resolved": 6,
+          "stated": 6,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 8,
+          "independent_matches_results": true,
+          "key": "benchmark.butler.career.A_100.seasons_above_peer_median",
+          "ok": true,
+          "resolved": 8,
+          "stated": 8,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 3,
+          "independent_matches_results": true,
+          "key": "benchmark.murray.career.A_100.seasons_above_peer_median",
+          "ok": true,
+          "resolved": 3,
+          "stated": 3,
+          "stated_matches_results": true
+        },
+        {
+          "digits": 0,
+          "independent": 7,
+          "independent_matches_results": true,
+          "key": "exploratory.matched_peers.butler.shot_volume_within_3.season_count.seasons_above_peer_median",
+          "ok": true,
+          "resolved": 7,
+          "stated": 7,
           "stated_matches_results": true
         }
       ]

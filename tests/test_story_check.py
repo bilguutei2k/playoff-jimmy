@@ -34,6 +34,13 @@ class StoryCheckTests(unittest.TestCase):
     def test_number_missing_from_the_cited_claim_fails(self):
         self.assertIn("1.6", check("The typical player fell 1.6 per 36. [PJ-C001]")[0])
 
+    def test_rounded_decimals_pass_but_rounded_integers_do_not(self):
+        claims = {"X-C001": {"status": "verified", "text": "They fell 1.70 and 2.08.", "scope": "", "limitations": []}}
+        lint = lambda line: story_check.lint({("Script", "S01"): [line]}, claims)
+        self.assertEqual(lint("About 1.7 and 2.1. [X-C001]"), [])
+        self.assertTrue(lint("About 2. [X-C001]"))
+        self.assertTrue(lint("About 1.8. [X-C001]"))
+
     def test_unverified_or_unknown_claims_fail(self):
         self.assertTrue(check("He scored 26.9. [PJ-C002]"))
         self.assertTrue(check("Something. [PJ-C999]"))

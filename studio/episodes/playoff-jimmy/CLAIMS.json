@@ -8,8 +8,8 @@
       "text": "From 2011–12 to 2025–26, the typical high-minute player scored 1.5 fewer points per 36 minutes in the playoffs than in the same season's regular season, and 73% of them declined.",
       "scope": "1,325 eligible player-seasons, 2011–12 to 2025–26. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -51,8 +51,8 @@
       "text": "In the 2022–23 playoffs Butler averaged 26.9 points per game, up from 22.9 in the regular season, while his minutes rose from 33.4 to 39.7 a game.",
       "scope": "Butler, 2022–23 regular season and playoffs; play-in games excluded.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -98,8 +98,8 @@
       "text": "Of that 4.0-point rise, 4.3 points go with the extra minutes and −0.3 with his scoring rate.",
       "scope": "Butler, 2022–23. Exact split of the per-game change into a minutes part and a rate part (symmetric average form).",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -140,8 +140,8 @@
       "text": "Per 36 minutes, his 2022–23 scoring barely moved, from 24.7 to 24.4, which put him at the 71st percentile of 95 eligible players that season: typical.",
       "scope": "Butler, 2022–23, against every other eligible player that season (peer set A). Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -191,8 +191,8 @@
       "text": "Across his 11 eligible playoff runs from 2012–13 to 2024–25 (4,904 playoff minutes), Butler's scoring rate fell by 0.25 points per 36, against a typical fall of 1.70 for other eligible players in the same seasons. He beat that season's peer median in 8 of the 11 runs.",
       "scope": "Butler's eligible runs (peer set A, at least 100 playoff minutes), weighted by playoff minutes. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -239,7 +239,8 @@
       ],
       "limitations": [
         "Meets the pre-registered wording rule in all four versions, but 8 of 11 would happen by chance about 11% of the time and his average percentile is 56 (exploratory check).",
-        "Supports 'he holds his scoring rate better than most', not 'he scores more in the playoffs'."
+        "Supports 'he holds his scoring rate better than most', not 'he scores more in the playoffs'.",
+        "Against similar scorers only, the count is 6 of 11 (PJ-C013)."
       ],
       "verification_evidence": [
         "analysis/claims_check.json",
@@ -249,6 +250,11 @@
         "by": "user",
         "date": "2026-09-28",
         "gate": "PJ-04"
+      },
+      "amended": {
+        "date": "2026-09-28",
+        "reason": "Limitation revised after the matched-peer check (METHOD.md amendment 5).",
+        "approved_by": "user (approved the research-lock-v2 plan)"
       }
     },
     {
@@ -258,8 +264,8 @@
       "text": "Among the 29 players with at least eight eligible playoff runs since 2011–12, Butler ranks 7th at holding his scoring rate relative to his peers, behind Andre Iguodala, Marcus Smart, Donovan Mitchell, Chris Paul, Draymond Green and Nikola Jokić.",
       "scope": "Career edge = pooled per-36 change minus the minute-weighted peer median over each player's eligible runs, 2011–12 to 2025–26. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -316,7 +322,8 @@
       ],
       "limitations": [
         "Exploratory: added after results, not pre-registered.",
-        "The ranking depends on the cutoff: with six or more runs (64 players) Butler ranks 12th and Murray 8th."
+        "The ranking depends on the cutoff: with six or more runs (64 players) Butler ranks 12th and Murray 8th.",
+        "Ranks players across very different roles, not matched on scoring rate; held out of the video for now."
       ],
       "verification_evidence": [
         "analysis/claims_check.json",
@@ -326,6 +333,11 @@
         "by": "user",
         "date": "2026-09-28",
         "gate": "PJ-04"
+      },
+      "amended": {
+        "date": "2026-09-28",
+        "reason": "Limitation revised after the matched-peer check (METHOD.md amendment 5).",
+        "approved_by": "user (approved the research-lock-v2 plan)"
       }
     },
     {
@@ -335,8 +347,8 @@
       "text": "Butler's strongest per-minute run was 2021–22: 22.7 to 26.7 points per 36, the 99th percentile that season, and higher than every 17-game stretch of his regular season.",
       "scope": "Butler, 2021–22; stretches are every run of 17 consecutive regular-season games he played, from game logs.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -387,8 +399,8 @@
       "text": "His two weakest runs were short: in 2017–18 (5 games) his rate fell 5.0 points per 36, at the 9th percentile; in 2020–21 (4 games) it fell 9.5, below all 65 other eligible players that season.",
       "scope": "Butler, 2017–18 and 2020–21, peer set A. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -449,8 +461,8 @@
       "text": "In 2022–23 Butler scored 37.6 points per game against Milwaukee, then 24.6, 24.7 and 21.6 in the next three series. Per 36 minutes, his Finals rate against Denver was 18.9, below his regular-season 24.7.",
       "scope": "Butler, 2022–23 playoffs by series, from game logs (minutes to the second).",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -514,8 +526,8 @@
       "text": "Murray's playoff scoring rate beat his peers' in 2018–19, 2019–20 and 2022–23 (86th, 97th and 92nd percentiles) and fell behind them in 2023–24, 2024–25 and 2025–26 (15th, 45th and 34th). Across his six runs it fell 0.09 points per 36 against a typical 2.17, but only 3 of 6 runs beat the peer median, so the pre-registered rule is not met.",
       "scope": "Murray's eligible runs, peer set A. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -590,8 +602,8 @@
       "text": "Murray's pooled per-minute change is higher than Butler's in all three pre-registered season sets: all runs (−0.09 vs −0.26 per 36), shared seasons (+1.15 vs −0.37) and runs of at least 100 playoff minutes (−0.09 vs −0.25).",
       "scope": "Pooled over each set, weighted by playoff minutes. Shared seasons: 2018–19, 2019–20, 2022–23, 2024–25.",
       "result_file": "analysis/results.json",
-      "results_sha256": "37690d9952beead7fdbb6f57279a37d0a47cd5128b73a31663a1f10e56400fd6",
-      "analysis_revision": "8eda9b0",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
       "input_hashes": {
         "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
       },
@@ -633,7 +645,7 @@
       ],
       "limitations": [
         "Except in the shared set the seasons differ: Murray has 6 runs, Butler 11–12.",
-        "Higher on average is not more consistent: Murray beat the peer median in 3 of 6 runs, Butler in 8 of 11."
+        "Which player looks more consistent depends on the peer group (PJ-C013); no consistency claim is made."
       ],
       "verification_evidence": [
         "analysis/claims_check.json",
@@ -643,6 +655,138 @@
         "by": "user",
         "date": "2026-09-28",
         "gate": "PJ-04"
+      },
+      "amended": {
+        "date": "2026-09-28",
+        "reason": "Limitation revised after the matched-peer check (METHOD.md amendment 5).",
+        "approved_by": "user (approved the research-lock-v2 plan)"
+      }
+    },
+    {
+      "id": "PJ-C012",
+      "status": "verified",
+      "exploratory": true,
+      "text": "Compared only with players who scored at a similar rate in the regular season (within 3 points per 36 of his), the gap grows: across his 11 runs Butler's scoring rate fell 0.25 points per 36, while those similar scorers typically fell 2.08, against 1.70 for all eligible players.",
+      "scope": "Exploratory. For each of Butler's eligible runs, peers are other eligible players that season whose regular-season points per 36 were within 3 of his; weighted by his playoff minutes. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.",
+      "values": [
+        {
+          "key": "exploratory.matched_peers.butler.rate_within_3.career.n_eligible_seasons",
+          "stated": 11,
+          "digits": 0
+        },
+        {
+          "key": "exploratory.matched_peers.butler.rate_within_3.career.pooled_excess_per_36",
+          "stated": -0.25,
+          "digits": 2
+        },
+        {
+          "key": "exploratory.matched_peers.butler.rate_within_3.career.minute_weighted_peer_median",
+          "stated": -2.08,
+          "digits": 2
+        },
+        {
+          "key": "benchmark.butler.career.A_100.minute_weighted_peer_median",
+          "stated": -1.7,
+          "digits": 2
+        },
+        {
+          "key": "exploratory.matched_peers.butler.rate_nearest_25.career.minute_weighted_peer_median",
+          "stated": -2.04,
+          "digits": 2
+        },
+        {
+          "key": "exploratory.matched_peers.butler.shot_volume_within_3.career.minute_weighted_peer_median",
+          "stated": -2.0,
+          "digits": 2
+        }
+      ],
+      "limitations": [
+        "Exploratory: added after results, in response to an external review, and reported whichever way it came out.",
+        "Regular-season scoring rate stands in for role; usage rate was not collected. With the 25 nearest scorers the typical fall is 2.04; with similar shot volume, 2.00."
+      ],
+      "result_file": "analysis/results.json",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
+      "input_hashes": {
+        "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
+      },
+      "verification_evidence": [
+        "analysis/claims_check.json",
+        "analysis/review.md"
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "research-lock-v2 plan"
+      }
+    },
+    {
+      "id": "PJ-C013",
+      "status": "verified",
+      "exploratory": true,
+      "text": "Season by season, though, it is close to a coin flip: Butler beat those similar scorers' median in 6 of his 11 runs, while Jamal Murray beat his in 5 of 6. Against all eligible players the counts were 8 of 11 and 3 of 6, so which of them looks steadier depends on who you compare them with.",
+      "scope": "Exploratory. Eligible runs of each player against peers within 3 regular-season points per 36 that season, and against all eligible peers (PJ-C005, PJ-C010).",
+      "values": [
+        {
+          "key": "exploratory.matched_peers.butler.rate_within_3.season_count.seasons_above_peer_median",
+          "stated": 6,
+          "digits": 0
+        },
+        {
+          "key": "exploratory.matched_peers.butler.rate_within_3.season_count.n_eligible_seasons",
+          "stated": 11,
+          "digits": 0
+        },
+        {
+          "key": "exploratory.matched_peers.butler.rate_within_3.season_count.one_sided_p",
+          "stated": 0.5,
+          "digits": 2
+        },
+        {
+          "key": "exploratory.matched_peers.murray.rate_within_3.season_count.seasons_above_peer_median",
+          "stated": 5,
+          "digits": 0
+        },
+        {
+          "key": "exploratory.matched_peers.murray.rate_within_3.season_count.n_eligible_seasons",
+          "stated": 6,
+          "digits": 0
+        },
+        {
+          "key": "benchmark.butler.career.A_100.seasons_above_peer_median",
+          "stated": 8,
+          "digits": 0
+        },
+        {
+          "key": "benchmark.murray.career.A_100.seasons_above_peer_median",
+          "stated": 3,
+          "digits": 0
+        },
+        {
+          "key": "exploratory.matched_peers.butler.shot_volume_within_3.season_count.seasons_above_peer_median",
+          "stated": 7,
+          "digits": 0
+        }
+      ],
+      "limitations": [
+        "Exploratory, as PJ-C012.",
+        "With similar shot volume, Butler's count is 7 of 11 and Murray's 5 of 6.",
+        "No claim that either player is more consistent."
+      ],
+      "result_file": "analysis/results.json",
+      "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
+      "analysis_revision": "65f2182",
+      "input_hashes": {
+        "data/bbref-manifest.json": "75abba3e9a0c69ccbb7af0907f20cda4e20f1a94677405b615737607a0d78fba"
+      },
+      "verification_evidence": [
+        "analysis/claims_check.json",
+        "analysis/review.md"
+      ],
+      "approved": {
+        "by": "user",
+        "date": "2026-09-28",
+        "gate": "research-lock-v2 plan"
       }
     }
   ]
