@@ -115,6 +115,16 @@
       "name": "render_pipeline",
       "scope": "Every scene renders from data.js with no page errors; the S02 motion test encodes 210 frames at 30 fps.",
       "status": "passed"
+    },
+    {
+      "command": "python3 analysis/compare_recheck.py <night worktree>/recheck/values.json",
+      "evidence": [
+        "analysis/recheck_report.json",
+        "branch night/20260928-225624-287 (commit 149cf19)"
+      ],
+      "name": "blind_recheck",
+      "scope": "Codex re-derived all 82 claim values blind from the raw BBRef snapshot on branch recheck-blind (no analysis code, results or claims): 82 exact, 0 disagree, 0 missing. Agent log shows no git history, other branches or reads outside its checkout. Its judgment calls are in the report's notes.",
+      "status": "passed"
     }
   ],
   "decisions": [
@@ -322,7 +332,8 @@
         "PJ-04"
       ],
       "id": "PJ-09",
-      "status": "pending",
+      "progress": "Done 2026-09-29: night run 20260928-225624-287 passed on its first attempt; compare_recheck.py reports 82 exact, 0 disagreements, 0 missing; log checked for blindness.",
+      "status": "done",
       "title": "Blind independent re-derivation of the claim values (Codex, overnight)"
     }
   ]

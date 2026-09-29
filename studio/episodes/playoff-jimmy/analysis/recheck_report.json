@@ -1,0 +1,753 @@
+{
+  "values_file": "/Users/bilguutei/Documents/ChatGPT/operator-night/20260928-225624-287/recheck/values.json",
+  "notes_from_rechecker": "All computations use only the supplied checkout, including the 2025-26 pages as supplied. Season end years 2012 through 2026 are inclusive. Totals-table integer minutes are authoritative for measures, eligibility, benchmarks, career edges and season sets; game-log seconds are used only for the explicitly requested variability and series calculations. A missing playoff row or nonpositive minutes does not make a paired season. Combined nTM rows replace all team stints, independently in each phase. Table-body text is joined across nested tags; entities are decoded; repeated headers and non-player rows are ignored. Names retain the first eligible playoff table's displayed spelling, with outer whitespace stripped.\n\nMatched-peer definitions do not explicitly restate a base universe: 'like the career block' is interpreted as peer set A at 100 playoff minutes and 1,500 regular minutes for both the subject and peers. 'Within 3' includes the endpoints. Nearest 25 means up to 25 available eligible other players, sorted by absolute regular points-per-36 distance then player id. No selected peer set is empty; no season is dropped for matching. Peer set B applies the unrounded 20-ppg restriction only to peers, not to the subject; subject eligibility still uses the stated minutes thresholds. Each 100/200 version rebuilds both subject eligibility and peer eligibility. All medians are ordinary unweighted medians within each season (mean of the two middle observations for even counts), then weighted by the subject's playoff minutes across seasons. Career-edge rankings use only players meeting that ranking's minimum eligible-season count, with exact ties sharing rank and player-id ordering used only for the displayed top list.\n\nGame logs are restricted to the specified regular/playoff tables, so separate play-in tables are excluded. Games require both a date and numeric mm:ss, are sorted chronologically, and omit headers/DNP rows. Consecutive regular-game windows overlap, advance one played game at a time, and can span calendar gaps or missed games. Consecutive playoff opponents define rounds among played games. Seconds are summed as integers before conversion to minutes. Season-set shared means the intersection of positive-minute paired seasons, with no regular-minutes eligibility floor; min_100_playoff_minutes likewise has no regular-minutes floor. A leader must be strictly higher in every set; otherwise the value is null, as permitted by the checker despite its string label.\n\nArithmetic is exact rational arithmetic, including 0.44 = 11/25, until final JSON conversion to full-precision Python floats; no presentation rounding or approximate equality tolerance is applied. Thus equality, strict comparisons, inclusive matching boundaries and ties follow the mathematical definitions without intermediate floating-point noise. Binomial tails include k through n. Only keys requested by check_format.py are emitted; other quantities are calculated internally as needed.",
+  "counts": {
+    "exact": 82,
+    "published": 0,
+    "disagrees": 0,
+    "missing": 0
+  },
+  "rows": [
+    {
+      "key": "benchmark_context.100.median_delta_per_36",
+      "claims": [
+        "PJ-C001"
+      ],
+      "ours": -1.535606060606062,
+      "theirs": -1.5356060606060606,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark_context.100.share_below_zero",
+      "claims": [
+        "PJ-C001"
+      ],
+      "ours": 0.730566037735849,
+      "theirs": 0.730566037735849,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark_context.100.n_player_seasons",
+      "claims": [
+        "PJ-C001"
+      ],
+      "ours": 1325,
+      "theirs": 1325,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.regular.ppg",
+      "claims": [
+        "PJ-C002"
+      ],
+      "ours": 22.90625,
+      "theirs": 22.90625,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.playoffs.ppg",
+      "claims": [
+        "PJ-C002"
+      ],
+      "ours": 26.90909090909091,
+      "theirs": 26.90909090909091,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.regular.mpg",
+      "claims": [
+        "PJ-C002"
+      ],
+      "ours": 33.40625,
+      "theirs": 33.40625,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.playoffs.mpg",
+      "claims": [
+        "PJ-C002"
+      ],
+      "ours": 39.72727272727273,
+      "theirs": 39.72727272727273,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.delta_ppg",
+      "claims": [
+        "PJ-C003"
+      ],
+      "ours": 4.00284090909091,
+      "theirs": 4.002840909090909,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.ppg_decomposition.minutes_component",
+      "claims": [
+        "PJ-C003"
+      ],
+      "ours": 4.307881589626175,
+      "theirs": 4.307881589626175,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.ppg_decomposition.rate_component",
+      "claims": [
+        "PJ-C003"
+      ],
+      "ours": -0.30504068053526406,
+      "theirs": -0.30504068053526556,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.regular.points_per_36",
+      "claims": [
+        "PJ-C004"
+      ],
+      "ours": 24.684752104770816,
+      "theirs": 24.684752104770816,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2022-23].measures.playoffs.points_per_36",
+      "claims": [
+        "PJ-C004"
+      ],
+      "ours": 24.384439359267734,
+      "theirs": 24.384439359267734,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2022-23].percentile",
+      "claims": [
+        "PJ-C004"
+      ],
+      "ours": 70.52631578947368,
+      "theirs": 70.52631578947368,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2022-23].peer_n",
+      "claims": [
+        "PJ-C004"
+      ],
+      "ours": 95,
+      "theirs": 95,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2022-23].wording",
+      "claims": [
+        "PJ-C004"
+      ],
+      "ours": "typical",
+      "theirs": "typical",
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.career.A_100.n_eligible_seasons",
+      "claims": [
+        "PJ-C005"
+      ],
+      "ours": 11,
+      "theirs": 11,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.career.A_100.playoff_minutes",
+      "claims": [
+        "PJ-C005"
+      ],
+      "ours": 4904,
+      "theirs": 4904,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.career.A_100.pooled_excess_per_36",
+      "claims": [
+        "PJ-C005"
+      ],
+      "ours": -0.2501665490902232,
+      "theirs": -0.2501665490902226,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.career.A_100.minute_weighted_peer_median",
+      "claims": [
+        "PJ-C005",
+        "PJ-C012"
+      ],
+      "ours": -1.704022456064956,
+      "theirs": -1.7040224560649564,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.career.A_100.seasons_above_peer_median",
+      "claims": [
+        "PJ-C005",
+        "PJ-C013"
+      ],
+      "ours": 8,
+      "theirs": 8,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.real_per_minute_rule_met",
+      "claims": [
+        "PJ-C005"
+      ],
+      "ours": true,
+      "theirs": true,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.season_count_check.butler.one_sided_p",
+      "claims": [
+        "PJ-C005"
+      ],
+      "ours": 0.11328125,
+      "theirs": 0.11328125,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.season_count_check.butler.mean_percentile",
+      "claims": [
+        "PJ-C005"
+      ],
+      "ours": 56.29606952613826,
+      "theirs": 56.29606952613826,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].n_players",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": 29,
+      "theirs": 29,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].subjects.butler.rank",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": 7,
+      "theirs": 7,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].top_10[0].name",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": "Andre Iguodala",
+      "theirs": "Andre Iguodala",
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].top_10[1].name",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": "Marcus Smart",
+      "theirs": "Marcus Smart",
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].top_10[2].name",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": "Donovan Mitchell",
+      "theirs": "Donovan Mitchell",
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].top_10[3].name",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": "Chris Paul",
+      "theirs": "Chris Paul",
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].top_10[4].name",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": "Draymond Green",
+      "theirs": "Draymond Green",
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=8].top_10[5].name",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": "Nikola Jokić",
+      "theirs": "Nikola Jokić",
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=6].n_players",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": 64,
+      "theirs": 64,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=6].subjects.butler.rank",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": 12,
+      "theirs": 12,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.career_edge[min_eligible_runs=6].subjects.murray.rank",
+      "claims": [
+        "PJ-C006"
+      ],
+      "ours": 8,
+      "theirs": 8,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2021-22].measures.regular.points_per_36",
+      "claims": [
+        "PJ-C007"
+      ],
+      "ours": 22.726048679440705,
+      "theirs": 22.726048679440705,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2021-22].measures.playoffs.points_per_36",
+      "claims": [
+        "PJ-C007"
+      ],
+      "ours": 26.670906200317965,
+      "theirs": 26.670906200317965,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2021-22].percentile",
+      "claims": [
+        "PJ-C007"
+      ],
+      "ours": 98.85057471264368,
+      "theirs": 98.85057471264368,
+      "status": "exact"
+    },
+    {
+      "key": "variability[player=butler,season=2021-22].playoff_games",
+      "claims": [
+        "PJ-C007"
+      ],
+      "ours": 17,
+      "theirs": 17,
+      "status": "exact"
+    },
+    {
+      "key": "variability[player=butler,season=2021-22].window_percentile_of_playoff_run",
+      "claims": [
+        "PJ-C007"
+      ],
+      "ours": 100.0,
+      "theirs": 100.0,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2017-18].measures.playoff_games",
+      "claims": [
+        "PJ-C008"
+      ],
+      "ours": 5,
+      "theirs": 5,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2017-18].delta_points_per_36",
+      "claims": [
+        "PJ-C008"
+      ],
+      "ours": -5.01365662716103,
+      "theirs": -5.013656627161031,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2017-18].percentile",
+      "claims": [
+        "PJ-C008"
+      ],
+      "ours": 8.791208791208792,
+      "theirs": 8.791208791208792,
+      "status": "exact"
+    },
+    {
+      "key": "subjects.butler[season=2020-21].measures.playoff_games",
+      "claims": [
+        "PJ-C008"
+      ],
+      "ours": 4,
+      "theirs": 4,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2020-21].delta_points_per_36",
+      "claims": [
+        "PJ-C008"
+      ],
+      "ours": -9.465054143564174,
+      "theirs": -9.465054143564172,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2020-21].percentile",
+      "claims": [
+        "PJ-C008"
+      ],
+      "ours": 0.0,
+      "theirs": 0.0,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.butler.per_season.A_100[season=2020-21].peer_n",
+      "claims": [
+        "PJ-C008"
+      ],
+      "ours": 65,
+      "theirs": 65,
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.series[round=1].opponent",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": "MIL",
+      "theirs": "MIL",
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.series[round=1].ppg",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": 37.6,
+      "theirs": 37.6,
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.series[round=2].ppg",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": 24.6,
+      "theirs": 24.6,
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.series[round=3].ppg",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": 24.714285714285715,
+      "theirs": 24.714285714285715,
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.series[round=4].opponent",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": "DEN",
+      "theirs": "DEN",
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.series[round=4].ppg",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": 21.6,
+      "theirs": 21.6,
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.series[round=4].points_per_36",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": 18.924312484789485,
+      "theirs": 18.924312484789485,
+      "status": "exact"
+    },
+    {
+      "key": "series_2022_23.butler.regular_points_per_36",
+      "claims": [
+        "PJ-C009"
+      ],
+      "ours": 24.683212771264653,
+      "theirs": 24.683212771264653,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.per_season.A_100[season=2018-19].percentile",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": 86.02150537634408,
+      "theirs": 86.02150537634408,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.per_season.A_100[season=2019-20].percentile",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": 97.36842105263158,
+      "theirs": 97.36842105263158,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.per_season.A_100[season=2022-23].percentile",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": 91.57894736842105,
+      "theirs": 91.57894736842105,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.per_season.A_100[season=2023-24].percentile",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": 14.893617021276595,
+      "theirs": 14.893617021276595,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.per_season.A_100[season=2024-25].percentile",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": 45.45454545454545,
+      "theirs": 45.45454545454545,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.per_season.A_100[season=2025-26].percentile",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": 33.72093023255814,
+      "theirs": 33.72093023255814,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.career.A_100.pooled_excess_per_36",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": -0.08650822147901371,
+      "theirs": -0.08650822147901445,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.career.A_100.minute_weighted_peer_median",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": -2.1745371826548787,
+      "theirs": -2.174537182654879,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.career.A_100.seasons_above_peer_median",
+      "claims": [
+        "PJ-C010",
+        "PJ-C013"
+      ],
+      "ours": 3,
+      "theirs": 3,
+      "status": "exact"
+    },
+    {
+      "key": "benchmark.murray.real_per_minute_rule_met",
+      "claims": [
+        "PJ-C010"
+      ],
+      "ours": false,
+      "theirs": false,
+      "status": "exact"
+    },
+    {
+      "key": "season_sets.all_paired.murray.excess_per_36",
+      "claims": [
+        "PJ-C011"
+      ],
+      "ours": -0.08650822147901494,
+      "theirs": -0.08650822147901445,
+      "status": "exact"
+    },
+    {
+      "key": "season_sets.all_paired.butler.excess_per_36",
+      "claims": [
+        "PJ-C011"
+      ],
+      "ours": -0.2588708649564858,
+      "theirs": -0.258870864956483,
+      "status": "exact"
+    },
+    {
+      "key": "season_sets.shared.murray.excess_per_36",
+      "claims": [
+        "PJ-C011"
+      ],
+      "ours": 1.1498347839340632,
+      "theirs": 1.149834783934063,
+      "status": "exact"
+    },
+    {
+      "key": "season_sets.shared.butler.excess_per_36",
+      "claims": [
+        "PJ-C011"
+      ],
+      "ours": -0.3691484712781345,
+      "theirs": -0.369148471278133,
+      "status": "exact"
+    },
+    {
+      "key": "season_sets.min_100_playoff_minutes.murray.excess_per_36",
+      "claims": [
+        "PJ-C011"
+      ],
+      "ours": -0.08650822147901494,
+      "theirs": -0.08650822147901445,
+      "status": "exact"
+    },
+    {
+      "key": "season_sets.min_100_playoff_minutes.butler.excess_per_36",
+      "claims": [
+        "PJ-C011"
+      ],
+      "ours": -0.25016654909022407,
+      "theirs": -0.2501665490902226,
+      "status": "exact"
+    },
+    {
+      "key": "comparison.leader_in_every_set",
+      "claims": [
+        "PJ-C011"
+      ],
+      "ours": "murray",
+      "theirs": "murray",
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.rate_within_3.career.n_eligible_seasons",
+      "claims": [
+        "PJ-C012"
+      ],
+      "ours": 11,
+      "theirs": 11,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.rate_within_3.career.pooled_excess_per_36",
+      "claims": [
+        "PJ-C012"
+      ],
+      "ours": -0.2501665490902232,
+      "theirs": -0.2501665490902226,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.rate_within_3.career.minute_weighted_peer_median",
+      "claims": [
+        "PJ-C012"
+      ],
+      "ours": -2.0849911845396014,
+      "theirs": -2.0849911845396014,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.rate_nearest_25.career.minute_weighted_peer_median",
+      "claims": [
+        "PJ-C012"
+      ],
+      "ours": -2.043667428186559,
+      "theirs": -2.0436674281865597,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.shot_volume_within_3.career.minute_weighted_peer_median",
+      "claims": [
+        "PJ-C012"
+      ],
+      "ours": -1.998167048703803,
+      "theirs": -1.9981670487038026,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.rate_within_3.season_count.seasons_above_peer_median",
+      "claims": [
+        "PJ-C013"
+      ],
+      "ours": 6,
+      "theirs": 6,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.rate_within_3.season_count.n_eligible_seasons",
+      "claims": [
+        "PJ-C013"
+      ],
+      "ours": 11,
+      "theirs": 11,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.rate_within_3.season_count.one_sided_p",
+      "claims": [
+        "PJ-C013"
+      ],
+      "ours": 0.5,
+      "theirs": 0.5,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.murray.rate_within_3.season_count.seasons_above_peer_median",
+      "claims": [
+        "PJ-C013"
+      ],
+      "ours": 5,
+      "theirs": 5,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.murray.rate_within_3.season_count.n_eligible_seasons",
+      "claims": [
+        "PJ-C013"
+      ],
+      "ours": 6,
+      "theirs": 6,
+      "status": "exact"
+    },
+    {
+      "key": "exploratory.matched_peers.butler.shot_volume_within_3.season_count.seasons_above_peer_median",
+      "claims": [
+        "PJ-C013"
+      ],
+      "ours": 7,
+      "theirs": 7,
+      "status": "exact"
+    }
+  ]
+}
