@@ -153,3 +153,12 @@ first results existed, so each records its effect:
    the threshold as a rounded average would move three percentiles by at most
    2.8 points and changes no career condition or rule outcome for either
    player.
+4. Exploratory analysis added during the PJ-04 review, after results existed
+   and not pre-registered: (a) a coin-flip check on the count of seasons
+   above the peer median, with the mean percentile; (b) a career-level edge
+   (pooled per-36 change minus the minute-weighted peer median) for every
+   player with at least 6, and separately 8, eligible runs, 2011–12 to
+   2025–26. It is reported under `exploratory` in `results.json`, labeled as
+   such wherever used, and cannot change the rule outcome above. Reason: the
+   rule gates wording but does not say whether the pattern exceeds chance or
+   how unusual it is among long playoff careers; both temper the headline.

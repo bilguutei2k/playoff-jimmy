@@ -983,6 +983,278 @@
     "leader_in_every_set": "murray",
     "rule": "No 'who rises more' statement unless the same player leads in all three sets."
   },
+  "exploratory": {
+    "career_edge": [
+      {
+        "median_edge_per_36": -0.007050187475430958,
+        "min_eligible_runs": 6,
+        "n_players": 64,
+        "share_positive": 0.5,
+        "subjects": {
+          "butler": {
+            "edge_per_36": 1.4538559069747323,
+            "minute_weighted_peer_median": -1.704022456064956,
+            "name": "Jimmy Butler",
+            "percentile": 82.53968253968254,
+            "playoff_minutes": 4904,
+            "pooled_delta_per_36": -0.2501665490902236,
+            "rank": 12,
+            "runs": 11,
+            "runs_above_peer_median": 8
+          },
+          "murray": {
+            "edge_per_36": 2.0880289611758642,
+            "minute_weighted_peer_median": -2.1745371826548787,
+            "name": "Jamal Murray",
+            "percentile": 88.88888888888889,
+            "playoff_minutes": 3338,
+            "pooled_delta_per_36": -0.08650822147901446,
+            "rank": 8,
+            "runs": 6,
+            "runs_above_peer_median": 3
+          }
+        },
+        "top_10": [
+          {
+            "edge_per_36": 3.665980198758903,
+            "minute_weighted_peer_median": -2.312196690443793,
+            "name": "Jalen Brunson",
+            "player": "brunsja01",
+            "playoff_minutes": 3086,
+            "pooled_delta_per_36": 1.35378350831511,
+            "runs": 6,
+            "runs_above_peer_median": 6
+          },
+          {
+            "edge_per_36": 2.848576153385883,
+            "minute_weighted_peer_median": -1.7281570843108272,
+            "name": "P.J. Tucker",
+            "player": "tuckepj01",
+            "playoff_minutes": 2463,
+            "pooled_delta_per_36": 1.120419069075056,
+            "runs": 6,
+            "runs_above_peer_median": 5
+          },
+          {
+            "edge_per_36": 2.728425419475527,
+            "minute_weighted_peer_median": -1.368001488470378,
+            "name": "Andre Iguodala",
+            "player": "iguodan01",
+            "playoff_minutes": 3847,
+            "pooled_delta_per_36": 1.3604239310051491,
+            "runs": 8,
+            "runs_above_peer_median": 8
+          },
+          {
+            "edge_per_36": 2.5245975887858516,
+            "minute_weighted_peer_median": -1.7781255540927416,
+            "name": "Marcus Smart",
+            "player": "smartma01",
+            "playoff_minutes": 3795,
+            "pooled_delta_per_36": 0.7464720346931101,
+            "runs": 8,
+            "runs_above_peer_median": 7
+          },
+          {
+            "edge_per_36": 2.3291442574788053,
+            "minute_weighted_peer_median": -2.142554584496044,
+            "name": "Donovan Mitchell",
+            "player": "mitchdo01",
+            "playoff_minutes": 2972,
+            "pooled_delta_per_36": 0.18658967298276127,
+            "runs": 9,
+            "runs_above_peer_median": 5
+          },
+          {
+            "edge_per_36": 2.314850706988856,
+            "minute_weighted_peer_median": -1.5201118784731038,
+            "name": "Chris Paul",
+            "player": "paulch01",
+            "playoff_minutes": 4505,
+            "pooled_delta_per_36": 0.7947388285157523,
+            "runs": 12,
+            "runs_above_peer_median": 10
+          },
+          {
+            "edge_per_36": 2.1821754524528596,
+            "minute_weighted_peer_median": -1.471149444110284,
+            "name": "Draymond Green",
+            "player": "greendr01",
+            "playoff_minutes": 4910,
+            "pooled_delta_per_36": 0.7110260083425756,
+            "runs": 8,
+            "runs_above_peer_median": 7
+          },
+          {
+            "edge_per_36": 2.0880289611758642,
+            "minute_weighted_peer_median": -2.1745371826548787,
+            "name": "Jamal Murray",
+            "player": "murraja01",
+            "playoff_minutes": 3338,
+            "pooled_delta_per_36": -0.08650822147901446,
+            "runs": 6,
+            "runs_above_peer_median": 3
+          },
+          {
+            "edge_per_36": 2.0274021231283874,
+            "minute_weighted_peer_median": -1.9012625631680884,
+            "name": "Royce O'Neale",
+            "player": "onealro01",
+            "playoff_minutes": 1200,
+            "pooled_delta_per_36": 0.12613955996029896,
+            "runs": 6,
+            "runs_above_peer_median": 3
+          },
+          {
+            "edge_per_36": 1.7671455233379612,
+            "minute_weighted_peer_median": -2.131869476137159,
+            "name": "Nikola Joki\u0107",
+            "player": "jokicni01",
+            "playoff_minutes": 3838,
+            "pooled_delta_per_36": -0.3647239527991979,
+            "runs": 8,
+            "runs_above_peer_median": 6
+          }
+        ]
+      },
+      {
+        "median_edge_per_36": 0.1217537954424357,
+        "min_eligible_runs": 8,
+        "n_players": 29,
+        "share_positive": 0.5862068965517241,
+        "subjects": {
+          "butler": {
+            "edge_per_36": 1.4538559069747323,
+            "minute_weighted_peer_median": -1.704022456064956,
+            "name": "Jimmy Butler",
+            "percentile": 78.57142857142857,
+            "playoff_minutes": 4904,
+            "pooled_delta_per_36": -0.2501665490902236,
+            "rank": 7,
+            "runs": 11,
+            "runs_above_peer_median": 8
+          }
+        },
+        "top_10": [
+          {
+            "edge_per_36": 2.728425419475527,
+            "minute_weighted_peer_median": -1.368001488470378,
+            "name": "Andre Iguodala",
+            "player": "iguodan01",
+            "playoff_minutes": 3847,
+            "pooled_delta_per_36": 1.3604239310051491,
+            "runs": 8,
+            "runs_above_peer_median": 8
+          },
+          {
+            "edge_per_36": 2.5245975887858516,
+            "minute_weighted_peer_median": -1.7781255540927416,
+            "name": "Marcus Smart",
+            "player": "smartma01",
+            "playoff_minutes": 3795,
+            "pooled_delta_per_36": 0.7464720346931101,
+            "runs": 8,
+            "runs_above_peer_median": 7
+          },
+          {
+            "edge_per_36": 2.3291442574788053,
+            "minute_weighted_peer_median": -2.142554584496044,
+            "name": "Donovan Mitchell",
+            "player": "mitchdo01",
+            "playoff_minutes": 2972,
+            "pooled_delta_per_36": 0.18658967298276127,
+            "runs": 9,
+            "runs_above_peer_median": 5
+          },
+          {
+            "edge_per_36": 2.314850706988856,
+            "minute_weighted_peer_median": -1.5201118784731038,
+            "name": "Chris Paul",
+            "player": "paulch01",
+            "playoff_minutes": 4505,
+            "pooled_delta_per_36": 0.7947388285157523,
+            "runs": 12,
+            "runs_above_peer_median": 10
+          },
+          {
+            "edge_per_36": 2.1821754524528596,
+            "minute_weighted_peer_median": -1.471149444110284,
+            "name": "Draymond Green",
+            "player": "greendr01",
+            "playoff_minutes": 4910,
+            "pooled_delta_per_36": 0.7110260083425756,
+            "runs": 8,
+            "runs_above_peer_median": 7
+          },
+          {
+            "edge_per_36": 1.7671455233379612,
+            "minute_weighted_peer_median": -2.131869476137159,
+            "name": "Nikola Joki\u0107",
+            "player": "jokicni01",
+            "playoff_minutes": 3838,
+            "pooled_delta_per_36": -0.3647239527991979,
+            "runs": 8,
+            "runs_above_peer_median": 6
+          },
+          {
+            "edge_per_36": 1.4538559069747323,
+            "minute_weighted_peer_median": -1.704022456064956,
+            "name": "Jimmy Butler",
+            "player": "butleji01",
+            "playoff_minutes": 4904,
+            "pooled_delta_per_36": -0.2501665490902236,
+            "runs": 11,
+            "runs_above_peer_median": 8
+          },
+          {
+            "edge_per_36": 1.2868990820376418,
+            "minute_weighted_peer_median": -1.5025751103613556,
+            "name": "Kawhi Leonard",
+            "player": "leonaka01",
+            "playoff_minutes": 4790,
+            "pooled_delta_per_36": -0.21567602832371385,
+            "runs": 9,
+            "runs_above_peer_median": 8
+          },
+          {
+            "edge_per_36": 0.8520664418361651,
+            "minute_weighted_peer_median": -1.447268605959767,
+            "name": "LeBron James",
+            "player": "jamesle01",
+            "playoff_minutes": 8435,
+            "pooled_delta_per_36": -0.5952021641236019,
+            "runs": 13,
+            "runs_above_peer_median": 8
+          },
+          {
+            "edge_per_36": 0.6770393025031102,
+            "minute_weighted_peer_median": -1.49809093218388,
+            "name": "Jae Crowder",
+            "player": "crowdja01",
+            "playoff_minutes": 3118,
+            "pooled_delta_per_36": -0.8210516296807698,
+            "runs": 8,
+            "runs_above_peer_median": 7
+          }
+        ]
+      }
+    ],
+    "label": "Exploratory: added 2026-09-28 during the PJ-04 review, after results existed. Not pre-registered; it cannot change the METHOD.md rule outcome.",
+    "season_count_check": {
+      "butler": {
+        "mean_percentile": 56.29606952613826,
+        "n_eligible_seasons": 11,
+        "one_sided_p": 0.11328125,
+        "seasons_above_peer_median": 8
+      },
+      "murray": {
+        "mean_percentile": 61.50632775096282,
+        "n_eligible_seasons": 6,
+        "one_sided_p": 0.65625,
+        "seasons_above_peer_median": 3
+      }
+    }
+  },
   "guide_pilot": {
     "butler_2016_17_to_2022_23": {
       "actual_points": 2031,

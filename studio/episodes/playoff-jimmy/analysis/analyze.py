@@ -186,6 +186,56 @@ def benchmark(totals, subject_pairs, seasons):
     return result, context, peers
 
 
+# ---- exploratory (added after results; not pre-registered) -------------------
+
+CAREER_MIN_RUNS = (6, 8)
+
+
+def career_edges(peers, min_runs):
+    """Every player's pooled per-36 change minus the minute-weighted median of his peers, over his eligible runs."""
+    runs = {}
+    for season, pool in peers.items():
+        for p in pool:
+            runs.setdefault(p["player"], []).append((season, p))
+    medians = {(s, pid): statistics.median([q["delta_points_per_36"] for q in pool if q["player"] != pid])
+               for s, pool in peers.items() for pid in (p["player"] for p in pool)}
+    edges = {}
+    for pid, items in runs.items():
+        if len(items) < min_runs:
+            continue
+        minutes = sum(p["playoff_minutes"] for _, p in items)
+        pooled = sum(p["delta_points_per_36"] * p["playoff_minutes"] for _, p in items) / minutes
+        weighted = sum(p["playoff_minutes"] * medians[(s, pid)] for s, p in items) / minutes
+        edges[pid] = {"name": items[0][1]["name"], "runs": len(items), "playoff_minutes": minutes,
+                      "pooled_delta_per_36": pooled, "minute_weighted_peer_median": weighted, "edge_per_36": pooled - weighted,
+                      "runs_above_peer_median": sum(p["delta_points_per_36"] > medians[(s, pid)] for s, p in items)}
+    values = [e["edge_per_36"] for e in edges.values()]
+    ranked = sorted(edges.items(), key=lambda item: (-item[1]["edge_per_36"], item[0]))
+    return {"min_eligible_runs": min_runs, "n_players": len(edges), "median_edge_per_36": statistics.median(values),
+            "share_positive": sum(v > 0 for v in values) / len(values),
+            "subjects": {name: {**edges[pid], "percentile": percentile(
+                             edges[pid]["edge_per_36"], [e["edge_per_36"] for p, e in edges.items() if p != pid]),
+                             "rank": 1 + sum(e["edge_per_36"] > edges[pid]["edge_per_36"] for e in edges.values())}
+                         for name, pid in SUBJECTS.items() if pid in edges},
+            "top_10": [{"player": pid, **e} for pid, e in ranked[:10]]}
+
+
+def sign_test(benchmark_rows):
+    """Chance of at least this many seasons above the peer median if each were a coin flip."""
+    rows = [r for r in benchmark_rows if r["eligible"]]
+    n, above = len(rows), sum(r["delta_points_per_36"] > r["peer_median"] for r in rows)
+    return {"n_eligible_seasons": n, "seasons_above_peer_median": above,
+            "one_sided_p": sum(math.comb(n, k) for k in range(above, n + 1)) / 2 ** n,
+            "mean_percentile": statistics.mean(r["percentile"] for r in rows)}
+
+
+def exploratory(bench, peers):
+    return {"label": "Exploratory: added 2026-09-28 during the PJ-04 review, after results existed. Not pre-registered; "
+                     "it cannot change the METHOD.md rule outcome.",
+            "career_edge": [career_edges(peers, m) for m in CAREER_MIN_RUNS],
+            "season_count_check": {name: sign_test(b["per_season"]["A_100"]) for name, b in bench.items()}}
+
+
 # ---- game logs -------------------------------------------------------------
 
 def per_36(games):
@@ -397,6 +447,7 @@ def analyze(root=ROOT):
         "sources": {"media_guides": SOURCES, "bbref_manifest_sha256": snapshot["manifest_sha256"]},
         "subjects": subjects, "season_sets": season_sets, "comparison": comparison,
         "benchmark": bench, "benchmark_context": context, "peers_primary_threshold": peers,
+        "exploratory": exploratory(bench, peers),
         "variability": variability(logs, subject_pairs),
         "series_" + CASE_SEASON.replace("-", "_"): series(logs, CASE_SEASON),
         "reconciliation": {"guide_vs_bbref": guide_rows, "gamelogs_vs_totals": log_rows},
@@ -476,6 +527,24 @@ def findings(results, qa):
                 "yes" if c["condition_met"] else "no"))
         out += ["", "Pre-registered per-minute 'real' rule met (all four): **%s**." %
                 ("yes" if b["real_per_minute_rule_met"] else "no"), ""]
+    ex = results["exploratory"]
+    out += ["## Exploratory (not pre-registered)", "", ex["label"], "",
+            "| Player | Eligible runs | Runs above peer median | Chance if coin flips | Mean percentile |",
+            "|---|---:|---:|---:|---:|"]
+    for name, c in ex["season_count_check"].items():
+        out.append("| %s | %d | %d | %s | %s |" % (name.title(), c["n_eligible_seasons"], c["seasons_above_peer_median"],
+                                                  fmt(c["one_sided_p"], 3), fmt(c["mean_percentile"], 0)))
+    out += ["", "Career edge = pooled per-36 change minus the minute-weighted peer median, over each player's eligible runs.", "",
+            "| Players with at least | Players | Median edge | Butler edge (percentile) | Murray edge (percentile) |",
+            "|---|---:|---:|---:|---:|"]
+    for c in ex["career_edge"]:
+        cells = []
+        for name in SUBJECTS:
+            e = c["subjects"].get(name)
+            cells.append("%s (%s)" % (fmt(e["edge_per_36"], 2, True), fmt(e["percentile"], 0)) if e else "not included")
+        out.append("| %d runs | %d | %s | %s | %s |" % (c["min_eligible_runs"], c["n_players"],
+                                                       fmt(c["median_edge_per_36"], 2, True), cells[0], cells[1]))
+    out += [""]
     out += ["## Variability reference", "",
             "Playoff points per 36 against every same-length stretch of that season's regular-season games "
             "(minutes to the second). Not a significance test.", "",

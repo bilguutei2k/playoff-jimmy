@@ -102,6 +102,22 @@ Pre-registered per-minute 'real' rule met (all four): **yes**.
 
 Pre-registered per-minute 'real' rule met (all four): **no**.
 
+## Exploratory (not pre-registered)
+
+Exploratory: added 2026-09-28 during the PJ-04 review, after results existed. Not pre-registered; it cannot change the METHOD.md rule outcome.
+
+| Player | Eligible runs | Runs above peer median | Chance if coin flips | Mean percentile |
+|---|---:|---:|---:|---:|
+| Butler | 11 | 8 | 0.113 | 56 |
+| Murray | 6 | 3 | 0.656 | 62 |
+
+Career edge = pooled per-36 change minus the minute-weighted peer median, over each player's eligible runs.
+
+| Players with at least | Players | Median edge | Butler edge (percentile) | Murray edge (percentile) |
+|---|---:|---:|---:|---:|
+| 6 runs | 64 | -0.01 | +1.45 (83) | +2.09 (89) |
+| 8 runs | 29 | +0.12 | +1.45 (79) | not included |
+
 ## Variability reference
 
 Playoff points per 36 against every same-length stretch of that season's regular-season games (minutes to the second). Not a significance test.

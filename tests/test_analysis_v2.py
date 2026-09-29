@@ -69,6 +69,14 @@ class SnapshotTests(unittest.TestCase):
                     pool = self.results["peers_primary_threshold"][row["season"]]
                     self.assertEqual(row["peer_n"], sum(p["player"] != subject_id for p in pool))
 
+    def test_exploratory_career_edge_agrees_with_the_benchmark(self):
+        for name in analysis.SUBJECTS:
+            career = self.results["benchmark"][name]["career"]["A_100"]
+            edge = self.results["exploratory"]["career_edge"][0]["subjects"][name]
+            self.assertAlmostEqual(edge["edge_per_36"],
+                                   career["pooled_excess_per_36"] - career["minute_weighted_peer_median"], places=9)
+            self.assertEqual(edge["runs_above_peer_median"], career["seasons_above_peer_median"])
+
     def test_rerun_is_byte_identical(self):
         with tempfile.TemporaryDirectory() as first, tempfile.TemporaryDirectory() as second:
             self.assertEqual(analysis.main(["--out", first]), 0)

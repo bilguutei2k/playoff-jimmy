@@ -367,6 +367,17 @@ def build(results, results_sha256):
             % esc(leader.title() if leader else "no single player"),
             table(["Season set", "Player", "Seasons", "Playoff min", "Actual − expected pts", "Pooled Δ/36", "Mean Δ/36 (equal seasons)"], set_rows, 2),
 
+            '<h2>Exploratory checks (not pre-registered)</h2>',
+            '<p class="sub">%s</p>' % esc(results["exploratory"]["label"]),
+            table(["Player", "Eligible runs", "Runs above peer median", "Chance if each run were a coin flip", "Mean percentile"],
+                  [[n.title(), c["n_eligible_seasons"], c["seasons_above_peer_median"], num(c["one_sided_p"], 3),
+                    num(c["mean_percentile"], 0)] for n, c in results["exploratory"]["season_count_check"].items()], 1),
+            '<p>Career edge: pooled change minus the peer median for the same seasons, for every player with enough eligible runs.</p>',
+            "".join(table(["Rank", "Player (at least %d runs; %d players)" % (c["min_eligible_runs"], c["n_players"]),
+                           "Runs", "Edge per 36", "Runs above median"],
+                          [[i + 1, t["name"], t["runs"], num(t["edge_per_36"], 2, True), t["runs_above_peer_median"]]
+                           for i, t in enumerate(c["top_10"])], 2) for c in results["exploratory"]["career_edge"]),
+
             '<h2>1. Scoring rate, regular season to playoffs</h2>',
             '<p class="sub">Points per 36 minutes. Right column: change, then playoff minutes.</p>']
     for name, title in players:
