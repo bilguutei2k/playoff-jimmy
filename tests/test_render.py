@@ -11,7 +11,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 SCENES = ROOT / "studio/episodes/playoff-jimmy/scenes"
 FORMATS = {"title.html": "landscape", "s02-before-after.html": "landscape", "s03-rectangle.html": "landscape",
-           "s04-league-strip.html": "landscape", "short-b.html": "vertical"}
+           "s04-league-strip.html": "landscape", "short-b.html": "vertical",
+           "s05-fairer-test.html": "landscape", "s06-not-every-year.html": "landscape"}
 
 
 def chromium_available():

@@ -20,11 +20,33 @@ const mix = (a, b, p) => 'rgb(' + a.map((v, i) => Math.round(FT.lerp(v, b[i], p)
 const FIELD = [167, 157, 140], INK = [28, 25, 22];
 const px = (v) => v + 'px';
 const text = (f, cls, s, html) => FT.el(f, cls, s, html);
+// Dashed guide lines as SVG paths: 2px strokes centred on whole pixels, dash 10 on / 8 off.
+// Each segment's dash unit is fitted to its length so every line ends on a dash; a segment that
+// continues from a corner starts with a gap, so the rhythm never doubles up at a join.
+const NS = 'http://www.w3.org/2000/svg';
+const fit = (length, fromCorner) => {
+  const n = Math.max(1, Math.round(fromCorner ? length / 18 : (length + 8) / 18));
+  const u = fromCorner ? length / (18 * n) : length / (18 * n - 8);
+  return { dash: (10 * u) + ' ' + (8 * u), offset: fromCorner ? 10 * u : 0 };
+};
+const dashed = (f, segments) => {   // segments: [x1, y1, x2, y2, fromCorner]
+  const svg = document.createElementNS(NS, 'svg');
+  Object.assign(svg.style, { position: 'absolute', left: '0', top: '0', overflow: 'visible' });
+  svg.setAttribute('width', '1'); svg.setAttribute('height', '1');
+  segments.forEach(([x1, y1, x2, y2, fromCorner]) => {
+    const d = fit(Math.hypot(x2 - x1, y2 - y1), fromCorner), line = document.createElementNS(NS, 'line');
+    Object.entries({ x1, y1, x2, y2, stroke: '#675F53', 'stroke-width': 2, 'stroke-dasharray': d.dash,
+                     'stroke-dashoffset': d.offset, 'shape-rendering': 'crispEdges' }).forEach(([k, v]) => line.setAttribute(k, v));
+    svg.appendChild(line);
+  });
+  f.appendChild(svg);
+  return svg;
+};
 
 FT.scene({ duration: { landscape: PRE + 12.5, vertical: 9 }, background: 'paper', formats: {
 landscape: (f) => {
   const X0 = 216, Y0 = 860, SX = 30, SY = 22;
-  const regW = D.regMpg * SX, poW = D.poMpg * SX, regH = D.reg36 * SY, poH = D.po36 * SY;
+  const regW = Math.round(D.regMpg * SX), poW = Math.round(D.poMpg * SX), regH = Math.round(D.reg36 * SY), poH = Math.round(D.po36 * SY);
   const mono = (size, weight, color, extra) => Object.assign({ fontFamily: 'var(--mono)', fontSize: px(size), fontWeight: weight || 400,
     color: color || 'var(--field-text)' }, extra || {});
   // S02 end state, which fades out at t = 0 (the 22.9 hero morphs instead).
@@ -45,9 +67,8 @@ landscape: (f) => {
   // Rectangles (orange underneath, grey fill, dashed regular-season outline).
   const orange = FT.el(f, '', { left: px(X0), background: 'var(--player-a)' });
   const grey = FT.el(f, '', { left: px(X0), background: 'var(--field)' });
-  const outline = FT.el(f, '', { left: px(X0), top: px(Y0 - regH), width: px(regW), height: px(regH), boxSizing: 'border-box',
-    border: '2px dashed var(--field-text)' });
-  const ext = FT.el(f, '', { left: px(X0 + regW), top: px(Y0 - regH - 1), width: px(poW - regW), height: '0', borderTop: '2px dashed var(--field-text)' });
+  const outline = dashed(f, [[X0, Y0 - regH, X0 + regW, Y0 - regH, false], [X0 + regW, Y0 - regH, X0 + regW, Y0, true]]);
+  const ext = dashed(f, [[X0 + regW, Y0 - regH, X0 + poW, Y0 - regH, true]]);
   const yAxis = FT.el(f, '', { left: px(X0 - 1), top: '290px', width: '2px', height: px(Y0 - 290 + 1), background: 'var(--ink)', transformOrigin: 'bottom' });
   const xAxis = FT.el(f, '', { left: px(X0), top: px(Y0 - 1), width: '1224px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
   const lab1 = [
@@ -67,8 +88,9 @@ landscape: (f) => {
   const strip = FT.el(f, '', mono(0, 600, 'var(--ink)', { left: px(X0 + regW), top: '470px', width: px(poW - regW), display: 'flex',
     flexDirection: 'column', alignItems: 'center', gap: '6px' }),
     '<div style="font-size:56px;line-height:1">' + FT.fmt(D.minutesPart, 1, true) + '</div><div style="font-size:26px">PTS / GAME</div><div style="font-size:26px">MINUTES</div>');
-  const lead = FT.el(f, '', { left: px(X0 + poW + 6), top: px(Y0 - poH - 4), width: '47px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
-  const call = FT.el(f, '', mono(0, 600, 'var(--ink)', { left: px(X0 + poW + 63), top: px(Y0 - poH - 35), display: 'flex', flexDirection: 'column', gap: '6px' }),
+  const leadY = Math.round((2 * Y0 - regH - poH) / 2) - 1;          // centred on the rate sliver
+  const lead = FT.el(f, '', { left: px(X0 + poW + 6), top: px(leadY), width: '47px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
+  const call = FT.el(f, '', mono(0, 600, 'var(--ink)', { left: px(X0 + poW + 63), top: px(leadY - 30), display: 'flex', flexDirection: 'column', gap: '6px' }),
     '<div style="font-size:56px;line-height:1">' + FT.fmt(D.ratePart, 1) + '</div><div style="font-size:26px">PTS / GAME · RATE</div>' +
     '<div style="font-size:26px;font-weight:400;color:var(--field-text)">' + FT.fmt(D.reg36, 1) + ' → ' + FT.fmt(D.po36, 1) + ' PTS / 36</div>');
   const kicker = FT.kicker(f, 'Points per game is a rectangle', { x: 96, y: 96, size: 30 });
@@ -88,7 +110,7 @@ landscape: (f) => {
   ];
   const zoomBox = FT.el(f, '', { left: '200px', top: px(Y0 - regH - 17), width: '572px', height: '44px', boxSizing: 'border-box', border: '2px solid var(--ink)' });
   const zoomLink = FT.el(f, '', { left: '772px', top: px(Y0 - regH + 4), width: '128px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
-  const Z = (v) => 438 - (v - 24) * 330;                // inset scale: x15, 24.0 to 25.0 points per 36
+  const Z = (v) => Math.round(438 - (v - 24) * 330);    // inset scale: x15, 24.0 to 25.0 points per 36
   const inset = FT.el(f, '', { left: '900px', top: '290px', width: '924px', height: '560px', boxSizing: 'border-box', border: '2px solid var(--ink)',
     background: 'var(--paper-2)', overflow: 'hidden' },
     '<div style="position:absolute;left:22px;top:14px;font-family:var(--mono);font-size:26px;color:var(--field-text)">ZOOM ×15 · 24.0 – 25.0 PTS / 36</div>' +
@@ -171,15 +193,15 @@ landscape: (f) => {
 vertical: (f) => {
   // Short A frame: its own scale (19 px/min, 30 px per pt/36), timeline compressed about 40%.
   const X0 = 160, Y0 = 1330, SX = 19, SY = 30;
-  const regW = D.regMpg * SX, poW = D.poMpg * SX, regH = D.reg36 * SY, poH = D.po36 * SY;
+  const regW = Math.round(D.regMpg * SX), poW = Math.round(D.poMpg * SX), regH = Math.round(D.reg36 * SY), poH = Math.round(D.po36 * SY);
   const mono = (size, weight, color, extra) => Object.assign({ fontFamily: 'var(--mono)', fontSize: px(size), fontWeight: weight || 400,
     color: color || 'var(--field-text)' }, extra || {});
   const kicker = FT.kicker(f, 'Playoff Jimmy · 1 / 3', { x: 72, y: 220, size: 38 });
   const claim = FT.claim(f, ['Wider,', 'not taller.'], { x: 66, y: 286, size: 116 });
   const orange = FT.el(f, '', { left: px(X0), background: 'var(--player-a)' });
   const grey = FT.el(f, '', { left: px(X0), background: 'var(--field)' });
-  const outline = FT.el(f, '', { left: px(X0), top: px(Y0 - regH), width: px(regW), height: px(regH), boxSizing: 'border-box', border: '2px dashed var(--field-text)' });
-  const ext = FT.el(f, '', { left: px(X0 + regW), top: px(Y0 - regH - 1), width: px(poW - regW), borderTop: '2px dashed var(--field-text)' });
+  const outline = dashed(f, [[X0, Y0 - regH, X0 + regW, Y0 - regH, false], [X0 + regW, Y0 - regH, X0 + regW, Y0, true]]);
+  const ext = dashed(f, [[X0 + regW, Y0 - regH, X0 + poW, Y0 - regH, true]]);
   const yAxis = FT.el(f, '', { left: px(X0 - 1), top: '556px', width: '2px', height: px(Y0 - 556 + 1), background: 'var(--ink)', transformOrigin: 'bottom' });
   const xAxis = FT.el(f, '', { left: px(X0), top: px(Y0 - 1), width: '760px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
   const lab1 = [text(f, '', mono(32, 400, null, { left: '72px', top: '504px' }), 'HEIGHT · PTS / 36'),

@@ -1,0 +1,60 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S05 the fairer test</title></head><body><script>
+// S05 (Paper): each of Butler's eligible runs against that season's peers, then the pooled numbers.
+// Numbers: PJ-C005 (typical -1.7, Butler -0.25, 11 runs), PJ-C012 (similar scorers -2.1). Dots: series butler_runs_A100.
+const K = 'benchmark.butler.career.A_100.';
+const typical = FT.value(K + 'minute_weighted_peer_median'), his = FT.value(K + 'pooled_excess_per_36'), runs = FT.value(K + 'n_eligible_seasons');
+const similar = FT.value('exploratory.matched_peers.butler.rate_within_3.career.minute_weighted_peer_median');
+const rows = FT.series('butler_runs_A100');
+if (rows.length !== runs) throw new Error('Run rows do not match PJ-C005');
+FT.scene({ duration: 10, background: 'paper', formats: { landscape: (f) => {
+  const LO = -10, HI = 6, X0 = 300, X1 = 1140, TOP = 336, PITCH = 44;
+  const x = (v) => Math.round(X0 + (Math.min(Math.max(v, LO), HI) - LO) / (HI - LO) * (X1 - X0));
+  const kicker = FT.kicker(f, 'The fairer test · per 36 minutes', { x: 96, y: 96, size: 30 });
+  const claim = FT.claim(f, ['He slips less than most'], { x: 96, y: 150, size: 112 });
+  let seed = 11;
+  const rand = () => { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; };
+  const dots = [], meds = [], his_ = [], labels = [];
+  rows.forEach((r, i) => {
+    const y = TOP + i * PITCH + 20;
+    labels.push(FT.el(f, 'tick', { left: '96px', top: (y - 16) + 'px', width: '180px', textAlign: 'right', fontSize: '24px' }, r.season.replace('-', '–')));
+    r.peers.forEach((v) => {
+      const e = FT.el(f, 'dot', { left: (x(v) - 4) + 'px', top: (y - 4) + 'px', width: '8px', height: '8px', background: 'var(--field)', opacity: 0 });
+      e.start = 1.0 + rand() * 0.9; dots.push(e);
+    });
+    meds.push(FT.el(f, '', { left: (x(r.peer_median) - 2) + 'px', top: (y - 15) + 'px', width: '4px', height: '30px', background: 'var(--ink)' }));
+    his_.push(FT.el(f, 'dot', { left: (x(r.delta) - 11) + 'px', top: (y - 11) + 'px', width: '22px', height: '22px', background: 'var(--player-a)',
+      boxShadow: '0 0 0 3px var(--paper), 0 0 0 5px var(--ink)' }));
+  });
+  const axisY = TOP + rows.length * PITCH + 4;
+  const axis = FT.el(f, '', { left: X0 + 'px', top: axisY + 'px', width: (X1 - X0) + 'px', height: '2px', background: 'var(--ink)', transformOrigin: 'left' });
+  const ticks = [-8, -4, 0, 4].map((v) => FT.el(f, 'tick', { left: (x(v) - 60) + 'px', top: (axisY + 10) + 'px', width: '120px', textAlign: 'center', fontSize: '24px' }, FT.fmt(v, 0, true)));
+  const ends = [FT.el(f, 'tick', { left: X0 + 'px', top: (axisY + 40) + 'px', fontSize: '24px' }, '← WORSE'),
+                FT.el(f, 'tick', { left: (X1 - 200) + 'px', width: '200px', textAlign: 'right', top: (axisY + 40) + 'px', fontSize: '24px' }, 'BETTER →')];
+  const key = FT.el(f, 'label', { left: X0 + 'px', top: (TOP - 44) + 'px', fontSize: '24px', color: 'var(--field-text)' },
+    'Each dot: one player that season · bar: the typical player');
+  // Pooled numbers on the right.
+  const block = (y, label, color, value, digits) => [
+    FT.el(f, 'label', { left: '1260px', top: y + 'px', fontSize: '26px', color: color === 'var(--player-a)' ? 'var(--player-a-text)' : 'var(--field-text)' }, label),
+    FT.el(f, 'number', { left: '1250px', top: (y + 34) + 'px', fontSize: '120px', color }, FT.fmt(value, digits))];
+  const bTyp = block(330, 'Typical player, same seasons', 'var(--field-text)', typical, 1);
+  const bHis = block(510, 'Butler, ' + runs + ' runs', 'var(--player-a)', his, 2);
+  const bSim = block(690, 'Players who score like him', 'var(--field-text)', similar, 1);
+  const chip = FT.el(f, 'claim chip', { left: '1600px', top: '560px', fontSize: '60px', padding: '8px 16px' }, 'Passes');
+  FT.source(f, [['SOURCE', 'Basketball-Reference · Butler\'s ' + runs + ' eligible runs, 2012–13 to 2024–25 · pooled by playoff minutes'],
+                ['SCOPE', 'peers: at least 1,500 regular-season and 100 playoff minutes, same season']], { x: 96, y: 903, width: 1728, size: 24 });
+  return (t) => {
+    FT.rise(kicker, t, 0); claim.at(t, 0.2);
+    axis.style.transform = 'scaleX(' + FT.p(t, 0.7, 0.5) + ')';
+    ticks.concat(ends, labels, [key]).forEach((e) => FT.rise(e, t, 0.8, 6));
+    dots.forEach((e) => { const p = FT.p(t, e.start, 0.3); e.style.opacity = 0.55 * p; e.style.transform = 'translateY(' + (1 - p) * -20 + 'px)'; });
+    meds.forEach((e, i) => { e.style.transform = 'scaleY(' + FT.p(t, 2.0 + i * 0.03, 0.4) + ')'; });
+    his_.forEach((e, i) => { const p = FT.p(t, 2.4 + i * 0.12, 0.4); e.style.opacity = p; e.style.transform = 'scale(' + FT.lerp(0.4, 1, p) + ')'; });
+    bTyp.forEach((e) => FT.rise(e, t, 4.0)); bHis.forEach((e) => FT.rise(e, t, 4.8)); bSim.forEach((e) => FT.rise(e, t, 6.4));
+    const pk = FT.p(t, 7.6, 0.5);
+    chip.style.opacity = Math.min(1, pk * 2); chip.style.transform = 'rotate(' + (-4 - 3 * Math.sin(Math.PI * pk)) + 'deg) scale(' + FT.lerp(0.85, 1, pk) + ')';
+  };
+} } });
+</script></body></html>

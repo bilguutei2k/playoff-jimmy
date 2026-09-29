@@ -1,0 +1,71 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../../../render/fonts/fonts.css"><link rel="stylesheet" href="../../../render/system.css">
+<script src="../../../render/system.js"></script><script src="data.js"></script>
+<title>S06 not every year</title></head><body><script>
+// S06 (Paper): run by run against similar scorers, and how the count flips with the comparison.
+// Numbers: PJ-C013 (6 of 11, 5 of 6, 8 of 11, 3 of 6), PJ-C008 (the 5- and 4-game runs). Markers: series above_median.
+const M = 'exploratory.matched_peers.', A = 'benchmark.';
+const n = (who, key) => FT.value(M + who + '.rate_within_3.season_count.' + key);
+const counts = { butler: { similar: [n('butler', 'seasons_above_peer_median'), n('butler', 'n_eligible_seasons')],
+                           all: [FT.value(A + 'butler.career.A_100.seasons_above_peer_median'), FT.value(A + 'butler.career.A_100.n_eligible_seasons')] },
+                 murray: { similar: [n('murray', 'seasons_above_peer_median'), n('murray', 'n_eligible_seasons')],
+                           all: [FT.value(A + 'murray.career.A_100.seasons_above_peer_median'), n('murray', 'n_eligible_seasons')] } };
+const flags = FT.series('above_median'), games = FT.series('butler_playoff_games');
+['butler', 'murray'].forEach((who) => {
+  if (flags[who].similar.filter((r) => r.above).length !== counts[who].similar[0]) throw new Error('Markers do not match PJ-C013 for ' + who);
+});
+const shortRuns = { '2017-18': FT.value('subjects.butler[season=2017-18].measures.playoff_games'), '2020-21': FT.value('subjects.butler[season=2020-21].measures.playoff_games') };
+FT.scene({ duration: 11, background: 'paper', formats: { landscape: (f) => {
+  const kicker = FT.kicker(f, 'Not every year · per 36 minutes', { x: 96, y: 96, size: 30 });
+  const claim = FT.claim(f, ['Season by season, it\'s a coin flip'], { x: 96, y: 150, size: 112 });
+  const markerRow = (who, y, color, label) => {
+    const items = flags[who].similar;
+    const head = FT.el(f, 'label', { left: '96px', top: y + 'px', fontSize: '30px', color: who === 'butler' ? 'var(--player-a-text)' : 'var(--player-b)' }, label);
+    const marks = items.map((r, i) => {
+      const cx = 96 + i * 84;
+      const m = FT.el(f, 'dot', { left: cx + 'px', top: (y + 54) + 'px', width: '48px', height: '48px', boxSizing: 'border-box',
+        background: r.above ? color : 'var(--paper)', border: '4px solid ' + color });
+      const s = FT.el(f, 'tick', { left: (cx - 18) + 'px', top: (y + 112) + 'px', width: '84px', textAlign: 'center', fontSize: '24px' },
+        r.season.slice(2, 4) + '–' + r.season.slice(5));
+      return [m, s, r];
+    });
+    const count = FT.el(f, 'number', { left: (96 + items.length * 84 + 30) + 'px', top: (y + 50) + 'px', fontSize: '72px', color: 'var(--ink)', letterSpacing: '0' },
+      counts[who].similar[0] + ' of ' + counts[who].similar[1]);
+    return { head, marks, count };
+  };
+  const bRow = markerRow('butler', 330, 'var(--player-a)', 'Butler vs similar scorers');
+  const mRow = markerRow('murray', 560, 'var(--player-b)', 'Murray vs similar scorers');
+  const legend = FT.el(f, 'tick', { left: '96px', top: '292px', fontSize: '24px' }, 'FILLED = ABOVE THE TYPICAL SIMILAR SCORER THAT SEASON');
+  const tags = bRow.marks.filter(([, , r]) => shortRuns[r.season]).map(([m, , r]) =>
+    FT.el(f, 'label', { left: (parseInt(m.style.left) - 18) + 'px', top: '474px', width: '84px', textAlign: 'center', fontSize: '24px', color: 'var(--ink)', fontWeight: '600' },
+      shortRuns[r.season] + ' G'));
+  // The flip: a small table.
+  const table = FT.el(f, '', { left: '1180px', top: '330px', width: '644px' },
+    '<div style="display:grid;grid-template-columns:1fr 200px 200px;align-items:end;font-family:var(--mono)">' +
+    '<div></div><div style="font-size:24px;color:var(--field-text);text-align:right">VS SIMILAR<br>SCORERS</div><div style="font-size:24px;color:var(--field-text);text-align:right">VS<br>EVERYONE</div></div>' +
+    '<div style="height:3px;background:var(--ink);margin:12px 0 0"></div>' +
+    ['butler', 'murray'].map((who) => '<div style="display:grid;grid-template-columns:1fr 200px 200px;align-items:center;padding:26px 0;border-bottom:2px solid var(--paper-2)">' +
+      '<div style="font-family:var(--mono);font-weight:600;font-size:40px;display:flex;align-items:center;gap:14px"><span class="dot" style="display:inline-block;width:22px;height:22px;background:' +
+      (who === 'butler' ? 'var(--player-a)' : 'var(--player-b)') + '"></span>' + (who === 'butler' ? 'Butler' : 'Murray') + '</div>' +
+      ['similar', 'all'].map((g) => '<div style="font-family:var(--mono);font-weight:600;font-size:56px;text-align:right;letter-spacing:-0.02em">' +
+        counts[who][g][0] + '/' + counts[who][g][1] + '</div>').join('') + '</div>').join(''));
+  const tableHead = FT.el(f, 'label', { left: '1180px', top: '292px', fontSize: '24px', color: 'var(--field-text)' }, 'Runs above the typical player');
+  const caption = FT.el(f, 'caption', { left: '1180px', top: '700px', width: '644px', fontSize: '44px' },
+    'Who looks steadier depends on <em>who you compare them with</em>.');
+  FT.source(f, [['SOURCE', 'Basketball-Reference · similar scorers: eligible peers within 3 regular-season points per 36 of him'],
+                ['NOTE', 'exploratory comparison, added after an outside review · G = playoff games']], { x: 96, y: 903, width: 1728, size: 24 });
+  return (t) => {
+    FT.rise(kicker, t, 0); claim.at(t, 0.2);
+    FT.rise(legend, t, 0.8, 6);
+    [bRow, mRow].forEach((row, k) => {
+      const base = k ? 5.2 : 1.2;
+      FT.rise(row.head, t, base);
+      row.marks.forEach(([m, s], i) => { const p = FT.p(t, base + 0.3 + i * 0.12, 0.35); m.style.opacity = p; m.style.transform = 'scale(' + FT.lerp(0.5, 1, p) + ')'; FT.rise(s, t, base + 0.3 + i * 0.12, 6); });
+      FT.rise(row.count, t, base + 0.4 + row.marks.length * 0.12);
+    });
+    tags.forEach((e) => FT.rise(e, t, 4.2, 6));
+    FT.rise(tableHead, t, 7.2); FT.rise(table, t, 7.2, 12);
+    FT.cut(caption, t, 8.8);
+  };
+} } });
+</script></body></html>

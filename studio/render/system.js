@@ -48,6 +48,12 @@
     return v;
   };
 
+  FT.meta = (key) => {
+    const v = window.SCENE_DATA && window.SCENE_DATA.meta && window.SCENE_DATA.meta[key];
+    if (v === undefined) throw new Error('Scene meta missing from data.js: ' + key);
+    return v;
+  };
+
   FT.el = (parent, cls, style, html) => {
     const e = document.createElement('div');
     if (cls) e.className = cls;
