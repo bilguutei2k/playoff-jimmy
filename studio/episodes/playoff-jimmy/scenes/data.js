@@ -2,8 +2,9 @@
 window.SCENE_DATA = {
  "analysis_revision": "65f2182",
  "meta": {
-  "preregistration_commit": "2827174",
-  "preregistration_date": "2026-09-28"
+  "preregistration_commit": "1ea694c",
+  "preregistration_date": "2026-09-28",
+  "public_repo": "github.com/bilguutei2k/playoff-jimmy"
  },
  "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a",
  "series": {

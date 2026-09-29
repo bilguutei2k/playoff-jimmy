@@ -16,8 +16,9 @@ FT.scene({ duration: 9, background: 'paper', formats: { landscape: (f) => {
   const stamp = FT.el(f, '', { left: '1110px', top: '700px', border: '3px solid var(--ink)', padding: '14px 22px', fontFamily: 'var(--mono)', color: 'var(--ink)' },
     '<div style="font-size:32px;font-weight:600;letter-spacing:0.06em">COMMITTED ' + date + ' · ' + commit + '</div>' +
     '<div style="font-size:24px;letter-spacing:0.06em;color:var(--field-text);margin-top:6px">BEFORE ANY LEAGUE DATA WAS DOWNLOADED</div>');
-  FT.source(f, [['SOURCE', 'the project\'s git history: METHOD.md · real minutes = at least 1,500 regular-season and 100 playoff minutes']],
-            { x: 96, y: 936, width: 1728, size: 24 });
+  FT.source(f, [['SOURCE', 'git history of ' + FT.meta('public_repo') + ' · METHOD.md'],
+                ['SCOPE', 'real minutes = at least 1,500 regular-season and 100 playoff minutes']],
+            { x: 96, y: 903, width: 1728, size: 24 });
   return (t) => {
     FT.rise(kicker, t, 0); claim.at(t, 0.2);
     rule.style.transform = 'scaleX(' + FT.p(t, 0.8, 0.5) + ')';

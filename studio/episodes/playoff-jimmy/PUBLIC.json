@@ -1,0 +1,9 @@
+{
+  "about": "Where this episode is public. The public repository's history is built by studio/tools/public_repo.sh from the private working repository without third-party files, so its commit hashes differ from the private ones; the video and the companion page cite the public hashes.",
+  "repo": "https://github.com/bilguutei2k/playoff-jimmy",
+  "repo_short": "github.com/bilguutei2k/playoff-jimmy",
+  "site": "https://bilguutei2k.github.io/playoff-jimmy/",
+  "preregistration_commit": "1ea694c",
+  "preregistration_date": "2026-09-28",
+  "snapshot_commit": "eedac44"
+}

@@ -14,11 +14,17 @@ spec = importlib.util.spec_from_file_location("playoff_analysis_v2", path)
 analysis = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(analysis)
 
+# The saved Basketball-Reference pages are not redistributed (see README.md); tests that
+# rerun the analysis or check input hashes need them and are skipped without them.
+SNAPSHOT = path.parents[1] / "data/raw/bbref"
+needs_snapshot = unittest.skipUnless(SNAPSHOT.is_dir(), "needs the saved Basketball-Reference pages (not redistributed)")
+
 
 def game(points, minutes):
     return {"points": points, "seconds": minutes * 60}
 
 
+@needs_snapshot
 class SnapshotTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -111,6 +117,7 @@ class SnapshotTests(unittest.TestCase):
             self.assertIn("Methods reviewed", page)
 
 
+@needs_snapshot
 class ClaimTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):

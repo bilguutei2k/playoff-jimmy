@@ -18,6 +18,7 @@ def record(phase="regular", games=10, minutes=300, points=100):
 
 
 class AnalysisTests(unittest.TestCase):
+    @unittest.skipUnless((path.parents[1] / "data/extracted").is_dir(), "needs the media-guide extracts (not redistributed)")
     def test_extracted_columns_match_visually_audited_tables(self):
         rows = analysis.load_records()
         expected = {("butler", "regular"): (64, 2138, 1466, 888, 555, 340, 101),

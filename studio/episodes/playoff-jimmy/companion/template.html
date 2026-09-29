@@ -356,7 +356,8 @@ footer { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); bord
     var K = D.checks;
     var steps = [
       [K.preregistration_date, 'The question, the measures and the pass-or-fail test were written down and committed (commit <span class="num">' +
-        K.preregistration_commit + '</span>) before any league data was downloaded.'],
+        (D.public ? '<a href="' + D.public.repo + '/commit/' + K.preregistration_commit + '">' + K.preregistration_commit + '</a>' : K.preregistration_commit) +
+        '</span>) before any league data was downloaded.'],
       [K.bbref_retrieved_utc, K.bbref_pages + ' Basketball-Reference pages (season totals and game logs) were saved and fingerprinted with SHA-256. ' +
         'Every season row for both players was checked against the teams\' official media guides.'],
       ['Analysis', 'The analysis reruns from those saved pages to byte-identical results. Every claim resolves to a value in them.'],
@@ -378,7 +379,10 @@ footer { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); bord
       'Basketball-Reference: season totals (regular season and playoffs) and player game logs, ' + D.method.first_season.butler.replace('-', '–') +
         ' to ' + D.method.last_season.replace('-', '–') + ', saved ' + D.checks.bbref_retrieved_utc + ' (UTC). Play-in games are excluded.',
       'Official team media guides, used as an independent check: Miami Heat 2023–24 (Butler) and Denver Nuggets 2025–26 (Murray).',
-      'Data and code: the saved pages, the analysis and every check are in the project repository. A public link will be added here when it is published.'
+      (D.public ? 'Data and code: <a href="' + D.public.repo + '">' + esc(D.public.repo_short) + '</a>, with the analysis, the results, every claim and every check, ' +
+        'and the full history, including the commit that fixed the test before any league data existed. The saved Basketball-Reference pages are not redistributed; ' +
+        'the repository lists each page\'s address and fingerprint.'
+        : 'Data and code: a public link will be added here when the repository is published.')
     ].map(function (s) { return '<li>' + s + '</li>'; }).join('');
     $('footer').innerHTML = '<span>Companion to the video "Is Playoff Jimmy real?"</span><span>Results SHA-256 ' + D.results_sha256.slice(0, 12) +
       '</span><span>Analysis revision ' + String(D.analysis_revision).slice(0, 7) + '</span>';

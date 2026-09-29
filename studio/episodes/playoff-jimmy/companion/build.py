@@ -94,8 +94,12 @@ def main():
                             "minutes": results["season_sets"][key][name]["playoff_minutes"],
                             "seasons": [season(s) for s in results["season_sets"][key][name]["seasons"]]} for name in PLAYERS}}
             for key, label in SEASON_SETS.items()}
-    log = subprocess.run(["git", "-C", str(EPISODE), "log", "-1", "--format=%h %cs", PREREGISTRATION],
-                         capture_output=True, text=True, check=True).stdout.split()
+    public = json.loads((EPISODE / "PUBLIC.json").read_text()) if (EPISODE / "PUBLIC.json").exists() else None
+    if public:                           # cite the public repository's hash, which visitors can check
+        log = [public["preregistration_commit"], public["preregistration_date"]]
+    else:
+        log = subprocess.run(["git", "-C", str(EPISODE), "log", "-1", "--format=%h %cs", PREREGISTRATION],
+                             capture_output=True, text=True, check=True).stdout.split()
     pages = manifest["pages"]
     payload = {
         "players": PLAYERS,
@@ -109,6 +113,7 @@ def main():
                    "bbref_pages": len(pages),
                    "bbref_retrieved_utc": min(p["retrieved_at"][:10] for p in pages)},
         "method": results["method"],
+        "public": public,
         "results_sha256": digest,
         "analysis_revision": claims[0]["analysis_revision"],
     }
