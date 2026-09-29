@@ -18,9 +18,9 @@
       "status": "passed"
     },
     {
-      "command": "python3 -m unittest discover -s tests -v",
+      "command": "python3 -B -m unittest discover -s tests -v",
       "name": "pilot_regression_tests",
-      "scope": "Seven tests; not an independent statistical review.",
+      "scope": "24 tests (pilot, analysis v2, runner) passing on 2026-09-28; not an independent statistical review.",
       "status": "passed"
     },
     {
@@ -29,7 +29,7 @@
         "analysis/review.md"
       ],
       "name": "pilot_reproducibility",
-      "scope": "All four output files had identical SHA-256 values on rerun. Re-verified 2026-09-28 from a clean scratch copy (analysis/review.md).",
+      "scope": "Superseded by analysis_v2_reproducibility.",
       "status": "passed"
     },
     {
@@ -54,6 +54,31 @@
       ],
       "name": "bbref_snapshot_integrity",
       "scope": "33 pages, HTTP 200, stored bytes match manifest SHA-256, required tables present. Not a coverage or reconciliation check.",
+      "status": "passed"
+    },
+    {
+      "command": "python3 analysis/analyze.py",
+      "evidence": [
+        "analysis/qa.json"
+      ],
+      "name": "analysis_v2_data_checks",
+      "scope": "Hashes, integrity, traded rows, guide-to-BBRef and game-log reconciliation.",
+      "status": "passed"
+    },
+    {
+      "command": "python3 -B -m unittest tests.test_analysis_v2 (test_rerun_is_byte_identical)",
+      "evidence": [
+        "analysis/results.json sha256 d6ecfe6a50ac589388082410cf8150cf7fa5454a11ec289289c2d9fa889cf8d7"
+      ],
+      "name": "analysis_v2_reproducibility",
+      "status": "passed"
+    },
+    {
+      "evidence": [
+        "analysis/review.md"
+      ],
+      "name": "benchmark_independent_spot_check",
+      "scope": "Separately written parse re-derived peer count, median and percentile for Butler 2018-19, 2021-22, 2022-23 and Murray 2019-20.",
       "status": "passed"
     }
   ],
@@ -104,7 +129,7 @@
     "Audience and final narration language (does not block research)."
   ],
   "schema_version": 1,
-  "stage": "acquire",
+  "stage": "analyze",
   "status": "in_progress",
   "tasks": [
     {
@@ -122,8 +147,8 @@
         "PJ-01"
       ],
       "id": "PJ-02",
-      "progress": "Snapshot done 2026-09-28: 15 BBRef league totals pages and 18 game logs, hashes verified (data/bbref-manifest.json). Next: parse, reconcile against the guides, compute exposure classes.",
-      "status": "active",
+      "progress": "Done 2026-09-28. 33 BBRef pages parsed; 35 guide rows match exactly, 1 within a minute (Murray 2016-17 regular), 3 zero-game rows agree; 36 game-log tables reconcile; exposure classes computed.",
+      "status": "done",
       "title": "Snapshot sources, reconcile guides against Basketball-Reference, compute coverage"
     },
     {
@@ -133,8 +158,8 @@
         "PJ-02"
       ],
       "id": "PJ-03",
-      "progress": "Pilot exists: 39 guide rows, 12 pairs, 7 tests.",
-      "status": "pending",
+      "progress": "Done 2026-09-28. analysis/analyze.py (v2), results.json, FINDINGS.md, packet/index.html. Pilot values reproduce on guide rows; byte-identical rerun; peer medians and percentiles re-derived by a separate parse for four player-seasons. Three post-result clarifications recorded in METHOD.md amendments.",
+      "status": "done",
       "title": "Analysis v2: pre-registered measures, benchmark, variability reference, 2022-23 series, results packet"
     },
     {

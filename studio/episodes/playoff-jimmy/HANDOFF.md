@@ -5,22 +5,18 @@ decisions and failed attempts are in `STATE.json`; rules are in `METHOD.md`.
 
 ## Where we are
 
-Stage: acquire. The research rules are pre-registered in `METHOD.md`
-(commit 2827174), committed before any peer data was downloaded. The
-Basketball-Reference snapshot is saved and hash-verified (commit de8233c): 15
-league totals pages for 2011–12 to 2025–26 and 18 game logs. The media-guide
-pilot is reproducible and independently reviewed (`analysis/review.md`). No
-claim is verified yet; no script or render exists.
+Stage: analyze. PJ-02 and PJ-03 are done (2026-09-28): sources reconcile, and
+analysis v2 ran exactly as pre-registered. Open `analysis/packet/index.html`
+for the charts, or read `analysis/FINDINGS.md`. The results are **unreviewed**:
+no claim is verified and the storyline is not chosen.
 
-## Next actions (daytime sessions)
+## Next actions
 
-1. PJ-02: parse the snapshot; reconcile every media-guide row against it
-   (counts exact, minutes within 1); give every player-season an exposure
-   class computed from the data.
-2. PJ-03: analysis v2 exactly as `METHOD.md` specifies, then a results packet
-   of plain charts that read only `results.json`.
-3. PJ-04: methods review with Claude, then 5–10 claims and a research-lock
-   commit. The storyline is chosen here, from the results.
+1. PJ-04 (daytime, with Claude): review the packet against `METHOD.md`,
+   resolve objections, write 5–10 claims in `CLAIMS.json`, choose the
+   storyline, tag the research lock.
+2. PJ-05 when the Opus examples arrive: two or three stills of real scenes.
+3. PJ-06 after the lock: scenes, script draft and short-form outlines.
 
 ## Waiting on the user
 
@@ -31,8 +27,11 @@ claim is verified yet; no script or render exists.
 
 ```sh
 python3 -m nightshift.episodes status playoff-jimmy
+python3 studio/episodes/playoff-jimmy/analysis/analyze.py   # regenerate results
+python3 studio/episodes/playoff-jimmy/analysis/packet.py    # regenerate the packet
+open studio/episodes/playoff-jimmy/analysis/packet/index.html
 python3 -B -m unittest discover -s tests -v
 ```
 
-`analysis/analyze.py` overwrites its outputs in `analysis/`; run it only when
-you intend to regenerate them.
+`analyze.py` overwrites its outputs in `analysis/`; use `--out DIR` for a
+check that should leave them untouched. Both scripts are deterministic.

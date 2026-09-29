@@ -52,6 +52,17 @@ the guide rows:
 These are descriptive pilot values, not verified claims. BBRef values may
 differ slightly; differences are reconciled, not forced to match.
 
+## Checks made while building analysis v2 (2026-09-28, Claude)
+
+Not the PJ-04 review, which still needs to happen with the user.
+
+- A separately written quick parse of the season pages re-derived peer count,
+  peer median and percentile exactly for Butler 2018–19 (a traded season),
+  2021–22 and 2022–23, and Murray 2019–20.
+- Pilot values above reproduce exactly on the guide rows (tested).
+- Post-result clarifications and their effect are listed in `METHOD.md`
+  under Amendments; none changes a rule outcome.
+
 ## Review 2 — pending
 
-Methods gate after analysis v2 and the results packet (PJ-04).
+Methods gate on analysis v2 and the results packet (PJ-04).

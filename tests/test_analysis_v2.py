@@ -1,6 +1,7 @@
 """Analysis v2 checks against the frozen snapshot. They test integrity and the
 pre-registered rules, not a preferred verdict."""
 
+import hashlib
 import importlib.util
 import tempfile
 import unittest
@@ -74,6 +75,19 @@ class SnapshotTests(unittest.TestCase):
             self.assertEqual(analysis.main(["--out", second]), 0)
             for name in ("results.json", "coverage.json", "qa.json", "FINDINGS.md"):
                 self.assertEqual(Path(first, name).read_bytes(), Path(second, name).read_bytes(), name)
+
+
+    def test_packet_is_built_from_results_json_only(self):
+        spec_p = importlib.util.spec_from_file_location("playoff_packet", path.with_name("packet.py"))
+        packet = importlib.util.module_from_spec(spec_p)
+        spec_p.loader.exec_module(packet)
+        with tempfile.TemporaryDirectory() as out:
+            self.assertEqual(analysis.main(["--out", out]), 0)
+            packet.main(["--results", str(Path(out, "results.json")), "--out", out])
+            page = Path(out, "index.html").read_text()
+            digest = hashlib.sha256(Path(out, "results.json").read_bytes()).hexdigest()
+            self.assertIn(digest, page)
+            self.assertIn("Unreviewed", page)
 
 
 class RuleTests(unittest.TestCase):
