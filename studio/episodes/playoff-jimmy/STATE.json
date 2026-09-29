@@ -277,6 +277,11 @@
       "by": "claude (from Astra's review; user said proceed)",
       "date": "2026-09-29",
       "decision": "Script v3: wording narrowed to the claims (analysis/review.md Review 4; STORY.md 'Changes after the lock'). Short A retitled 'He didn't score faster. He played longer.'; S08's minutes line now names 2022-23. No number, claim or verdict changed."
+    },
+    {
+      "by": "user",
+      "date": "2026-09-29",
+      "decision": "Companion page: the easiest route. Built as one self-contained HTML file (companion/index.html) and published as a private claude.ai page for review; the same file can move to any static host later."
     }
   ],
   "episode_id": "playoff-jimmy",
@@ -301,7 +306,7 @@
     "Review the draft film and shorts (renders/draft/).",
     "Voice: keep Kokoro af_heart, pick another from the auditions, or record your own voice later (the edit re-times itself).",
     "Audience and final narration language.",
-    "Where the data, code and checks will be linked from (the description promises them)."
+    "Where the data and code will be public (the film's last line and the companion page promise a link), and whether the companion page stays on claude.ai or moves to a public host."
   ],
   "schema_version": 1,
   "stage": "produce",
@@ -414,12 +419,13 @@
     },
     {
       "acceptance": "One control (season set x peer set) moves Butler's and Murray's results; every value read from results.json; no statistics computed in the page.",
-      "artifact": "companion/",
+      "artifact": "companion/ (build.py, template.html, index.html)",
       "depends_on": [
         "PJ-04"
       ],
       "id": "PJ-11",
-      "status": "pending",
+      "progress": "First draft 2026-09-29, published privately at https://claude.ai/artifact/BB687E4Z5fPCJwXqadMdZ3: comparison explorer (all players, 20-point scorers, similar scorers; 100 or 200 playoff minutes), raw change by season set, every claim with scope and limits, how it was checked, limits, sources. Built by companion/build.py from results.json, CLAIMS.json and recheck_report.json. Missing: the public data-and-code link and the video link.",
+      "status": "active",
       "title": "Interactive companion page"
     },
     {

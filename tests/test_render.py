@@ -51,6 +51,13 @@ class RenderTests(unittest.TestCase):
         diff = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", "--", str(SCENES / "data.js")])
         self.assertEqual(diff.returncode, 0, "data.js is stale; rerun scenes/build_data.py")
 
+    def test_companion_page_matches_the_verified_results(self):
+        page = SCENES.parent / "companion/index.html"
+        done = subprocess.run(["python3", "-B", str(SCENES.parent / "companion/build.py")], capture_output=True, text=True)
+        self.assertEqual(done.returncode, 0, done.stderr)
+        diff = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", "--", str(page)])
+        self.assertEqual(diff.returncode, 0, "companion/index.html is stale; rerun companion/build.py")
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,0 +1,391 @@
+<title>Is Playoff Jimmy Real?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: one reading column on Paper; the explorer widens into a scoring-sheet panel.
+   Tokens follow the channel's design system "The Fairer Test" (studio/design-system). */
+:root {
+  --bg: #F3EBDD;          /* Paper */
+  --bg-2: #E6DAC4;
+  --fg: #1C1916;          /* Ink */
+  --muted: #675F53;       /* field text */
+  --rule: #C9BCA4;
+  --field: #A79D8C;
+  --a: #E4471F;           /* Butler */
+  --a-text: #B8360E;
+  --b: #3350D6;           /* Murray */
+  --b-text: #2A43B8;
+  --mint: #5BE0A0;        /* the verdict marker */
+  --on-mint: #1C1916;
+  --display: 'Big Shoulders Display', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1916; --bg-2: #2A2622; --fg: #F3EBDD; --muted: #A79D8C; --rule: #3A342E; --field: #6F665A;
+    --a: #E4471F; --a-text: #F2825F; --b: #6F86F2; --b-text: #9AAAF6; --mint: #5BE0A0; --on-mint: #1C1916;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1C1916; --bg-2: #2A2622; --fg: #F3EBDD; --muted: #A79D8C; --rule: #3A342E; --field: #6F665A;
+  --a: #E4471F; --a-text: #F2825F; --b: #6F86F2; --b-text: #9AAAF6; --mint: #5BE0A0; --on-mint: #1C1916;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--serif); font-size: 1.0625rem; line-height: 1.55;
+       margin: 0; padding-inline: max(16px, 4vw); padding-block: 0; }
+.wrap { max-width: 68rem; margin: 0 auto; padding-block: 3rem 4rem; display: grid; gap: 4.5rem; }
+.prose { max-width: 40rem; }
+a { color: inherit; text-underline-offset: 0.18em; }
+a:focus-visible, input:focus-visible + span, summary:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+
+.kicker, .label { font-family: var(--mono); font-weight: 500; font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.kicker { color: var(--a-text); margin: 0 0 0.75rem; }
+h1, h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.005em;
+         line-height: 0.9; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(3.4rem, 11vw, 7.5rem); }
+h1 em { font-style: normal; color: var(--a); }
+h2 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin-bottom: 1rem; }
+h3 { font-family: var(--mono); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 0.75rem; }
+p { margin: 0 0 1rem; }
+.deck { font-size: clamp(1.2rem, 2.4vw, 1.45rem); line-height: 1.4; margin-top: 1.5rem; max-width: 38rem; }
+.deck strong { font-weight: 600; }
+.mark { background: var(--mint); color: var(--on-mint); padding: 0 0.15em; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.muted { color: var(--muted); }
+.source-strip { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); border-top: 2px solid var(--fg); padding-top: 0.6rem; margin-top: 1.5rem; }
+.source-strip b { color: var(--fg); font-weight: 600; margin-right: 0.6em; }
+
+/* Explorer */
+.panel { border-top: 3px solid var(--fg); padding-top: 1.5rem; display: grid; gap: 1.75rem; }
+.controls { display: flex; flex-wrap: wrap; gap: 1.25rem 2.5rem; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+legend { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; padding: 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 0; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg span { display: block; font-family: var(--mono); font-size: 0.875rem; font-weight: 500; padding: 0.55rem 0.9rem;
+            border: 2px solid var(--fg); margin: 0 -2px -2px 0; cursor: pointer; background: var(--bg); color: var(--fg); }
+.seg input:checked + span { background: var(--fg); color: var(--bg); }
+.seg input:disabled + span { color: var(--muted); border-color: var(--rule); cursor: not-allowed; }
+.seg label:hover input:not(:checked):not(:disabled) + span { background: var(--bg-2); }
+.summary { font-size: 1.2rem; line-height: 1.45; max-width: 46rem; margin: 0; min-height: 3.5em; }
+
+.players { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.25rem 2.5rem; }
+.player { display: grid; gap: 0.6rem; align-content: start; min-width: 0; }
+.player .name { font-family: var(--mono); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.player.butler .name { color: var(--a-text); } .player.murray .name { color: var(--b-text); }
+.big { font-family: var(--mono); font-weight: 600; font-size: clamp(2.6rem, 7vw, 3.6rem); line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.big small { font-size: 0.4em; letter-spacing: 0; font-weight: 500; color: var(--muted); margin-left: 0.4em; }
+.stats { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 0.2rem 1.25rem; font-family: var(--mono); font-size: 0.875rem; margin: 0; }
+.stats dt { color: var(--muted); } .stats dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.chip { justify-self: start; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.15rem; letter-spacing: 0.01em;
+        padding: 0.15rem 0.55rem; transform: rotate(-2deg); }
+.chip.pass { background: var(--mint); color: var(--on-mint); }
+.chip.fail { border: 2px solid var(--fg); }
+.chip.explore { border: 2px dashed var(--muted); color: var(--muted); }
+
+.runs { display: grid; gap: 1.1rem; }
+.legend { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; align-items: center; }
+.legend i { display: inline-block; vertical-align: -1px; margin-right: 0.35em; }
+.key-dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--fg); }
+.key-hollow { width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 2px solid var(--fg); }
+.key-med { width: 3px; height: 0.9rem; background: var(--fg); }
+.group { display: grid; gap: 0.15rem; }
+.group-name { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.2rem; }
+.row { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr) 7.2rem; align-items: center; gap: 0.75rem; min-height: 1.6rem; }
+.row .season, .row .val { font-family: var(--mono); font-size: 0.8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row .season { color: var(--muted); }
+.row .val small { color: var(--muted); }
+.track { position: relative; height: 1.4rem; }
+.track .zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.track .link { position: absolute; top: 50%; height: 2px; margin-top: -1px; background: var(--field); }
+.track .med { position: absolute; top: 0.15rem; bottom: 0.15rem; width: 3px; margin-left: -1.5px; background: var(--fg); }
+.track .dot { position: absolute; top: 50%; width: 0.8rem; height: 0.8rem; margin: -0.4rem 0 0 -0.4rem; border-radius: 50%; border: 2px solid currentColor; background: var(--bg); }
+.track .dot.ahead { background: currentColor; }
+.butler .track .dot { color: var(--a); } .murray .track .dot { color: var(--b); }
+.axis .track { height: 2.4rem; border-top: 2px solid var(--fg); }
+.axis .tick { position: absolute; top: 0.3rem; transform: translateX(-50%); font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.axis .ends { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between; grid-column: 2; margin-top: -0.6rem; }
+
+.bars { display: grid; gap: 0.5rem; }
+.bar-row { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 0.75rem; align-items: center; }
+.bar-row .who { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.bar-track { position: relative; height: 2.2rem; }
+.bar-track .zero { position: absolute; top: -0.3rem; bottom: -0.3rem; left: 50%; width: 2px; margin-left: -1px; background: var(--fg); }
+.bar-track .bar { position: absolute; top: 0.35rem; bottom: 0.35rem; }
+.bar-track .v { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
+.butler .bar { background: var(--a); } .murray .bar { background: var(--b); }
+
+/* Claims, checks, limits */
+.claims { display: grid; gap: 0; border-top: 3px solid var(--fg); }
+.claim { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.4rem 1.25rem; padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+.claim .id { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; padding-top: 0.2rem; }
+.claim .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; }
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.1rem 0.4rem; border: 1px solid var(--muted); color: var(--muted); }
+.tag.explore { border-style: dashed; }
+.claim p { margin: 0; max-width: 40rem; }
+.claim .scope { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+details { margin-top: 0.4rem; font-size: 0.95rem; }
+summary { font-family: var(--mono); font-size: 0.8rem; cursor: pointer; color: var(--muted); }
+details ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+.timeline { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 3px solid var(--fg); counter-reset: step; }
+.timeline li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.25rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.timeline .when { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; padding-top: 0.2rem; }
+.plain { padding-left: 1.2rem; margin: 0; display: grid; gap: 0.6rem; max-width: 40rem; }
+footer { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); border-top: 2px solid var(--fg); padding-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.5rem; }
+
+@media (max-width: 34rem) {
+  .row { grid-template-columns: 3.9rem minmax(0, 1fr) 5.6rem; gap: 0.5rem; }
+  .row .val small { display: none; }
+  .claim, .timeline li { grid-template-columns: 1fr; gap: 0.3rem; }
+  .bar-row { grid-template-columns: 5rem minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .track .dot, .track .med, .track .link, .bar-track .bar, .bar-track .v { transition: left 350ms cubic-bezier(.2,.8,.2,1), width 350ms cubic-bezier(.2,.8,.2,1); }
+}
+</style>
+<!--BODY-->
+<main class="wrap">
+  <header>
+    <p class="kicker">Investigation 01 · NBA · the evidence behind the video</p>
+    <h1>Is <em>Playoff</em> Jimmy real?</h1>
+    <p class="deck" id="deck">Real, but not how you think.</p>
+  </header>
+
+  <section id="explore" aria-labelledby="explore-h">
+    <div class="prose">
+      <h2 id="explore-h">Change the comparison</h2>
+      <p>Most players score less per minute in the playoffs, so the video compares Butler with other players in the same seasons. Choose who counts as a peer and how many playoff minutes a run needs, and watch whether the answer holds. Every number here comes from the saved analysis; the page only looks them up.</p>
+    </div>
+    <div class="panel">
+      <div class="controls">
+        <fieldset>
+          <legend>Compare with</legend>
+          <div class="seg" id="peers">
+            <label><input type="radio" name="peers" id="peers-all" value="all" checked><span>All players</span></label>
+            <label><input type="radio" name="peers" id="peers-scorers" value="scorers"><span>20-point scorers</span></label>
+            <label><input type="radio" name="peers" id="peers-similar" value="similar"><span>Similar scorers</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>A run needs at least</legend>
+          <div class="seg" id="minutes">
+            <label><input type="radio" name="minutes" id="minutes-100" value="100" checked><span>100 playoff min</span></label>
+            <label><input type="radio" name="minutes" id="minutes-200" value="200"><span>200 playoff min</span></label>
+          </div>
+        </fieldset>
+      </div>
+      <p class="summary" id="summary" aria-live="polite"></p>
+      <div class="players" id="players"></div>
+      <div class="runs" id="runs"></div>
+      <p class="muted" id="rule-note"></p>
+      <div class="source-strip"><b>Scope</b><span id="scope"></span></div>
+    </div>
+  </section>
+
+  <section id="raw" aria-labelledby="raw-h">
+    <div class="prose">
+      <h2 id="raw-h">Without any comparison</h2>
+      <p>Here is each player's own change in scoring rate, playoffs against the same season's regular season, before comparing with anyone. Pick which runs count.</p>
+    </div>
+    <div class="panel">
+      <fieldset>
+        <legend>Which runs count</legend>
+        <div class="seg" id="sets">
+          <label><input type="radio" name="sets" id="sets-all" value="all_paired" checked><span>Every playoff run</span></label>
+          <label><input type="radio" name="sets" id="sets-shared" value="shared"><span>Seasons both played</span></label>
+          <label><input type="radio" name="sets" id="sets-100" value="min_100_playoff_minutes"><span>100+ playoff min</span></label>
+        </div>
+      </fieldset>
+      <div class="bars" id="bars" role="img"></div>
+      <p class="muted" id="raw-note"></p>
+    </div>
+  </section>
+
+  <section id="claims" aria-labelledby="claims-h">
+    <div class="prose">
+      <h2 id="claims-h">What the video says</h2>
+      <p>Each sentence with a number in the video cites one of these claims. Each claim was checked against the saved results before it was allowed into the script.</p>
+    </div>
+    <div class="claims" id="claim-list"></div>
+  </section>
+
+  <section id="checks" aria-labelledby="checks-h">
+    <div class="prose"><h2 id="checks-h">How it was checked</h2></div>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <section id="limits" aria-labelledby="limits-h" class="prose">
+    <h2 id="limits-h">What this can't tell you</h2>
+    <ul class="plain" id="limit-list">
+      <li>Dividing by minutes doesn't account for opponents, health, role, pace or workload.</li>
+      <li>This is about how much he scores, not how efficiently, and scoring isn't a player's total impact.</li>
+      <li>The comparison says how unusual a change is among players with real minutes. It doesn't say why it happened, and it isn't evidence of a "clutch" trait.</li>
+      <li>"Close to a coin flip" describes a count, 6 of 11 runs against similar scorers. It isn't a probability model of his seasons.</li>
+    </ul>
+  </section>
+
+  <section id="sources" aria-labelledby="sources-h" class="prose">
+    <h2 id="sources-h">Sources</h2>
+    <ul class="plain" id="source-list"></ul>
+  </section>
+
+  <footer id="footer"></footer>
+</main>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function () {
+  'use strict';
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var NAMES = D.players, WHO = ['butler', 'murray'];
+  var GROUP = { all: 'all players', scorers: '20-point scorers', similar: 'similar scorers' };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  // Signed, with a real minus sign; two decimals below 1, as in the video (−0.25), one otherwise.
+  function fmt(v) {
+    var d = Math.abs(v) < 1 ? 2 : 1, s = Math.abs(v).toFixed(d);
+    return (v < 0 && Number(s) !== 0 ? '−' : v > 0 ? '+' : '') + s;
+  }
+  function plain(v) { return fmt(v).replace(/^[+−]/, ''); }
+  var lo = D.domain[0], hi = D.domain[1];
+  function pct(v) { return (100 * (v - lo) / (hi - lo)).toFixed(3) + '%'; }
+  function key() {
+    var g = document.querySelector('input[name=peers]:checked').value;
+    var m = document.querySelector('input[name=minutes]:checked').value;
+    return { all: 'A', scorers: 'B', similar: 'S' }[g] + '_' + m;
+  }
+
+  function renderExplorer() {
+    var g = document.querySelector('input[name=peers]:checked').value;
+    var m200 = $('minutes-200');
+    m200.disabled = g === 'similar';
+    if (g === 'similar' && m200.checked) { $('minutes-100').checked = true; }
+    var k = key(), C = D.comparisons[k], exploratory = C.group === 'similar';
+    var b = C.butler, mu = C.murray;
+    $('summary').innerHTML = 'Against ' + GROUP[C.group] + ' in the same season, with runs of ' + C.minutes +
+      '+ playoff minutes: Butler was ahead of the typical peer in <span class="num">' + b.above + ' of ' + b.runs_n +
+      '</span> runs, Murray in <span class="num">' + mu.above + ' of ' + mu.runs_n + '</span>.';
+    $('players').innerHTML = WHO.map(function (w) {
+      var P = C[w];
+      var chip = exploratory ? '<span class="chip explore">Exploratory check</span>'
+        : P.rule_met ? '<span class="chip pass">Meets the rule here</span>' : '<span class="chip fail">Misses the rule here</span>';
+      return '<div class="player ' + w + '"><div class="name">' + esc(NAMES[w]) + '</div>' +
+        '<div class="big">' + P.above + ' of ' + P.runs_n + '<small>runs ahead</small></div>' +
+        '<dl class="stats"><dt>His change</dt><dd>' + fmt(P.change) + ' pts / 36</dd>' +
+        '<dt>Typical peer</dt><dd>' + fmt(P.typical) + ' pts / 36</dd>' +
+        '<dt>Playoff minutes</dt><dd>' + P.minutes.toLocaleString('en-US') + '</dd></dl>' + chip + '</div>';
+    }).join('');
+    var ticks = [];
+    for (var t = Math.ceil(lo / 4) * 4; t <= hi; t += 4) ticks.push(t);
+    var zero = '<span class="zero" style="left:' + pct(0) + '"></span>';
+    var html = '<div class="legend"><span><i class="key-dot"></i>ahead of the typical peer that season</span>' +
+      '<span><i class="key-hollow"></i>behind</span><span><i class="key-med"></i>typical peer</span>' +
+      '<span>change in points per 36 minutes, playoffs vs regular season</span></div>';
+    WHO.forEach(function (w) {
+      html += '<div class="group ' + w + '"><div class="group-name" style="color:var(--' + (w === 'butler' ? 'a' : 'b') + '-text)">' +
+        esc(NAMES[w]) + '</div>' + C[w].runs.map(function (r) {
+          var left = Math.min(r.delta, r.median), right = Math.max(r.delta, r.median);
+          return '<div class="row"><span class="season">' + r.season + '</span><div class="track">' + zero +
+            '<span class="link" style="left:' + pct(left) + ';width:calc(' + pct(right) + ' - ' + pct(left) + ')"></span>' +
+            '<span class="med" style="left:' + pct(r.median) + '" title="Typical peer ' + fmt(r.median) + '"></span>' +
+            '<span class="dot' + (r.above ? ' ahead' : '') + '" style="left:' + pct(r.delta) + '" title="' + esc(NAMES[w]) + ' ' + fmt(r.delta) + '"></span>' +
+            '</div><span class="val">' + fmt(r.delta) + ' <small>vs ' + fmt(r.median) + '</small></span></div>';
+        }).join('') + '</div>';
+    });
+    html += '<div class="row axis"><span></span><div class="track">' + ticks.map(function (v) {
+      return '<span class="tick" style="left:' + pct(v) + '">' + (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + '</span>';
+    }).join('') + '</div><span></span><div class="ends"><span>← worse</span><span>better →</span></div></div>';
+    $('runs').innerHTML = html;
+    $('runs').setAttribute('aria-label', 'Run by run: ' + WHO.map(function (w) { return NAMES[w] + ' ahead in ' + C[w].above + ' of ' + C[w].runs_n; }).join('; '));
+    var versions = ['A_100', 'A_200', 'B_100', 'B_200'];
+    var met = function (w) { return versions.every(function (v) { return D.comparisons[v][w].rule_met; }); };
+    $('rule-note').innerHTML = (exploratory
+      ? 'The similar-scorer comparison was added after seeing the results, after an outside review. It is exploratory and is not part of the test. '
+      : '') + 'The test written down before any data: a player counts as holding up only if his pooled change beats the typical peer <em>and</em> he is ahead in most runs, ' +
+      'in all four versions (all players and 20-point scorers, at 100 and at 200 minutes). Butler ' + (met('butler') ? 'meets it in all four' : 'misses it') +
+      '; Murray ' + (met('murray') ? 'meets it in all four' : 'misses it') + '.';
+    $('scope').textContent = 'Players with at least ' + D.method.regular_minutes_min.toLocaleString('en-US') + ' regular-season and ' + C.minutes +
+      ' playoff minutes in the same season, ' + D.method.first_season.butler.replace('-', '–') + ' to ' + D.method.last_season.replace('-', '–') +
+      (C.group === 'scorers' ? '; peers averaged at least ' + D.method.peer_set_b_min_ppg.toFixed(1) + ' regular-season points a game' : '') +
+      (C.group === 'similar' ? '; peers scored within 3 points per 36 of him in the regular season' : '') +
+      '. Pooled changes are weighted by playoff minutes.';
+  }
+
+  function renderRaw() {
+    var k = document.querySelector('input[name=sets]:checked').value, S = D.season_sets[k];
+    var span = Math.max.apply(null, Object.keys(D.season_sets).map(function (s) {
+      return Math.max(Math.abs(D.season_sets[s].butler.change), Math.abs(D.season_sets[s].murray.change));
+    })) * 1.25;
+    $('bars').innerHTML = WHO.map(function (w) {
+      var v = S[w].change, width = 50 * Math.abs(v) / span, left = v < 0 ? 50 - width : 50;
+      var label = v < 0 ? 'right:calc(' + (100 - left) + '% + 0.5rem)' : 'left:calc(' + (left + width) + '% + 0.5rem)';
+      return '<div class="bar-row ' + w + '"><span class="who">' + esc(NAMES[w].split(' ')[1]) + '</span><div class="bar-track">' +
+        '<span class="zero"></span><span class="bar" style="left:' + left + '%;width:' + width + '%"></span>' +
+        '<span class="v" style="' + label + '">' + fmt(v) + '</span></div></div>';
+    }).join('');
+    $('bars').setAttribute('aria-label', WHO.map(function (w) { return NAMES[w] + ' ' + fmt(S[w].change) + ' points per 36'; }).join(', '));
+    $('raw-note').innerHTML = S.butler.runs_n + ' runs for Butler (' + S.butler.minutes.toLocaleString('en-US') + ' playoff minutes), ' +
+      S.murray.runs_n + ' for Murray (' + S.murray.minutes.toLocaleString('en-US') + '), in points per 36 minutes, weighted by playoff minutes. ' +
+      'Weighting each run equally instead gives Butler ' + fmt(S.butler.equal_weight) + ' and Murray ' + fmt(S.murray.equal_weight) + '. ' +
+      (S.leader === 'murray' ? "Murray's change is higher" : "Butler's change is higher") + ' here' +
+      (Object.keys(D.season_sets).every(function (s) { return D.season_sets[s].leader === S.leader; }) ? ', and in every choice of runs. ' : '. ') +
+      'This raw change ignores that most players drop in the playoffs, which is why the fair test compares with peers.';
+  }
+
+  function renderClaims() {
+    var where = { film: 'In the film', shorts: 'In a short' };
+    $('claim-list').innerHTML = D.claims.map(function (c) {
+      var tags = c.where.map(function (w) { return '<span class="tag">' + where[w] + '</span>'; });
+      if (!c.where.length) tags.push('<span class="tag">' + (c.held ? 'Held back' : 'On this page') + '</span>');
+      if (c.exploratory) tags.push('<span class="tag explore">Exploratory</span>');
+      var body = c.held ? '<p class="muted">' + esc(c.reason) + '</p>'
+        : '<p>' + esc(c.text) + '</p><div class="scope">' + esc(c.scope) + '</div>' +
+          (c.limitations.length ? '<details><summary>Limits of this claim</summary><ul>' +
+            c.limitations.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></details>' : '');
+      return '<div class="claim"><div><div class="id">' + c.id + '</div><div class="tags">' + tags.join('') + '</div></div><div>' + body + '</div></div>';
+    }).join('');
+  }
+
+  function renderChecks() {
+    var K = D.checks;
+    var steps = [
+      [K.preregistration_date, 'The question, the measures and the pass-or-fail test were written down and committed (commit <span class="num">' +
+        K.preregistration_commit + '</span>) before any league data was downloaded.'],
+      [K.bbref_retrieved_utc, K.bbref_pages + ' Basketball-Reference pages (season totals and game logs) were saved and fingerprinted with SHA-256. ' +
+        'Every season row for both players was checked against the teams\' official media guides.'],
+      ['Analysis', 'The analysis reruns from those saved pages to byte-identical results. Every claim resolves to a value in them.'],
+      ['Reviews', 'Two methods reviews and an outside review. The similar-scorer comparison was added after the outside review and is labelled exploratory wherever it appears.'],
+      ['Re-derived', 'A second AI model, given only the saved pages and the written definitions, recomputed every number behind the claims without seeing this analysis: <span class="mark">' +
+        K.recheck_exact + ' of ' + K.recheck_total + ' matched exactly</span>.'],
+      ['Script', 'A final review narrowed the script\'s wording to what each claim supports.']
+    ];
+    $('timeline').innerHTML = steps.map(function (s) { return '<li><span class="when">' + s[0] + '</span><span>' + s[1] + '</span></li>'; }).join('');
+  }
+
+  function renderStatic() {
+    var A = D.comparisons.A_100.butler, S = D.comparisons.S_100.butler;
+    $('deck').innerHTML = '<strong>Real, but not how you think.</strong> In the 2022–23 run that made the legend, his extra minutes account for the whole rise in his points per game. ' +
+      'Per minute, most players shrink; across his ' + A.runs_n + ' runs with real minutes Butler fell by only <span class="num">' + plain(A.change) +
+      '</span> points per 36, where players in the same seasons typically fell by <span class="num">' + plain(A.typical) + '</span>. ' +
+      'Not every year: against similar scorers he was ahead in <span class="num">' + S.above + ' of ' + S.runs_n + '</span> runs.';
+    $('source-list').innerHTML = [
+      'Basketball-Reference: season totals (regular season and playoffs) and player game logs, ' + D.method.first_season.butler.replace('-', '–') +
+        ' to ' + D.method.last_season.replace('-', '–') + ', saved ' + D.checks.bbref_retrieved_utc + ' (UTC). Play-in games are excluded.',
+      'Official team media guides, used as an independent check: Miami Heat 2023–24 (Butler) and Denver Nuggets 2025–26 (Murray).',
+      'Data and code: the saved pages, the analysis and every check are in the project repository. A public link will be added here when it is published.'
+    ].map(function (s) { return '<li>' + s + '</li>'; }).join('');
+    $('footer').innerHTML = '<span>Companion to the video "Is Playoff Jimmy real?"</span><span>Results SHA-256 ' + D.results_sha256.slice(0, 12) +
+      '</span><span>Analysis revision ' + String(D.analysis_revision).slice(0, 7) + '</span>';
+  }
+
+  document.querySelectorAll('input[name=peers], input[name=minutes]').forEach(function (i) { i.addEventListener('change', renderExplorer); });
+  document.querySelectorAll('input[name=sets]').forEach(function (i) { i.addEventListener('change', renderRaw); });
+  renderStatic(); renderExplorer(); renderRaw(); renderClaims(); renderChecks();
+})();
+</script>

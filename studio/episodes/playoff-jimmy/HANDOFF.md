@@ -20,7 +20,11 @@ Draft videos exist, narrated by a local AI voice (Kokoro-82M, voice
 1. User: watch `renders/draft/film.mp4` and the three shorts; note changes.
 2. Optional: pick another voice from `renders/audio/audition/`, then rerun
    narrate.py with `--voice` and assemble.py; the timing follows the words.
-3. Companion page (PJ-11) and the publishing package (PJ-12).
+3. Companion page (PJ-11): first draft published privately at
+   https://claude.ai/artifact/BB687E4Z5fPCJwXqadMdZ3, built from
+   `companion/build.py`. It needs the public data-and-code link and the video
+   link before release.
+4. The publishing package (PJ-12).
 
 ## Waiting on the user
 
@@ -38,6 +42,7 @@ Draft videos exist, narrated by a local AI voice (Kokoro-82M, voice
 python3 studio/tools/story_check.py studio/episodes/playoff-jimmy           # script against claims
 .venv/bin/python studio/tools/narrate.py studio/episodes/playoff-jimmy      # narration (cached per line)
 python3 studio/tools/assemble.py studio/episodes/playoff-jimmy [film short-a short-b short-d]
+python3 studio/episodes/playoff-jimmy/companion/build.py                    # companion page
 python3 -m nightshift.episodes status playoff-jimmy
 python3 studio/episodes/playoff-jimmy/analysis/analyze.py   # regenerate results
 python3 -B -m unittest discover -s tests -v

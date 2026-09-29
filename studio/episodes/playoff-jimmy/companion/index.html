@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Is Playoff Jimmy Real?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap">
+<style>
+/* Layout: one reading column on Paper; the explorer widens into a scoring-sheet panel.
+   Tokens follow the channel's design system "The Fairer Test" (studio/design-system). */
+:root {
+  --bg: #F3EBDD;          /* Paper */
+  --bg-2: #E6DAC4;
+  --fg: #1C1916;          /* Ink */
+  --muted: #675F53;       /* field text */
+  --rule: #C9BCA4;
+  --field: #A79D8C;
+  --a: #E4471F;           /* Butler */
+  --a-text: #B8360E;
+  --b: #3350D6;           /* Murray */
+  --b-text: #2A43B8;
+  --mint: #5BE0A0;        /* the verdict marker */
+  --on-mint: #1C1916;
+  --display: 'Big Shoulders Display', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+  --serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  --mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1C1916; --bg-2: #2A2622; --fg: #F3EBDD; --muted: #A79D8C; --rule: #3A342E; --field: #6F665A;
+    --a: #E4471F; --a-text: #F2825F; --b: #6F86F2; --b-text: #9AAAF6; --mint: #5BE0A0; --on-mint: #1C1916;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1C1916; --bg-2: #2A2622; --fg: #F3EBDD; --muted: #A79D8C; --rule: #3A342E; --field: #6F665A;
+  --a: #E4471F; --a-text: #F2825F; --b: #6F86F2; --b-text: #9AAAF6; --mint: #5BE0A0; --on-mint: #1C1916;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font-family: var(--serif); font-size: 1.0625rem; line-height: 1.55;
+       margin: 0; padding-inline: max(16px, 4vw); padding-block: 0; }
+.wrap { max-width: 68rem; margin: 0 auto; padding-block: 3rem 4rem; display: grid; gap: 4.5rem; }
+.prose { max-width: 40rem; }
+a { color: inherit; text-underline-offset: 0.18em; }
+a:focus-visible, input:focus-visible + span, summary:focus-visible { outline: 3px solid var(--mint); outline-offset: 3px; }
+
+.kicker, .label { font-family: var(--mono); font-weight: 500; font-size: 0.8125rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.kicker { color: var(--a-text); margin: 0 0 0.75rem; }
+h1, h2 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: -0.005em;
+         line-height: 0.9; text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(3.4rem, 11vw, 7.5rem); }
+h1 em { font-style: normal; color: var(--a); }
+h2 { font-size: clamp(2.2rem, 6vw, 3.6rem); margin-bottom: 1rem; }
+h3 { font-family: var(--mono); font-weight: 600; font-size: 0.9rem; letter-spacing: 0.06em; text-transform: uppercase; margin: 0 0 0.75rem; }
+p { margin: 0 0 1rem; }
+.deck { font-size: clamp(1.2rem, 2.4vw, 1.45rem); line-height: 1.4; margin-top: 1.5rem; max-width: 38rem; }
+.deck strong { font-weight: 600; }
+.mark { background: var(--mint); color: var(--on-mint); padding: 0 0.15em; }
+.num { font-family: var(--mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.muted { color: var(--muted); }
+.source-strip { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); border-top: 2px solid var(--fg); padding-top: 0.6rem; margin-top: 1.5rem; }
+.source-strip b { color: var(--fg); font-weight: 600; margin-right: 0.6em; }
+
+/* Explorer */
+.panel { border-top: 3px solid var(--fg); padding-top: 1.5rem; display: grid; gap: 1.75rem; }
+.controls { display: flex; flex-wrap: wrap; gap: 1.25rem 2.5rem; }
+fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+legend { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; padding: 0; }
+.seg { display: flex; flex-wrap: wrap; gap: 0; }
+.seg label { position: relative; }
+.seg input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.seg span { display: block; font-family: var(--mono); font-size: 0.875rem; font-weight: 500; padding: 0.55rem 0.9rem;
+            border: 2px solid var(--fg); margin: 0 -2px -2px 0; cursor: pointer; background: var(--bg); color: var(--fg); }
+.seg input:checked + span { background: var(--fg); color: var(--bg); }
+.seg input:disabled + span { color: var(--muted); border-color: var(--rule); cursor: not-allowed; }
+.seg label:hover input:not(:checked):not(:disabled) + span { background: var(--bg-2); }
+.summary { font-size: 1.2rem; line-height: 1.45; max-width: 46rem; margin: 0; min-height: 3.5em; }
+
+.players { display: grid; grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr)); gap: 1.25rem 2.5rem; }
+.player { display: grid; gap: 0.6rem; align-content: start; min-width: 0; }
+.player .name { font-family: var(--mono); font-weight: 600; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; }
+.player.butler .name { color: var(--a-text); } .player.murray .name { color: var(--b-text); }
+.big { font-family: var(--mono); font-weight: 600; font-size: clamp(2.6rem, 7vw, 3.6rem); line-height: 1; letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
+.big small { font-size: 0.4em; letter-spacing: 0; font-weight: 500; color: var(--muted); margin-left: 0.4em; }
+.stats { display: grid; grid-template-columns: auto auto; justify-content: start; gap: 0.2rem 1.25rem; font-family: var(--mono); font-size: 0.875rem; margin: 0; }
+.stats dt { color: var(--muted); } .stats dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
+.chip { justify-self: start; font-family: var(--display); font-weight: 800; text-transform: uppercase; font-size: 1.15rem; letter-spacing: 0.01em;
+        padding: 0.15rem 0.55rem; transform: rotate(-2deg); }
+.chip.pass { background: var(--mint); color: var(--on-mint); }
+.chip.fail { border: 2px solid var(--fg); }
+.chip.explore { border: 2px dashed var(--muted); color: var(--muted); }
+
+.runs { display: grid; gap: 1.1rem; }
+.legend { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 0.4rem 1.25rem; align-items: center; }
+.legend i { display: inline-block; vertical-align: -1px; margin-right: 0.35em; }
+.key-dot { width: 0.7rem; height: 0.7rem; border-radius: 50%; background: var(--fg); }
+.key-hollow { width: 0.7rem; height: 0.7rem; border-radius: 50%; border: 2px solid var(--fg); }
+.key-med { width: 3px; height: 0.9rem; background: var(--fg); }
+.group { display: grid; gap: 0.15rem; }
+.group-name { font-family: var(--mono); font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 600; margin-bottom: 0.2rem; }
+.row { display: grid; grid-template-columns: 4.6rem minmax(0, 1fr) 7.2rem; align-items: center; gap: 0.75rem; min-height: 1.6rem; }
+.row .season, .row .val { font-family: var(--mono); font-size: 0.8rem; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.row .season { color: var(--muted); }
+.row .val small { color: var(--muted); }
+.track { position: relative; height: 1.4rem; }
+.track .zero { position: absolute; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+.track .link { position: absolute; top: 50%; height: 2px; margin-top: -1px; background: var(--field); }
+.track .med { position: absolute; top: 0.15rem; bottom: 0.15rem; width: 3px; margin-left: -1.5px; background: var(--fg); }
+.track .dot { position: absolute; top: 50%; width: 0.8rem; height: 0.8rem; margin: -0.4rem 0 0 -0.4rem; border-radius: 50%; border: 2px solid currentColor; background: var(--bg); }
+.track .dot.ahead { background: currentColor; }
+.butler .track .dot { color: var(--a); } .murray .track .dot { color: var(--b); }
+.axis .track { height: 2.4rem; border-top: 2px solid var(--fg); }
+.axis .tick { position: absolute; top: 0.3rem; transform: translateX(-50%); font-family: var(--mono); font-size: 0.75rem; color: var(--muted); }
+.axis .ends { font-family: var(--mono); font-size: 0.7rem; color: var(--muted); display: flex; justify-content: space-between; grid-column: 2; margin-top: -0.6rem; }
+
+.bars { display: grid; gap: 0.5rem; }
+.bar-row { display: grid; grid-template-columns: 7rem minmax(0, 1fr); gap: 0.75rem; align-items: center; }
+.bar-row .who { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.bar-track { position: relative; height: 2.2rem; }
+.bar-track .zero { position: absolute; top: -0.3rem; bottom: -0.3rem; left: 50%; width: 2px; margin-left: -1px; background: var(--fg); }
+.bar-track .bar { position: absolute; top: 0.35rem; bottom: 0.35rem; }
+.bar-track .v { position: absolute; top: 50%; transform: translateY(-50%); font-family: var(--mono); font-weight: 600; font-size: 0.85rem; white-space: nowrap; }
+.butler .bar { background: var(--a); } .murray .bar { background: var(--b); }
+
+/* Claims, checks, limits */
+.claims { display: grid; gap: 0; border-top: 3px solid var(--fg); }
+.claim { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 0.4rem 1.25rem; padding: 1.1rem 0; border-bottom: 1px solid var(--rule); }
+.claim .id { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; padding-top: 0.2rem; }
+.claim .tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.35rem; }
+.tag { font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.1rem 0.4rem; border: 1px solid var(--muted); color: var(--muted); }
+.tag.explore { border-style: dashed; }
+.claim p { margin: 0; max-width: 40rem; }
+.claim .scope { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+details { margin-top: 0.4rem; font-size: 0.95rem; }
+summary { font-family: var(--mono); font-size: 0.8rem; cursor: pointer; color: var(--muted); }
+details ul { margin: 0.5rem 0 0; padding-left: 1.1rem; }
+.timeline { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; border-top: 3px solid var(--fg); counter-reset: step; }
+.timeline li { display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.25rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); }
+.timeline .when { font-family: var(--mono); font-size: 0.8rem; font-weight: 600; padding-top: 0.2rem; }
+.plain { padding-left: 1.2rem; margin: 0; display: grid; gap: 0.6rem; max-width: 40rem; }
+footer { font-family: var(--mono); font-size: 0.75rem; color: var(--muted); border-top: 2px solid var(--fg); padding-top: 0.8rem; display: flex; flex-wrap: wrap; gap: 0.3rem 1.5rem; }
+
+@media (max-width: 34rem) {
+  .row { grid-template-columns: 3.9rem minmax(0, 1fr) 5.6rem; gap: 0.5rem; }
+  .row .val small { display: none; }
+  .claim, .timeline li { grid-template-columns: 1fr; gap: 0.3rem; }
+  .bar-row { grid-template-columns: 5rem minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .track .dot, .track .med, .track .link, .bar-track .bar, .bar-track .v { transition: left 350ms cubic-bezier(.2,.8,.2,1), width 350ms cubic-bezier(.2,.8,.2,1); }
+}
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <header>
+    <p class="kicker">Investigation 01 · NBA · the evidence behind the video</p>
+    <h1>Is <em>Playoff</em> Jimmy real?</h1>
+    <p class="deck" id="deck">Real, but not how you think.</p>
+  </header>
+
+  <section id="explore" aria-labelledby="explore-h">
+    <div class="prose">
+      <h2 id="explore-h">Change the comparison</h2>
+      <p>Most players score less per minute in the playoffs, so the video compares Butler with other players in the same seasons. Choose who counts as a peer and how many playoff minutes a run needs, and watch whether the answer holds. Every number here comes from the saved analysis; the page only looks them up.</p>
+    </div>
+    <div class="panel">
+      <div class="controls">
+        <fieldset>
+          <legend>Compare with</legend>
+          <div class="seg" id="peers">
+            <label><input type="radio" name="peers" id="peers-all" value="all" checked><span>All players</span></label>
+            <label><input type="radio" name="peers" id="peers-scorers" value="scorers"><span>20-point scorers</span></label>
+            <label><input type="radio" name="peers" id="peers-similar" value="similar"><span>Similar scorers</span></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>A run needs at least</legend>
+          <div class="seg" id="minutes">
+            <label><input type="radio" name="minutes" id="minutes-100" value="100" checked><span>100 playoff min</span></label>
+            <label><input type="radio" name="minutes" id="minutes-200" value="200"><span>200 playoff min</span></label>
+          </div>
+        </fieldset>
+      </div>
+      <p class="summary" id="summary" aria-live="polite"></p>
+      <div class="players" id="players"></div>
+      <div class="runs" id="runs"></div>
+      <p class="muted" id="rule-note"></p>
+      <div class="source-strip"><b>Scope</b><span id="scope"></span></div>
+    </div>
+  </section>
+
+  <section id="raw" aria-labelledby="raw-h">
+    <div class="prose">
+      <h2 id="raw-h">Without any comparison</h2>
+      <p>Here is each player's own change in scoring rate, playoffs against the same season's regular season, before comparing with anyone. Pick which runs count.</p>
+    </div>
+    <div class="panel">
+      <fieldset>
+        <legend>Which runs count</legend>
+        <div class="seg" id="sets">
+          <label><input type="radio" name="sets" id="sets-all" value="all_paired" checked><span>Every playoff run</span></label>
+          <label><input type="radio" name="sets" id="sets-shared" value="shared"><span>Seasons both played</span></label>
+          <label><input type="radio" name="sets" id="sets-100" value="min_100_playoff_minutes"><span>100+ playoff min</span></label>
+        </div>
+      </fieldset>
+      <div class="bars" id="bars" role="img"></div>
+      <p class="muted" id="raw-note"></p>
+    </div>
+  </section>
+
+  <section id="claims" aria-labelledby="claims-h">
+    <div class="prose">
+      <h2 id="claims-h">What the video says</h2>
+      <p>Each sentence with a number in the video cites one of these claims. Each claim was checked against the saved results before it was allowed into the script.</p>
+    </div>
+    <div class="claims" id="claim-list"></div>
+  </section>
+
+  <section id="checks" aria-labelledby="checks-h">
+    <div class="prose"><h2 id="checks-h">How it was checked</h2></div>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <section id="limits" aria-labelledby="limits-h" class="prose">
+    <h2 id="limits-h">What this can't tell you</h2>
+    <ul class="plain" id="limit-list">
+      <li>Dividing by minutes doesn't account for opponents, health, role, pace or workload.</li>
+      <li>This is about how much he scores, not how efficiently, and scoring isn't a player's total impact.</li>
+      <li>The comparison says how unusual a change is among players with real minutes. It doesn't say why it happened, and it isn't evidence of a "clutch" trait.</li>
+      <li>"Close to a coin flip" describes a count, 6 of 11 runs against similar scorers. It isn't a probability model of his seasons.</li>
+    </ul>
+  </section>
+
+  <section id="sources" aria-labelledby="sources-h" class="prose">
+    <h2 id="sources-h">Sources</h2>
+    <ul class="plain" id="source-list"></ul>
+  </section>
+
+  <footer id="footer"></footer>
+</main>
+
+<script id="data" type="application/json">{"analysis_revision": "65f2182", "checks": {"bbref_pages": 33, "bbref_retrieved_utc": "2026-09-29", "preregistration_commit": "2827174", "preregistration_date": "2026-09-28", "recheck_exact": 82, "recheck_total": 82}, "claims": [{"exploratory": false, "id": "PJ-C001", "limitations": ["Descriptive: the decline mixes tougher opponents, slower pace, fatigue and role changes.", "A median across player-seasons, not across players."], "scope": "1,325 eligible player-seasons, 2011–12 to 2025–26. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.", "text": "From 2011–12 to 2025–26, the typical high-minute player scored 1.5 fewer points per 36 minutes in the playoffs than in the same season's regular season, and 73% of them declined.", "where": ["film", "shorts"]}, {"exploratory": false, "id": "PJ-C002", "limitations": ["Per-game figures depend on minutes; see PJ-C003."], "scope": "Butler, 2022–23 regular season and playoffs; play-in games excluded.", "text": "In the 2022–23 playoffs Butler averaged 26.9 points per game, up from 22.9 in the regular season, while his minutes rose from 33.4 to 39.7 a game.", "where": ["film", "shorts"]}, {"exploratory": false, "id": "PJ-C003", "limitations": ["Arithmetic, not cause: it does not say what more minutes would do to anyone."], "scope": "Butler, 2022–23. Exact split of the per-game change into a minutes part and a rate part (symmetric average form).", "text": "Of that 4.0-point rise, 4.3 points go with the extra minutes and −0.3 with his scoring rate.", "where": ["film", "shorts"]}, {"exploratory": false, "id": "PJ-C004", "limitations": ["His 2022–23 regular-season true shooting (about .647) was his highest among his paired seasons, so part of any playoff dip is a return toward his usual level."], "scope": "Butler, 2022–23, against every other eligible player that season (peer set A). Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.", "text": "Per 36 minutes, his 2022–23 scoring barely moved, from 24.7 to 24.4, which put him at the 71st percentile of 95 eligible players that season: typical.", "where": ["film", "shorts"]}, {"exploratory": false, "id": "PJ-C005", "limitations": ["Meets the pre-registered wording rule in all four versions, but 8 of 11 would happen by chance about 11% of the time and his average percentile is 56 (exploratory check).", "Supports 'he holds his scoring rate better than most', not 'he scores more in the playoffs'.", "Against similar scorers only, the count is 6 of 11 (PJ-C013)."], "scope": "Butler's eligible runs (peer set A, at least 100 playoff minutes), weighted by playoff minutes. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.", "text": "Across his 11 eligible playoff runs from 2012–13 to 2024–25 (4,904 playoff minutes), Butler's scoring rate fell by 0.25 points per 36, against a typical fall of 1.70 for other eligible players in the same seasons. He beat that season's peer median in 8 of the 11 runs.", "where": ["film", "shorts"]}, {"exploratory": true, "held": true, "id": "PJ-C006", "reason": "A career ranking among long playoff careers. Held back from the video and this page: it compares players in very different roles and was built after the results (STORY.md, Short C).", "where": []}, {"exploratory": false, "id": "PJ-C007", "limitations": ["The stretches overlap and faced weaker opponents on average: a variability reference, not a significance test."], "scope": "Butler, 2021–22; stretches are every run of 17 consecutive regular-season games he played, from game logs.", "text": "Butler's strongest per-minute run was 2021–22: 22.7 to 26.7 points per 36, the 99th percentile that season, and higher than every 17-game stretch of his regular season.", "where": ["film"]}, {"exploratory": false, "id": "PJ-C008", "limitations": ["Four- and five-game runs are noisy; both drop out at the 200-minute threshold, where the rule is still met."], "scope": "Butler, 2017–18 and 2020–21, peer set A. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.", "text": "His two weakest runs were short: in 2017–18 (5 games) his rate fell 5.0 points per 36, at the 9th percentile; in 2020–21 (4 games) it fell 9.5, below all 65 other eligible players that season.", "where": ["film"]}, {"exploratory": false, "id": "PJ-C009", "limitations": ["A single series is a case study, not a pattern."], "scope": "Butler, 2022–23 playoffs by series, from game logs (minutes to the second).", "text": "In 2022–23 Butler scored 37.6 points per game against Milwaukee, then 24.6, 24.7 and 21.6 in the next three series. Per 36 minutes, his Finals rate against Denver was 18.9, below his regular-season 24.7.", "where": ["film", "shorts"]}, {"exploratory": false, "id": "PJ-C010", "limitations": ["Six runs; the 2025–26 run was six games."], "scope": "Murray's eligible runs, peer set A. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.", "text": "Murray's playoff scoring rate beat his peers' in 2018–19, 2019–20 and 2022–23 (86th, 97th and 92nd percentiles) and fell behind them in 2023–24, 2024–25 and 2025–26 (15th, 45th and 34th). Across his six runs it fell 0.09 points per 36 against a typical 2.17, but only 3 of 6 runs beat the peer median, so the pre-registered rule is not met.", "where": []}, {"exploratory": false, "id": "PJ-C011", "limitations": ["Except in the shared set the seasons differ: Murray has 6 runs, Butler 11–12.", "Which player looks more consistent depends on the peer group (PJ-C013); no consistency claim is made."], "scope": "Pooled over each set, weighted by playoff minutes. Shared seasons: 2018–19, 2019–20, 2022–23, 2024–25.", "text": "Murray's pooled per-minute change is higher than Butler's in all three pre-registered season sets: all runs (−0.09 vs −0.26 per 36), shared seasons (+1.15 vs −0.37) and runs of at least 100 playoff minutes (−0.09 vs −0.25).", "where": []}, {"exploratory": true, "id": "PJ-C012", "limitations": ["Exploratory: added after results, in response to an external review, and reported whichever way it came out.", "Regular-season scoring rate stands in for role; usage rate was not collected. With the 25 nearest scorers the typical fall is 2.04; with similar shot volume, 2.00."], "scope": "Exploratory. For each of Butler's eligible runs, peers are other eligible players that season whose regular-season points per 36 were within 3 of his; weighted by his playoff minutes. Eligible: at least 1,500 regular-season and 100 playoff minutes in the same season; Basketball-Reference season totals.", "text": "Compared only with players who scored at a similar rate in the regular season (within 3 points per 36 of his), the gap grows: across his 11 runs Butler's scoring rate fell 0.25 points per 36, while those similar scorers typically fell 2.08, against 1.70 for all eligible players.", "where": ["film"]}, {"exploratory": true, "id": "PJ-C013", "limitations": ["Exploratory, as PJ-C012.", "With similar shot volume, Butler's count is 7 of 11 and Murray's 5 of 6.", "No claim that either player is more consistent."], "scope": "Exploratory. Eligible runs of each player against peers within 3 regular-season points per 36 that season, and against all eligible peers (PJ-C005, PJ-C010).", "text": "Season by season, though, it is close to a coin flip: Butler beat those similar scorers' median in 6 of his 11 runs, while Jamal Murray beat his in 5 of 6. Against all eligible players the counts were 8 of 11 and 3 of 6, so which of them looks steadier depends on who you compare them with.", "where": ["film", "shorts"]}], "comparisons": {"A_100": {"butler": {"above": 8, "change": -0.2501665490902232, "minutes": 4904, "rule_met": true, "runs": [{"above": true, "delta": -0.13805634718742255, "median": -0.9905825423413361, "minutes": 490, "peers": 85, "percentile": 63.529411764705884, "season": "2012–13"}, {"above": true, "delta": -0.969793108820582, "median": -1.2222249827184832, "minutes": 218, "peers": 97, "percentile": 56.70103092783505, "season": "2013–14"}, {"above": true, "delta": 0.9277323137078497, "median": -1.1426549322386697, "minutes": 506, "peers": 94, "percentile": 77.65957446808511, "season": "2014–15"}, {"above": false, "delta": -2.7884072564128175, "median": -0.7478972578557332, "minutes": 239, "peers": 94, "percentile": 30.851063829787233, "season": "2016–17"}, {"above": false, "delta": -5.01365662716103, "median": -1.1875719217491376, "minutes": 170, "peers": 91, "percentile": 8.791208791208792, "season": "2017–18"}, {"above": true, "delta": -0.09431613734325595, "median": -2.404488534721093, "minutes": 421, "peers": 93, "percentile": 77.41935483870968, "season": "2018–19"}, {"above": true, "delta": -0.4033075061084759, "median": -1.8300066498068759, "minutes": 806, "peers": 76, "percentile": 64.47368421052632, "season": "2019–20"}, {"above": false, "delta": -9.465054143564174, "median": -1.5314912524298805, "minutes": 154, "peers": 65, "percentile": 0.0, "season": "2020–21"}, {"above": true, "delta": 3.9448575208772603, "median": -1.7950301814911747, "minutes": 629, "peers": 87, "percentile": 98.85057471264368, "season": "2021–22"}, {"above": true, "delta": -0.3003127455030814, "median": -2.301671629011228, "minutes": 874, "peers": 95, "percentile": 70.52631578947368, "season": "2022–23"}, {"above": true, "delta": -0.7427874003479715, "median": -1.969818367443664, "minutes": 397, "peers": 88, "percentile": 70.45454545454545, "season": "2024–25"}], "runs_n": 11, "typical": -1.704022456064956}, "group": "all", "minutes": 100, "murray": {"above": 3, "change": -0.08650822147901371, "minutes": 3338, "rule_met": false, "runs": [{"above": true, "delta": 1.0069537180349393, "median": -2.404488534721093, "minutes": 508, "peers": 93, "percentile": 86.02150537634408, "season": "2018–19"}, {"above": true, "delta": 3.4674662693762777, "median": -1.8300066498068759, "minutes": 753, "peers": 76, "percentile": 97.36842105263158, "season": "2019–20"}, {"above": true, "delta": 1.6122262532807348, "median": -2.301671629011228, "minutes": 799, "peers": 95, "percentile": 91.57894736842105, "season": "2022–23"}, {"above": false, "delta": -4.933794845670182, "median": -2.0857879018069756, "minutes": 462, "peers": 94, "percentile": 14.893617021276595, "season": "2023–24"}, {"above": false, "delta": -2.383112813071513, "median": -1.853267843690534, "minutes": 578, "peers": 88, "percentile": 45.45454545454545, "season": "2024–25"}, {"above": false, "delta": -4.380736910148677, "median": -3.299459986937695, "minutes": 238, "peers": 86, "percentile": 33.72093023255814, "season": "2025–26"}], "runs_n": 6, "typical": -2.1745371826548787}}, "A_200": {"butler": {"above": 8, "change": 0.23648978340345062, "minutes": 4580, "rule_met": true, "runs": [{"above": true, "delta": -0.13805634718742255, "median": -1.1316580029822205, "minutes": 490, "peers": 61, "percentile": 65.57377049180327, "season": "2012–13"}, {"above": true, "delta": -0.969793108820582, "median": -1.2220397809393653, "minutes": 218, "peers": 67, "percentile": 55.223880597014926, "season": "2013–14"}, {"above": true, "delta": 0.9277323137078497, "median": -0.9646294160542803, "minutes": 506, "peers": 58, "percentile": 82.75862068965517, "season": "2014–15"}, {"above": false, "delta": -2.7884072564128175, "median": -0.9668143042025861, "minutes": 239, "peers": 59, "percentile": 32.20338983050848, "season": "2016–17"}, {"above": true, "delta": -0.09431613734325595, "median": -2.3310529253696455, "minutes": 421, "peers": 51, "percentile": 82.3529411764706, "season": "2018–19"}, {"above": true, "delta": -0.4033075061084759, "median": -1.8719338294150774, "minutes": 806, "peers": 53, "percentile": 64.15094339622641, "season": "2019–20"}, {"above": true, "delta": 3.9448575208772603, "median": -1.7955633436654477, "minutes": 629, "peers": 52, "percentile": 100.0, "season": "2021–22"}, {"above": true, "delta": -0.3003127455030814, "median": -1.8028195719576914, "minutes": 874, "peers": 55, "percentile": 70.9090909090909, "season": "2022–23"}, {"above": true, "delta": -0.7427874003479715, "median": -2.176333517657887, "minutes": 397, "peers": 58, "percentile": 75.86206896551724, "season": "2024–25"}], "runs_n": 9, "typical": -1.659239781788187}, "group": "all", "minutes": 200, "murray": {"above": 3, "change": -0.08650822147901371, "minutes": 3338, "rule_met": false, "runs": [{"above": true, "delta": 1.0069537180349393, "median": -2.3310529253696455, "minutes": 508, "peers": 51, "percentile": 90.19607843137256, "season": "2018–19"}, {"above": true, "delta": 3.4674662693762777, "median": -1.8719338294150774, "minutes": 753, "peers": 53, "percentile": 98.11320754716981, "season": "2019–20"}, {"above": true, "delta": 1.6122262532807348, "median": -1.8028195719576914, "minutes": 799, "peers": 55, "percentile": 90.9090909090909, "season": "2022–23"}, {"above": false, "delta": -4.933794845670182, "median": -1.9828096520967913, "minutes": 462, "peers": 58, "percentile": 8.620689655172415, "season": "2023–24"}, {"above": false, "delta": -2.383112813071513, "median": -1.853267843690534, "minutes": 578, "peers": 58, "percentile": 48.275862068965516, "season": "2024–25"}, {"above": false, "delta": -4.380736910148677, "median": -3.077305800811022, "minutes": 238, "peers": 59, "percentile": 30.508474576271187, "season": "2025–26"}], "runs_n": 6, "typical": -2.023319218438106}}, "B_100": {"butler": {"above": 8, "change": -0.2501665490902232, "minutes": 4904, "rule_met": true, "runs": [{"above": true, "delta": -0.13805634718742255, "median": -1.876659992423832, "minutes": 490, "peers": 7, "percentile": 100.0, "season": "2012–13"}, {"above": true, "delta": -0.969793108820582, "median": -1.8029918642288507, "minutes": 218, "peers": 11, "percentile": 72.72727272727273, "season": "2013–14"}, {"above": true, "delta": 0.9277323137078497, "median": -1.2242848541960782, "minutes": 506, "peers": 10, "percentile": 90.0, "season": "2014–15"}, {"above": false, "delta": -2.7884072564128175, "median": -0.32162038278256944, "minutes": 239, "peers": 19, "percentile": 21.05263157894737, "season": "2016–17"}, {"above": false, "delta": -5.01365662716103, "median": -0.8943802311677942, "minutes": 170, "peers": 19, "percentile": 15.789473684210526, "season": "2017–18"}, {"above": true, "delta": -0.09431613734325595, "median": -2.4823344945609414, "minutes": 421, "peers": 19, "percentile": 84.21052631578948, "season": "2018–19"}, {"above": true, "delta": -0.4033075061084759, "median": -2.7349915833730964, "minutes": 806, "peers": 16, "percentile": 68.75, "season": "2019–20"}, {"above": false, "delta": -9.465054143564174, "median": -1.7968030114253928, "minutes": 154, "peers": 19, "percentile": 0.0, "season": "2020–21"}, {"above": true, "delta": 3.9448575208772603, "median": -4.132766215273106, "minutes": 629, "peers": 22, "percentile": 100.0, "season": "2021–22"}, {"above": true, "delta": -0.3003127455030814, "median": -2.5159574468085104, "minutes": 874, "peers": 25, "percentile": 72.0, "season": "2022–23"}, {"above": true, "delta": -0.7427874003479715, "median": -2.7764513333975174, "minutes": 397, "peers": 25, "percentile": 80.0, "season": "2024–25"}], "runs_n": 11, "typical": -2.3629480646698533}, "group": "scorers", "minutes": 100, "murray": {"above": 5, "change": -0.08650822147901371, "minutes": 3338, "rule_met": true, "runs": [{"above": true, "delta": 1.0069537180349393, "median": -2.4823344945609414, "minutes": 508, "peers": 19, "percentile": 94.73684210526316, "season": "2018–19"}, {"above": true, "delta": 3.4674662693762777, "median": -2.7349915833730964, "minutes": 753, "peers": 16, "percentile": 93.75, "season": "2019–20"}, {"above": true, "delta": 1.6122262532807348, "median": -2.463252537043088, "minutes": 799, "peers": 26, "percentile": 96.15384615384616, "season": "2022–23"}, {"above": false, "delta": -4.933794845670182, "median": -2.935902236443475, "minutes": 462, "peers": 23, "percentile": 21.73913043478261, "season": "2023–24"}, {"above": true, "delta": -2.383112813071513, "median": -3.0942472551088382, "minutes": 578, "peers": 24, "percentile": 58.333333333333336, "season": "2024–25"}, {"above": true, "delta": -4.380736910148677, "median": -4.50814087604946, "minutes": 238, "peers": 23, "percentile": 52.17391304347826, "season": "2025–26"}], "runs_n": 6, "typical": -2.847936679989183}}, "B_200": {"butler": {"above": 8, "change": 0.23648978340345062, "minutes": 4580, "rule_met": true, "runs": [{"above": true, "delta": -0.13805634718742255, "median": -1.876659992423832, "minutes": 490, "peers": 7, "percentile": 100.0, "season": "2012–13"}, {"above": true, "delta": -0.969793108820582, "median": -1.5557415273833115, "minutes": 218, "peers": 10, "percentile": 70.0, "season": "2013–14"}, {"above": true, "delta": 0.9277323137078497, "median": -1.2242848541960782, "minutes": 506, "peers": 8, "percentile": 100.0, "season": "2014–15"}, {"above": false, "delta": -2.7884072564128175, "median": -0.20082664928055038, "minutes": 239, "peers": 15, "percentile": 26.666666666666668, "season": "2016–17"}, {"above": true, "delta": -0.09431613734325595, "median": -2.4823344945609414, "minutes": 421, "peers": 15, "percentile": 80.0, "season": "2018–19"}, {"above": true, "delta": -0.4033075061084759, "median": -3.6819036965475185, "minutes": 806, "peers": 13, "percentile": 69.23076923076923, "season": "2019–20"}, {"above": true, "delta": 3.9448575208772603, "median": -3.602820211515862, "minutes": 629, "peers": 17, "percentile": 100.0, "season": "2021–22"}, {"above": true, "delta": -0.3003127455030814, "median": -4.252680819722073, "minutes": 874, "peers": 20, "percentile": 80.0, "season": "2022–23"}, {"above": true, "delta": -0.7427874003479715, "median": -3.0942472551088382, "minutes": 397, "peers": 18, "percentile": 83.33333333333333, "season": "2024–25"}], "runs_n": 9, "typical": -2.8712469576516906}, "group": "scorers", "minutes": 200, "murray": {"above": 5, "change": -0.08650822147901371, "minutes": 3338, "rule_met": true, "runs": [{"above": true, "delta": 1.0069537180349393, "median": -2.4823344945609414, "minutes": 508, "peers": 15, "percentile": 93.33333333333333, "season": "2018–19"}, {"above": true, "delta": 3.4674662693762777, "median": -3.6819036965475185, "minutes": 753, "peers": 13, "percentile": 92.3076923076923, "season": "2019–20"}, {"above": true, "delta": 1.6122262532807348, "median": -3.7376552098899616, "minutes": 799, "peers": 21, "percentile": 100.0, "season": "2022–23"}, {"above": false, "delta": -4.933794845670182, "median": -1.731241008039511, "minutes": 462, "peers": 17, "percentile": 17.647058823529413, "season": "2023–24"}, {"above": true, "delta": -2.383112813071513, "median": -3.412043176820159, "minutes": 578, "peers": 17, "percentile": 64.70588235294117, "season": "2024–25"}, {"above": true, "delta": -4.380736910148677, "median": -4.50814087604946, "minutes": 238, "peers": 19, "percentile": 52.63157894736842, "season": "2025–26"}], "runs_n": 6, "typical": -3.2548884810831025}}, "S_100": {"butler": {"above": 6, "change": -0.2501665490902232, "minutes": 4904, "rule_met": true, "runs": [{"above": false, "delta": -0.13805634718742255, "median": 0.171912832929781, "minutes": 490, "peers": 35, "percentile": 45.714285714285715, "season": "2012–13"}, {"above": false, "delta": -0.969793108820582, "median": -0.8589330964535167, "minutes": 218, "peers": 40, "percentile": 47.5, "season": "2013–14"}, {"above": true, "delta": 0.9277323137078497, "median": -1.8742589006449801, "minutes": 506, "peers": 40, "percentile": 82.5, "season": "2014–15"}, {"above": false, "delta": -2.7884072564128175, "median": -0.6725808460473353, "minutes": 239, "peers": 18, "percentile": 38.888888888888886, "season": "2016–17"}, {"above": false, "delta": -5.01365662716103, "median": -1.2239578151427715, "minutes": 170, "peers": 19, "percentile": 26.31578947368421, "season": "2017–18"}, {"above": true, "delta": -0.09431613734325595, "median": -2.4749337386850065, "minutes": 421, "peers": 33, "percentile": 81.81818181818181, "season": "2018–19"}, {"above": true, "delta": -0.4033075061084759, "median": -3.0802874366971302, "minutes": 806, "peers": 28, "percentile": 75.0, "season": "2019–20"}, {"above": false, "delta": -9.465054143564174, "median": -3.63401515180621, "minutes": 154, "peers": 16, "percentile": 0.0, "season": "2020–21"}, {"above": true, "delta": 3.9448575208772603, "median": -2.8021273222533445, "minutes": 629, "peers": 18, "percentile": 100.0, "season": "2021–22"}, {"above": true, "delta": -0.3003127455030814, "median": -2.301671629011228, "minutes": 874, "peers": 17, "percentile": 58.8235294117647, "season": "2022–23"}, {"above": true, "delta": -0.7427874003479715, "median": -2.383112813071513, "minutes": 397, "peers": 29, "percentile": 75.86206896551724, "season": "2024–25"}], "runs_n": 11, "typical": -2.0849911845396014}, "group": "similar", "minutes": 100, "murray": {"above": 5, "change": -0.08650822147901371, "minutes": 3338, "rule_met": true, "runs": [{"above": true, "delta": 1.0069537180349393, "median": -2.4749337386850065, "minutes": 508, "peers": 33, "percentile": 90.9090909090909, "season": "2018–19"}, {"above": true, "delta": 3.4674662693762777, "median": -2.323679648783461, "minutes": 753, "peers": 29, "percentile": 96.55172413793103, "season": "2019–20"}, {"above": true, "delta": 1.6122262532807348, "median": -2.5159574468085104, "minutes": 799, "peers": 25, "percentile": 92.0, "season": "2022–23"}, {"above": false, "delta": -4.933794845670182, "median": -3.2013199074778207, "minutes": 462, "peers": 22, "percentile": 18.181818181818183, "season": "2023–24"}, {"above": true, "delta": -2.383112813071513, "median": -2.513539457816263, "minutes": 578, "peers": 26, "percentile": 53.84615384615385, "season": "2024–25"}, {"above": true, "delta": -4.380736910148677, "median": -4.606307971473454, "minutes": 238, "peers": 16, "percentile": 56.25, "season": "2025–26"}], "runs_n": 6, "typical": -2.709821454724136}}}, "domain": [-10, 4], "method": {"first_season": {"butler": "2011-12", "murray": "2016-17"}, "last_season": "2025-26", "peer_set_b_min_ppg": 20.0, "playoff_minutes_thresholds": [100, 200], "regular_minutes_min": 1500, "specification": "METHOD.md"}, "players": {"butler": "Jimmy Butler", "murray": "Jamal Murray"}, "results_sha256": "36f39546bbde6f56467977813d63d65e3072c96fcba2cc55101438a407f31c3a", "season_sets": {"all_paired": {"butler": {"change": -0.2588708649564858, "equal_weight": -2.1644552962379455, "minutes": 4908, "runs_n": 12, "seasons": ["2011–12", "2012–13", "2013–14", "2014–15", "2016–17", "2017–18", "2018–19", "2019–20", "2020–21", "2021–22", "2022–23", "2024–25"]}, "label": "Every playoff run", "leader": "murray", "murray": {"change": -0.08650822147901494, "equal_weight": -0.93516638803307, "minutes": 3338, "runs_n": 6, "seasons": ["2018–19", "2019–20", "2022–23", "2023–24", "2024–25", "2025–26"]}}, "min_100_playoff_minutes": {"butler": {"change": -0.25016654909022407, "equal_weight": -1.3675546761694273, "minutes": 4904, "runs_n": 11, "seasons": ["2012–13", "2013–14", "2014–15", "2016–17", "2017–18", "2018–19", "2019–20", "2020–21", "2021–22", "2022–23", "2024–25"]}, "label": "Runs of 100+ playoff minutes", "leader": "murray", "murray": {"change": -0.08650822147901494, "equal_weight": -0.93516638803307, "minutes": 3338, "runs_n": 6, "seasons": ["2018–19", "2019–20", "2022–23", "2023–24", "2024–25", "2025–26"]}}, "shared": {"butler": {"change": -0.3691484712781345, "equal_weight": -0.3851809473256962, "minutes": 2498, "runs_n": 4, "seasons": ["2018–19", "2019–20", "2022–23", "2024–25"]}, "label": "Seasons both played", "leader": "murray", "murray": {"change": 1.1498347839340632, "equal_weight": 0.9258833569051097, "minutes": 2638, "runs_n": 4, "seasons": ["2018–19", "2019–20", "2022–23", "2024–25"]}}}}</script>
+<script>
+(function () {
+  'use strict';
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var NAMES = D.players, WHO = ['butler', 'murray'];
+  var GROUP = { all: 'all players', scorers: '20-point scorers', similar: 'similar scorers' };
+  var $ = function (id) { return document.getElementById(id); };
+  var esc = function (s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); };
+  // Signed, with a real minus sign; two decimals below 1, as in the video (−0.25), one otherwise.
+  function fmt(v) {
+    var d = Math.abs(v) < 1 ? 2 : 1, s = Math.abs(v).toFixed(d);
+    return (v < 0 && Number(s) !== 0 ? '−' : v > 0 ? '+' : '') + s;
+  }
+  function plain(v) { return fmt(v).replace(/^[+−]/, ''); }
+  var lo = D.domain[0], hi = D.domain[1];
+  function pct(v) { return (100 * (v - lo) / (hi - lo)).toFixed(3) + '%'; }
+  function key() {
+    var g = document.querySelector('input[name=peers]:checked').value;
+    var m = document.querySelector('input[name=minutes]:checked').value;
+    return { all: 'A', scorers: 'B', similar: 'S' }[g] + '_' + m;
+  }
+
+  function renderExplorer() {
+    var g = document.querySelector('input[name=peers]:checked').value;
+    var m200 = $('minutes-200');
+    m200.disabled = g === 'similar';
+    if (g === 'similar' && m200.checked) { $('minutes-100').checked = true; }
+    var k = key(), C = D.comparisons[k], exploratory = C.group === 'similar';
+    var b = C.butler, mu = C.murray;
+    $('summary').innerHTML = 'Against ' + GROUP[C.group] + ' in the same season, with runs of ' + C.minutes +
+      '+ playoff minutes: Butler was ahead of the typical peer in <span class="num">' + b.above + ' of ' + b.runs_n +
+      '</span> runs, Murray in <span class="num">' + mu.above + ' of ' + mu.runs_n + '</span>.';
+    $('players').innerHTML = WHO.map(function (w) {
+      var P = C[w];
+      var chip = exploratory ? '<span class="chip explore">Exploratory check</span>'
+        : P.rule_met ? '<span class="chip pass">Meets the rule here</span>' : '<span class="chip fail">Misses the rule here</span>';
+      return '<div class="player ' + w + '"><div class="name">' + esc(NAMES[w]) + '</div>' +
+        '<div class="big">' + P.above + ' of ' + P.runs_n + '<small>runs ahead</small></div>' +
+        '<dl class="stats"><dt>His change</dt><dd>' + fmt(P.change) + ' pts / 36</dd>' +
+        '<dt>Typical peer</dt><dd>' + fmt(P.typical) + ' pts / 36</dd>' +
+        '<dt>Playoff minutes</dt><dd>' + P.minutes.toLocaleString('en-US') + '</dd></dl>' + chip + '</div>';
+    }).join('');
+    var ticks = [];
+    for (var t = Math.ceil(lo / 4) * 4; t <= hi; t += 4) ticks.push(t);
+    var zero = '<span class="zero" style="left:' + pct(0) + '"></span>';
+    var html = '<div class="legend"><span><i class="key-dot"></i>ahead of the typical peer that season</span>' +
+      '<span><i class="key-hollow"></i>behind</span><span><i class="key-med"></i>typical peer</span>' +
+      '<span>change in points per 36 minutes, playoffs vs regular season</span></div>';
+    WHO.forEach(function (w) {
+      html += '<div class="group ' + w + '"><div class="group-name" style="color:var(--' + (w === 'butler' ? 'a' : 'b') + '-text)">' +
+        esc(NAMES[w]) + '</div>' + C[w].runs.map(function (r) {
+          var left = Math.min(r.delta, r.median), right = Math.max(r.delta, r.median);
+          return '<div class="row"><span class="season">' + r.season + '</span><div class="track">' + zero +
+            '<span class="link" style="left:' + pct(left) + ';width:calc(' + pct(right) + ' - ' + pct(left) + ')"></span>' +
+            '<span class="med" style="left:' + pct(r.median) + '" title="Typical peer ' + fmt(r.median) + '"></span>' +
+            '<span class="dot' + (r.above ? ' ahead' : '') + '" style="left:' + pct(r.delta) + '" title="' + esc(NAMES[w]) + ' ' + fmt(r.delta) + '"></span>' +
+            '</div><span class="val">' + fmt(r.delta) + ' <small>vs ' + fmt(r.median) + '</small></span></div>';
+        }).join('') + '</div>';
+    });
+    html += '<div class="row axis"><span></span><div class="track">' + ticks.map(function (v) {
+      return '<span class="tick" style="left:' + pct(v) + '">' + (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v) + '</span>';
+    }).join('') + '</div><span></span><div class="ends"><span>← worse</span><span>better →</span></div></div>';
+    $('runs').innerHTML = html;
+    $('runs').setAttribute('aria-label', 'Run by run: ' + WHO.map(function (w) { return NAMES[w] + ' ahead in ' + C[w].above + ' of ' + C[w].runs_n; }).join('; '));
+    var versions = ['A_100', 'A_200', 'B_100', 'B_200'];
+    var met = function (w) { return versions.every(function (v) { return D.comparisons[v][w].rule_met; }); };
+    $('rule-note').innerHTML = (exploratory
+      ? 'The similar-scorer comparison was added after seeing the results, after an outside review. It is exploratory and is not part of the test. '
+      : '') + 'The test written down before any data: a player counts as holding up only if his pooled change beats the typical peer <em>and</em> he is ahead in most runs, ' +
+      'in all four versions (all players and 20-point scorers, at 100 and at 200 minutes). Butler ' + (met('butler') ? 'meets it in all four' : 'misses it') +
+      '; Murray ' + (met('murray') ? 'meets it in all four' : 'misses it') + '.';
+    $('scope').textContent = 'Players with at least ' + D.method.regular_minutes_min.toLocaleString('en-US') + ' regular-season and ' + C.minutes +
+      ' playoff minutes in the same season, ' + D.method.first_season.butler.replace('-', '–') + ' to ' + D.method.last_season.replace('-', '–') +
+      (C.group === 'scorers' ? '; peers averaged at least ' + D.method.peer_set_b_min_ppg.toFixed(1) + ' regular-season points a game' : '') +
+      (C.group === 'similar' ? '; peers scored within 3 points per 36 of him in the regular season' : '') +
+      '. Pooled changes are weighted by playoff minutes.';
+  }
+
+  function renderRaw() {
+    var k = document.querySelector('input[name=sets]:checked').value, S = D.season_sets[k];
+    var span = Math.max.apply(null, Object.keys(D.season_sets).map(function (s) {
+      return Math.max(Math.abs(D.season_sets[s].butler.change), Math.abs(D.season_sets[s].murray.change));
+    })) * 1.25;
+    $('bars').innerHTML = WHO.map(function (w) {
+      var v = S[w].change, width = 50 * Math.abs(v) / span, left = v < 0 ? 50 - width : 50;
+      var label = v < 0 ? 'right:calc(' + (100 - left) + '% + 0.5rem)' : 'left:calc(' + (left + width) + '% + 0.5rem)';
+      return '<div class="bar-row ' + w + '"><span class="who">' + esc(NAMES[w].split(' ')[1]) + '</span><div class="bar-track">' +
+        '<span class="zero"></span><span class="bar" style="left:' + left + '%;width:' + width + '%"></span>' +
+        '<span class="v" style="' + label + '">' + fmt(v) + '</span></div></div>';
+    }).join('');
+    $('bars').setAttribute('aria-label', WHO.map(function (w) { return NAMES[w] + ' ' + fmt(S[w].change) + ' points per 36'; }).join(', '));
+    $('raw-note').innerHTML = S.butler.runs_n + ' runs for Butler (' + S.butler.minutes.toLocaleString('en-US') + ' playoff minutes), ' +
+      S.murray.runs_n + ' for Murray (' + S.murray.minutes.toLocaleString('en-US') + '), in points per 36 minutes, weighted by playoff minutes. ' +
+      'Weighting each run equally instead gives Butler ' + fmt(S.butler.equal_weight) + ' and Murray ' + fmt(S.murray.equal_weight) + '. ' +
+      (S.leader === 'murray' ? "Murray's change is higher" : "Butler's change is higher") + ' here' +
+      (Object.keys(D.season_sets).every(function (s) { return D.season_sets[s].leader === S.leader; }) ? ', and in every choice of runs. ' : '. ') +
+      'This raw change ignores that most players drop in the playoffs, which is why the fair test compares with peers.';
+  }
+
+  function renderClaims() {
+    var where = { film: 'In the film', shorts: 'In a short' };
+    $('claim-list').innerHTML = D.claims.map(function (c) {
+      var tags = c.where.map(function (w) { return '<span class="tag">' + where[w] + '</span>'; });
+      if (!c.where.length) tags.push('<span class="tag">' + (c.held ? 'Held back' : 'On this page') + '</span>');
+      if (c.exploratory) tags.push('<span class="tag explore">Exploratory</span>');
+      var body = c.held ? '<p class="muted">' + esc(c.reason) + '</p>'
+        : '<p>' + esc(c.text) + '</p><div class="scope">' + esc(c.scope) + '</div>' +
+          (c.limitations.length ? '<details><summary>Limits of this claim</summary><ul>' +
+            c.limitations.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></details>' : '');
+      return '<div class="claim"><div><div class="id">' + c.id + '</div><div class="tags">' + tags.join('') + '</div></div><div>' + body + '</div></div>';
+    }).join('');
+  }
+
+  function renderChecks() {
+    var K = D.checks;
+    var steps = [
+      [K.preregistration_date, 'The question, the measures and the pass-or-fail test were written down and committed (commit <span class="num">' +
+        K.preregistration_commit + '</span>) before any league data was downloaded.'],
+      [K.bbref_retrieved_utc, K.bbref_pages + ' Basketball-Reference pages (season totals and game logs) were saved and fingerprinted with SHA-256. ' +
+        'Every season row for both players was checked against the teams\' official media guides.'],
+      ['Analysis', 'The analysis reruns from those saved pages to byte-identical results. Every claim resolves to a value in them.'],
+      ['Reviews', 'Two methods reviews and an outside review. The similar-scorer comparison was added after the outside review and is labelled exploratory wherever it appears.'],
+      ['Re-derived', 'A second AI model, given only the saved pages and the written definitions, recomputed every number behind the claims without seeing this analysis: <span class="mark">' +
+        K.recheck_exact + ' of ' + K.recheck_total + ' matched exactly</span>.'],
+      ['Script', 'A final review narrowed the script\'s wording to what each claim supports.']
+    ];
+    $('timeline').innerHTML = steps.map(function (s) { return '<li><span class="when">' + s[0] + '</span><span>' + s[1] + '</span></li>'; }).join('');
+  }
+
+  function renderStatic() {
+    var A = D.comparisons.A_100.butler, S = D.comparisons.S_100.butler;
+    $('deck').innerHTML = '<strong>Real, but not how you think.</strong> In the 2022–23 run that made the legend, his extra minutes account for the whole rise in his points per game. ' +
+      'Per minute, most players shrink; across his ' + A.runs_n + ' runs with real minutes Butler fell by only <span class="num">' + plain(A.change) +
+      '</span> points per 36, where players in the same seasons typically fell by <span class="num">' + plain(A.typical) + '</span>. ' +
+      'Not every year: against similar scorers he was ahead in <span class="num">' + S.above + ' of ' + S.runs_n + '</span> runs.';
+    $('source-list').innerHTML = [
+      'Basketball-Reference: season totals (regular season and playoffs) and player game logs, ' + D.method.first_season.butler.replace('-', '–') +
+        ' to ' + D.method.last_season.replace('-', '–') + ', saved ' + D.checks.bbref_retrieved_utc + ' (UTC). Play-in games are excluded.',
+      'Official team media guides, used as an independent check: Miami Heat 2023–24 (Butler) and Denver Nuggets 2025–26 (Murray).',
+      'Data and code: the saved pages, the analysis and every check are in the project repository. A public link will be added here when it is published.'
+    ].map(function (s) { return '<li>' + s + '</li>'; }).join('');
+    $('footer').innerHTML = '<span>Companion to the video "Is Playoff Jimmy real?"</span><span>Results SHA-256 ' + D.results_sha256.slice(0, 12) +
+      '</span><span>Analysis revision ' + String(D.analysis_revision).slice(0, 7) + '</span>';
+  }
+
+  document.querySelectorAll('input[name=peers], input[name=minutes]').forEach(function (i) { i.addEventListener('change', renderExplorer); });
+  document.querySelectorAll('input[name=sets]').forEach(function (i) { i.addEventListener('change', renderRaw); });
+  renderStatic(); renderExplorer(); renderRaw(); renderClaims(); renderChecks();
+})();
+</script>
+</body>
+</html>
